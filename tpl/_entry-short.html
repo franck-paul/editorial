@@ -1,0 +1,59 @@
+<article id="p{{tpl:EntryID}}" class="post short {{tpl:EntryIfOdd}} {{tpl:EntryIfFirst}}" lang="{{tpl:EntryLang}}">
+
+    <header>
+        <!-- # New day date -->
+        <h2 class="post-title"><a href="{{tpl:EntryURL}}">{{tpl:EntryTitle encode_html="1"}}</a></h2>
+        <p class="post-day-date"><time datetime="{{tpl:EntryDate iso8601="1"}}">{{tpl:EntryDate}}</time></p>
+        <tpl:EntryIf has_featured_media="1">
+            <tpl:FeaturedMedia>
+                <tpl:FeaturedMediaIf is_image="1">
+                    <div class="post-featured-media" id="featured-media-{{tpl:EntryID}}">
+                        <img src="{{tpl:FeaturedMediaImageURL size="m"}}" alt="{{tpl:FeaturedMediaTitle}}" />
+                    </div>
+                    {{tpl:else}}
+                    <div class="post-featured-media">
+                        <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-600x338.jpg" alt="Image placeholder" />
+                    </div>
+                </tpl:FeaturedMediaIf>
+            </tpl:FeaturedMedia>
+        </tpl:EntryIf>
+        <tpl:EntryIf has_featured_media="0">
+            <div class="post-featured-media">
+                <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-600x338.jpg" alt="Image placeholder" />
+            </div>
+        </tpl:EntryIf>
+    </header>
+    <!-- # Entry with an excerpt -->
+    <tpl:EntryIf extended="1">
+        <div class="post-content">
+            <p>
+                {{tpl:EntryExcerpt encode_html="1" remove_html="1" cut_string="120"}}<span
+                    class="ellipsis">&nbsp;[&#8230;]</span>
+            </p>
+        </div>
+        <ul class="actions">
+            <li><a href="{{tpl:EntryURL}}" class="button"
+                    title="{{tpl:lang Continue reading}} {{tpl:EntryTitle encode_html="1"}}">{{tpl:lang Continue
+                    reading}}</a></li>
+        </ul>
+    </tpl:EntryIf>
+    <!-- # Entry without excerpt -->
+    <tpl:EntryIf extended="0">
+        <div class="post-content">
+            <p>
+                {{tpl:EntryContent encode_html="1" remove_html="1" cut_string="120"}}
+                <tpl:EntryIfContentCut encode_html="1" remove_html="1" cut_string="120">
+                    <span class="ellipsis">&nbsp;[&#8230;]</span>
+                </tpl:EntryIfContentCut>
+            </p>
+        </div>
+        <tpl:EntryIfContentCut encode_html="1" remove_html="1" cut_string="120">
+            <ul class="actions">
+                <li><a href="{{tpl:EntryURL}}" class="button"
+                        title="{{tpl:lang Continue reading}} {{tpl:EntryTitle encode_html="1"}}">{{tpl:lang
+                        Continue
+                        reading}}</a></li>
+            </ul>
+        </tpl:EntryIfContentCut>
+    </tpl:EntryIf>
+</article>

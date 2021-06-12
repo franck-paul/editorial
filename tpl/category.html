@@ -1,0 +1,72 @@
+{{tpl:extends parent="__layout.html"}}
+<tpl:Block name="head-title">
+    <title>{{tpl:CategoryTitle encode_html="1"}} - {{tpl:BlogName encode_html="1"}}<tpl:PaginationIf start="0"> -
+            {{tpl:lang page}} {{tpl:PaginationCurrent}}</tpl:PaginationIf>
+    </title>
+</tpl:Block>
+<tpl:Block name="meta-robots">
+    <meta name="ROBOTS" content="{{tpl:BlogMetaRobots robots=" NOINDEX"}}" />
+</tpl:Block>
+<tpl:Block name="meta-entry">
+    <meta name="description" lang="{{tpl:BlogLanguage}}" content="{{tpl:CategoryDescription encode_html=" 1"
+        cut_string="180" remove_html="1" }}" />
+    <meta name="author" content="{{tpl:BlogEditor encode_html=" 1"}}" />
+    <meta name="date" content="{{tpl:BlogUpdateDate iso8601=" 1"}}" />
+</tpl:Block>
+<tpl:Block name="head-linkrel">
+    <link rel="contents" href="{{tpl:BlogArchiveURL}}" title="{{tpl:lang Archives}}" />
+    <tpl:Entries no_content="1">
+        <tpl:EntriesHeader>
+            <tpl:Pagination>
+                <tpl:PaginationIf end="0">
+                    <link rel="prev" title="{{tpl:lang previous entries}}" href="{{tpl:PaginationURL offset=" 1"}}" />
+                </tpl:PaginationIf>
+                <tpl:PaginationIf start="0">
+                    <link rel="next" title="{{tpl:lang next entries}}" href="{{tpl:PaginationURL offset=" -1"}}" />
+                </tpl:PaginationIf>
+            </tpl:Pagination>
+        </tpl:EntriesHeader>
+        <link rel="chapter" href="{{tpl:EntryURL}}" title="{{tpl:EntryTitle encode_html=" 1"}}" />
+    </tpl:Entries>
+    <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="{{tpl:CategoryFeedURL type=" atom"}}" />
+</tpl:Block>
+<tpl:Block name="body-tag">
+    <body class="dc-category">
+</tpl:Block>
+<tpl:Block name="main-content">
+    <header id="content-info">
+        <h2 class="post-title">
+            <tpl:CategoryParents>
+                <a href="{{tpl:CategoryURL}}">{{tpl:CategoryTitle encode_html="1"}}</a> &rsaquo;
+            </tpl:CategoryParents>
+            {{tpl:CategoryTitle encode_html="1"}}
+        </h2>
+
+        <div class="content-info__cat-desc post-day-date">
+            {{tpl:CategoryDescription}}
+        </div>
+        
+        <tpl:CategoryFirstChildren>
+            <tpl:CategoriesHeader>
+                <div id="subcategories" class="content-info__sub-cat">
+                    <ul>
+                        <li>{{tpl:lang Subcategories}}</li>
+            </tpl:CategoriesHeader>
+            <li class="post-cat"><a href="{{tpl:CategoryURL}}">{{tpl:CategoryTitle encode_html="1"}}</a></li>
+            <tpl:CategoriesFooter>
+                </ul>
+                </div>
+            </tpl:CategoriesFooter>
+        </tpl:CategoryFirstChildren>
+    </header> <!-- # End #content-info -->
+    <div class="posts">
+        <tpl:Entries>
+            {{tpl:include src="_entry-short.html"}}
+        </tpl:Entries>
+    </div>
+    <tpl:Entries>
+        <tpl:EntriesFooter>
+            {{tpl:include src="_pagination.html"}}
+        </tpl:EntriesFooter>
+    </tpl:Entries> <!-- # End #content-inner -->
+</tpl:Block>

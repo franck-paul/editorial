@@ -1,0 +1,26 @@
+<aside class="sidebar" id="menu">
+    <tpl:IfWidgets type="nav">
+        <div class="widgets blognav__widgets" id="blognav">
+            <header class="major">
+                <!-- <h2 class="blognav__title">{{tpl:lang Blog menu}}</h2> -->
+            </header>
+            {{tpl:Widgets type="nav"}}
+        </div> <!-- # End #blognav -->
+    </tpl:IfWidgets>
+    <tpl:IfWidgets type="extra">
+        <div class="widgets blogextra__widgets" id="blogextra">
+            <header class="major">
+                <!-- <h2 class="blogextra__title">{{tpl:lang Extra menu}}</h2> -->
+            </header>
+            {{tpl:Widgets type="extra"}}
+        </div> <!-- # End #blogextra -->
+    </tpl:IfWidgets>
+    <tpl:IfWidgets type="custom">
+        <div class="widgets blogcustom__widgets" id="blogcustom">
+            <header class="major">
+                <!-- <h2 class="blogcustom__title">{{tpl:lang Custom menu}}</h2> -->
+            </header>
+            {{tpl:Widgets type="custom"}}
+        </div> <!-- # End #blogcustom -->
+    </tpl:IfWidgets>
+</aside>

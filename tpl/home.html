@@ -1,0 +1,10 @@
+{{tpl:extends parent="__layout.html"}}
+
+<tpl:Block name="main-content">
+    <tpl:editorialDefaultIf>   
+        {{tpl:include src="home-default.html"}}
+    </tpl:editorialDefaultIf>
+    <tpl:editorialFeaturedIf>
+        {{tpl:include src="home-featured-post.html"}}
+    </tpl:editorialFeaturedIf>
+</tpl:Block> <!-- # main-content -->

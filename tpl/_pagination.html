@@ -1,0 +1,19 @@
+<tpl:Pagination>
+	<nav class="pagination" aria-label="{{tpl:lang Pagination}}">
+	  <tpl:PaginationIf end="0">
+		<p><a href="{{tpl:PaginationURL offset="+1"}}" class="button prev"><span aria-hidden="true">&#171; </span>{{tpl:lang previous entries}}</a></p>
+	  </tpl:PaginationIf>
+	  <tpl:PaginationIf end="1">
+		<p class="button prev disabled"><span aria-hidden="true">&#171; </span>{{tpl:lang previous entries}}</p>
+	  </tpl:PaginationIf>
+
+	  {{tpl:lang page}} {{tpl:PaginationCurrent}} {{tpl:lang of}} {{tpl:PaginationCounter}}
+
+	  <tpl:PaginationIf start="0">
+		  <p><a href="{{tpl:PaginationURL offset="-1"}}" class="button next">{{tpl:lang next entries}}<span aria-hidden="true"> &#187;</span></a></p>
+	  </tpl:PaginationIf>
+	  <tpl:PaginationIf start="1">
+		<p class="button next disabled">{{tpl:lang next entries}}<span aria-hidden="true"> &#187;</span></p>
+	  </tpl:PaginationIf>
+	</nav>
+  </tpl:Pagination>
