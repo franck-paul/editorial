@@ -24,8 +24,8 @@ $s = @unserialize($s);
 if (!is_array($s)) {
     $s = [];
 }
-if (!isset($s['static_home_url'])) {
-    $s['static_home_url'] = '';
+if (!isset($s['featured_post_url'])) {
+    $s['featured_post_url'] = '';
 }
 if (!isset($s['main_color'])) {
     $s['main_color'] = '#f56a6a';
@@ -39,7 +39,7 @@ if (file_exists(dirname(__FILE__) . '/locales/' . $_lang . '/resources.php')) {
 if (!empty($_POST)) {
     try {
         # HTML
-        $s['static_home_url'] = $_POST['static_home_url'];
+        $s['featured_post_url'] = $_POST['featured_post_url'];
         $s['main_color'] = $_POST['main_color'];
         
         $core->blog->settings->addNamespace('themes');
@@ -67,9 +67,9 @@ echo '<form id="theme_config" action="' . $core->adminurl->get('admin.blog.theme
 
 echo '<h4 class="pretty-title">' . __('Blog\'s featured publication') . '</h4>';
 
-echo '<p><label for="static_home_url" class="classic">' . __('Entry URL:') . '</label> ' .
-    form::field('static_home_url', 30, 255, html::escapeHTML($s['static_home_url'])) .
-    ' <button type="button" id="featured_home_url_selector">' . __('Choose an entry') . '</button>' .
+echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
+    form::field('featured_post_url', 30, 255, html::escapeHTML($s['featured_post_url'])) .
+    ' <button type="button" id="featured_post_url_selector">' . __('Choose an entry') . '</button>' .
     '</p>' .
     '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';
 
@@ -79,6 +79,7 @@ echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color
     form::color('main_color', 30, 255, $s['main_color']) . '</p>' ;
 
 echo '<p class="clear"><input type="submit" value="' . __('Save') . '" />' . $core->formNonce() . '</p>';
+echo form::hidden(['base_url'], $GLOBALS['core']->blog->url);
 echo '</form>';
 
 
