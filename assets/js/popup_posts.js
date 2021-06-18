@@ -15,7 +15,7 @@ $(function () {
             return url;
         }
         const main = window.opener;
-        let base_url = main.$('input[name="base_url"]').val();
+        const base_url = main.$('input[name="base_url"]').val();
         const title = stripBaseURL($(this).attr('title'));
         const next = title.indexOf('/');
         const href = next !== -1 ? title.substring(next + 1) : title;
