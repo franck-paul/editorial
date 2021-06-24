@@ -67,7 +67,15 @@ class featuredPostTpl
 
     public static function editorialUserColors($attr)
     {
-        $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
+        $core = $GLOBALS['core'];
+
+        if (preg_match('#^http(s)?://#', $core->blog->settings->system->themes_url)) {
+            $theme_url = http::concatURL($core->blog->settings->system->themes_url, '/' . $core->blog->settings->system->theme);
+        } else {
+            $theme_url = http::concatURL($core->blog->url, $core->blog->settings->system->themes_url . '/' . $core->blog->settings->system->theme);
+        }
+        
+        $s = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_featured');
         $s = @unserialize($s);
 
         if (!is_array($s)) {
@@ -78,7 +86,8 @@ class featuredPostTpl
         }
 
         $editorial_user_main_color = $s['main_color'];
-        $editorial_user_colors_css_url = $GLOBALS['core']->blog->settings->system->themes_url."/".$GLOBALS['core']->blog->settings->system->theme."/assets/css/user-colors.php";
+
+        $editorial_user_colors_css_url = $theme_url ."/assets/css/user-colors.php";
 
         if ($editorial_user_main_color !=='#f56a6a') {
             $editorial_user_main_color = substr($editorial_user_main_color, 1);
