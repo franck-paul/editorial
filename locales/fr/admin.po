@@ -1,3 +1,12 @@
+msgid "Theme configuration upgraded."
+msgstr "La configuration du thème a été mise à jour."
+
+msgid "Presentation"
+msgstr "Présentation"
+
+msgid "Stickers"
+msgstr "Étiquettes"
+
 msgid "Blog's featured publication"
 msgstr "Publication à la une du blog"
 
@@ -13,8 +22,11 @@ msgstr "Catégorie"
 msgid "Categories"
 msgstr "Catégories"
 
-msgid "Theme configuration upgraded."
-msgstr "La configuration du thème a été mise à jour."
+msgid "Social links"
+msgstr "Liens vers les médias sociaux"
+
+msgid "Social links (header)"
+msgstr "Lien vers les médias sociaux (en-tête)"
 
 msgid "Colors"
 msgstr "Couleurs"

@@ -17,7 +17,9 @@ l10n::set(dirname(__FILE__).'/locales/'.$_lang.'/main');
 
 $core->tpl->addBlock('editorialDefaultIf', ['featuredPostTpl', 'editorialDefaultIf']);
 $core->tpl->addBlock('editorialFeaturedIf', ['featuredPostTpl', 'editorialFeaturedIf']);
-$core->tpl->addValue('editorialUserColors', ['featuredPostTpl', 'editorialUserColors']);
+
+$core->tpl->addValue('editorialUserColors', ['tplEditorialTheme', 'editorialUserColors']);
+$core->tpl->addValue('editorialSocialLinks', ['tplEditorialTheme', 'editorialSocialLinks']);
 
 $core->addBehavior('templateBeforeBlock', array('behaviorsFeaturedPost','templateBeforeBlock'));
 
@@ -64,7 +66,10 @@ class featuredPostTpl
             return;
         }
     }
+}
 
+class tplEditorialTheme
+{
     public static function editorialUserColors($attr)
     {
         $core = $GLOBALS['core'];
@@ -98,6 +103,53 @@ class featuredPostTpl
         } else {
             return;
         }
+    }
+
+    public static function editorialSocialLinks($attr)
+    {
+        global $core;
+        # Social media links
+        $res     = '';
+
+        $s = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_stickers');
+
+        if ($s === null) {
+            $default = true;
+        } else {
+            $s = @unserialize($s);
+            
+            $s = array_filter($s, 'self::cleanSocialLinks');
+                
+            $count = 0;
+            foreach ($s as $sticker) {
+                $res .= self::setSocialLink($count, ($count == count($s)), $sticker['label'], $sticker['url'], $sticker['image']);
+                $count++;
+            }
+        }
+
+        if ($res != '') {
+            return $res;
+        }
+    }
+    protected static function setSocialLink($position, $last, $label, $url, $image)
+    {
+        return '<li id="slink' . $position . '"' . ($last ? ' class="last"' : '') . '>' . "\n" .
+            '<a class="social-icon icon brands" title="' . $label . '" href="' . $url . '"><span class="sr-only">' . $label . '</span>' .
+            '<i class="' . $image . '"></i>' .
+            '</a>' . "\n" .
+            '</li>' . "\n";
+    }
+
+    protected static function cleanSocialLinks($s)
+    {
+        if (is_array($s)) {
+            if (isset($s['label']) && isset($s['url']) && isset($s['image'])) {
+                if ($s['label'] != null && $s['url'] != null && $s['image'] != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
 
