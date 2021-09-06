@@ -9,8 +9,6 @@
  * @copyright GPL-2.0-only
  */
 
-namespace themes\editorial;
-
 if (!defined('DC_RC_PATH')) {
     return;
 }
@@ -23,7 +21,7 @@ $core->tpl->addBlock('editorialFeaturedIf', ['featuredPostTpl', 'editorialFeatur
 $core->tpl->addValue('editorialUserColors', ['tplEditorialTheme', 'editorialUserColors']);
 $core->tpl->addValue('editorialSocialLinks', ['tplEditorialTheme', 'editorialSocialLinks']);
 
-$core->addBehavior('templateBeforeBlock', array('behaviorsFeaturedPost','templateBeforeBlock'));
+$core->addBehavior('templateBeforeBlock', ['behaviorsFeaturedPost','templateBeforeBlock']);
 
 class featuredPostTpl
 {
