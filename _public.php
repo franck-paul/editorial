@@ -9,6 +9,8 @@
  * @copyright GPL-2.0-only
  */
 
+namespace themes\editorial;
+
 if (!defined('DC_RC_PATH')) {
     return;
 }

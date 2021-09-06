@@ -9,7 +9,6 @@
  * @copyright GPL-2.0-only
  */
 
-
 if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
