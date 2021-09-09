@@ -1,0 +1,14 @@
+msgid "Show menu"
+msgstr ""
+
+msgid "Hide menu"
+msgstr ""
+
+msgid "Main menu"
+msgstr ""
+
+msgid "Category"
+msgstr "e"
+
+msgid "Categories"
+msgstr ""

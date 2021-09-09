@@ -1,0 +1,35 @@
+msgid "Theme configuration upgraded."
+msgstr ""
+
+msgid "Presentation"
+msgstr "n"
+
+msgid "Stickers"
+msgstr ""
+
+msgid "Blog's featured publication"
+msgstr ""
+
+msgid "Leave this field empty to use the default presentation (latest post)"
+msgstr ""
+
+msgid "Entry URL:"
+msgstr ""
+
+msgid "Category"
+msgstr ""
+
+msgid "Categories"
+msgstr ""
+
+msgid "Social links"
+msgstr ""
+
+msgid "Social links (header)"
+msgstr ""
+
+msgid "Colors"
+msgstr ""
+
+msgid "Links and buttons\' color:"
+msgstr ""
