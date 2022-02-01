@@ -9,7 +9,7 @@ $(function () {
             if (base_url != '') {
                 var pos = url.indexOf(base_url);
                 if (pos == 0) {
-                    url = url.substr(base_url.length);
+                    return url.substr(base_url.length);
                 }
             }
             return url;

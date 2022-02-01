@@ -4,11 +4,11 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-(function ($) {
-
-	var $window = $(window),
-		$head = $('head'),
-		$body = $('body');
+(function () {
+	const $ = jQuery;
+	const $window = $(window);
+	const $head = $('head');
+	const $body = $('body');
 
 	// Breakpoints.
 	breakpoints({
@@ -32,7 +32,7 @@
 	});
 
 	// ... stopped resizing.
-	var resizeTimeout;
+	let resizeTimeout;
 
 	$window.on('resize', function () {
 
@@ -54,24 +54,23 @@
 	if (!browser.canUse('object-fit') ||
 		browser.name == 'safari')
 		$('.image.object').each(function () {
-
-			var $this = $(this),
-				$img = $this.children('img');
+			const $this = $(this);
+			const $img = $this.children('img');
 
 			// Hide original image.
 			$img.css('opacity', '0');
 
 			// Set background.
 			$this
-				.css('background-image', 'url("' + $img.attr('src') + '")')
+				.css('background-image', `url("${$img.attr('src')}")`)
 				.css('background-size', $img.css('object-fit') ? $img.css('object-fit') : 'cover')
 				.css('background-position', $img.css('object-position') ? $img.css('object-position') : 'center');
 
 		});
 
 	// Sidebar.
-	var $sidebar = $('#sidebar'),
-		$sidebar_inner = $sidebar.children('.inner');
+	const $sidebar = $('#sidebar');
+	const $sidebar_inner = $sidebar.children('.inner');
 
 	// Inactive by default on <= large.
 	breakpoints.on('<=large', function () {
@@ -92,13 +91,12 @@
 	$('<button class="toggle" aria-expanded="false">Menu</button>')
 		.prependTo($sidebar)
 		.on('click', function (event) {
-
 			// Prevent default.
 			event.preventDefault();
 			event.stopPropagation();
 
 			// Toggle.
-			var bool = $sidebar.hasClass('inactive');
+			const bool = $sidebar.hasClass('inactive');
 			$('button.toggle').attr('aria-expanded', bool);
 			$sidebar.toggleClass('inactive');
 
@@ -108,15 +106,14 @@
 
 	// Link clicks.
 	$sidebar.on('click', 'a', function (event) {
-
 		// >large? Bail.
 		if (breakpoints.active('>large'))
 			return;
 
 		// Vars.
-		var $a = $(this),
-			href = $a.attr('href'),
-			target = $a.attr('target');
+		const $a = $(this);
+		const href = $a.attr('href');
+		const target = $a.attr('target');
 
 		// Prevent default.
 		event.preventDefault();
@@ -170,8 +167,9 @@
 	// trigger 'resize.sidebar-lock' on $window so stuff doesn't get out of sync.
 
 	$window.on('load.sidebar-lock', function () {
-
-		var sh, wh, st;
+		let sh;
+		let wh;
+		const st;
 
 		// Reset scroll position to 0 if it's 1.
 		if ($window.scrollTop() == 1)
@@ -179,8 +177,8 @@
 
 		$window
 			.on('scroll.sidebar-lock', function () {
-
-				var x, y;
+				let x;
+				let y;
 
 				// <=large? Bail.
 				if (breakpoints.active('<=large')) {
@@ -210,15 +208,11 @@
 						$sidebar_inner
 						.css('top', -1 * x);
 
-				} else {
-
-					if (y > 0)
-						$sidebar_inner
-						.data('locked', 1)
-						.css('position', 'fixed')
-						.css('top', -1 * x);
-
-				}
+				} else if (y > 0)
+					$sidebar_inner
+					.data('locked', 1)
+					.css('position', 'fixed')
+					.css('top', -1 * x);
 
 			})
 			.on('resize.sidebar-lock', function () {
@@ -236,13 +230,12 @@
 	});
 
 	// Menu.
-	var $menu = $('#menu'),
-		$menu_openers = $menu.children('ul').find('li');
+	const $menu = $('#menu');
+	const $menu_openers = $menu.children('ul').find('li');
 
 	// Openers.
 	$menu_openers.each(function () {
-
-		var $this = $(this);
+		const $this = $(this);
 
 		$this.on('click', function (event) {
 
@@ -275,4 +268,4 @@
 		);
 		e.preventDefault();
 	});
-})(jQuery);
+})();
