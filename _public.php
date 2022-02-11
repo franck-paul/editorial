@@ -14,7 +14,7 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
-\l10n::set(dirname(__FILE__).'/locales/'.$_lang.'/main');
+\l10n::set(dirname(__FILE__) . '/locales/' . $_lang . '/main');
 
 $core->tpl->addBlock('editorialDefaultIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialDefaultIf']);
 $core->tpl->addBlock('editorialFeaturedIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialFeaturedIf']);
@@ -22,14 +22,14 @@ $core->tpl->addBlock('editorialFeaturedIf', [__NAMESPACE__ . '\featuredPostTpl',
 $core->tpl->addValue('editorialUserColors', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialUserColors']);
 $core->tpl->addValue('editorialSocialLinks', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialSocialLinks']);
 
-$core->addBehavior('templateBeforeBlock', [__NAMESPACE__ . '\behaviorsFeaturedPost','templateBeforeBlock']);
+$core->addBehavior('templateBeforeBlock', [__NAMESPACE__ . '\behaviorsFeaturedPost', 'templateBeforeBlock']);
 
 class featuredPostTpl
 {
     public static function editorialDefaultIf($attr, $content)
     {
         $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
-        $s = @unserialize($s);
+        $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
             $s = [];
@@ -40,7 +40,7 @@ class featuredPostTpl
 
         $featuredPostURL = $s['featured_post_url'];
 
-        if ($featuredPostURL =='') {
+        if ($featuredPostURL == '') {
             return $content;
         } else {
             return;
@@ -50,7 +50,7 @@ class featuredPostTpl
     public static function editorialFeaturedIf($attr, $content)
     {
         $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
-        $s = @unserialize($s);
+        $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
             $s = [];
@@ -61,7 +61,7 @@ class featuredPostTpl
 
         $featuredPostURL = $s['featured_post_url'];
 
-        if ($featuredPostURL !=='') {
+        if ($featuredPostURL !== '') {
             return $content;
         } else {
             return;
@@ -85,9 +85,9 @@ class tplEditorialTheme
         } else {
             $theme_url = \http::concatURL($core->blog->url, $core->blog->settings->system->themes_url . '/' . $core->blog->settings->system->theme);
         }
-        
+
         $s = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_featured');
-        $s = @unserialize($s);
+        $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
             $s = [];
@@ -98,11 +98,11 @@ class tplEditorialTheme
 
         $editorial_user_main_color = $s['main_color'];
 
-        $editorial_user_colors_css_url = $theme_url ."/assets/css/user-colors.php";
+        $editorial_user_colors_css_url = $theme_url . '/assets/css/user-colors.php';
 
-        if ($editorial_user_main_color !='#f56a6a') {
+        if ($editorial_user_main_color != '#f56a6a') {
             $editorial_user_main_color = substr($editorial_user_main_color, 1);
-            return '<link rel="stylesheet" type="text/css" href="'. $editorial_user_colors_css_url .'?main_color='.$editorial_user_main_color.'" media="screen" />';
+            return '<link rel="stylesheet" type="text/css" href="' . $editorial_user_colors_css_url . '?main_color=' . $editorial_user_main_color . '" media="screen" />';
         } else {
             return;
         }
@@ -116,18 +116,18 @@ class tplEditorialTheme
     public static function editorialSocialLinksHelper()
     {
         global $core;
-        # Social media links
-        $res     = '';
+        // Social media links
+        $res = '';
 
         $s = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_stickers');
 
         if ($s === null) {
             $default = true;
         } else {
-            $s = @unserialize($s);
-            
+            $s = $s ? (unserialize($s) ?: []) : [];
+
             $s = array_filter($s, 'self::cleanSocialLinks');
-                
+
             $count = 0;
             foreach ($s as $sticker) {
                 $res .= self::setSocialLink($count, ($count == count($s)), $sticker['label'], $sticker['url'], $sticker['image']);
@@ -139,6 +139,7 @@ class tplEditorialTheme
             return $res;
         }
     }
+
     protected static function setSocialLink($position, $last, $label, $url, $image)
     {
         return '<li id="slink' . $position . '"' . ($last ? ' class="last"' : '') . '>' . "\n" .
@@ -166,7 +167,7 @@ class behaviorsFeaturedPost
     public static function templateBeforeBlock($core, $b, $attr)
     {
         $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
-        $s = @unserialize($s);
+        $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
             $s = [];

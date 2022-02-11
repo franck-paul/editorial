@@ -15,10 +15,10 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 
 l10n::set(dirname(__FILE__) . '/locales/' . $_lang . '/admin');
 
-$standalone_config = (boolean) $core->themes->moduleInfo($core->blog->settings->system->theme, 'standalone_config');
+$standalone_config = (bool) $core->themes->moduleInfo($core->blog->settings->system->theme, 'standalone_config');
 
 $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
-$s = @unserialize($s);
+$s = $s ? (unserialize($s) ?: []) : [];
 
 if (!is_array($s)) {
     $s = [];
@@ -31,7 +31,7 @@ if (!isset($s['main_color'])) {
 }
 
 $stickers = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_stickers');
-$stickers = @unserialize($stickers);
+$stickers = $stickers ? (unserialize($stickers) ?: []) : [];
 
 $stickers_full = [];
 // Get all sticker images already used
@@ -42,16 +42,16 @@ if (is_array($stickers)) {
 }
 
 // Get social media images
-$stickers_images = ['fab fa-diaspora','fas fa-rss','fab fa-linkedin-in','fab fa-gitlab','fab fa-github','fab fa-twitter','fab fa-facebook-f',
-'fab fa-instagram', 'fab fa-mastodon','fab fa-pinterest','fab fa-snapchat','fab fa-soundcloud','fab fa-youtube'];
+$stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
+    'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube'];
 if (is_array($stickers_images)) {
     foreach ($stickers_images as $v) {
         if (!in_array($v, $stickers_full)) {
             // image not already used
             $stickers[] = [
-                    'label' => null,
-                    'url'   => null,
-                    'image' => $v];
+                'label' => null,
+                'url' => null,
+                'image' => $v];
         }
     }
 }
@@ -65,7 +65,7 @@ $conf_tab = $_POST['conf_tab'] ?? 'presentation';
 
 if (!empty($_POST)) {
     try {
-        # HTML
+        // HTML
         if ($conf_tab == 'presentation') {
             $s['featured_post_url'] = $_POST['featured_post_url'];
             $s['main_color'] = $_POST['main_color'];
@@ -76,8 +76,8 @@ if (!empty($_POST)) {
             for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
                 $stickers[] = [
                     'label' => $_POST['sticker_label'][$i],
-                    'url'   => $_POST['sticker_url'][$i],
-                    'image' => $_POST['sticker_image'][$i]
+                    'url' => $_POST['sticker_url'][$i],
+                    'image' => $_POST['sticker_image'][$i],
                 ];
             }
 
@@ -92,14 +92,14 @@ if (!empty($_POST)) {
                 foreach ($order as $i => $k) {
                     $new_stickers[] = [
                         'label' => $stickers[$k]['label'],
-                        'url'   => $stickers[$k]['url'],
-                        'image' => $stickers[$k]['image']
+                        'url' => $stickers[$k]['url'],
+                        'image' => $stickers[$k]['image'],
                     ];
                 }
                 $stickers = $new_stickers;
             }
         }
-        
+
         $core->blog->settings->addNamespace('themes');
         $core->blog->settings->themes->put($core->blog->settings->system->theme . '_featured', serialize($s));
         $core->blog->settings->themes->put($core->blog->settings->system->theme . '_stickers', serialize($stickers));
@@ -171,10 +171,10 @@ foreach ($stickers as $i => $v) {
     echo
     '<tr class="line" id="l_' . $i . '">' .
     '<td class="handle">' . form::number(['order[' . $i . ']'], [
-        'min'     => 0,
-        'max'     => count($stickers),
+        'min' => 0,
+        'max' => count($stickers),
         'default' => $count,
-        'class'   => 'position'
+        'class' => 'position',
     ]) .
     form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
     '<td class="linkimg">' . form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .

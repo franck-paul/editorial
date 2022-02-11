@@ -8,7 +8,6 @@
  * @copyright Philippe aka amalgame
  * @copyright GPL-2.0-only
  */
-
 namespace themes\editorial;
 
 if (!defined('DC_RC_PATH')) {
@@ -21,10 +20,10 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 }
 // admin part below
 
-# Behaviors
+// Behaviors
 $GLOBALS['core']->addBehavior('adminPageHTMLHead', [__NAMESPACE__ . '\tplEditorialThemeAdmin', 'adminPageHTMLHead']);
 $GLOBALS['core']->addBehavior('adminPopupPosts', [__NAMESPACE__ . '\tplEditorialThemeAdmin', 'adminPopupPosts']);
-$GLOBALS['core']->addBehavior('adminPageHTTPHeaderCSP', [__NAMESPACE__ . '\tplEditorialThemeAdmin','adminPageHTTPHeaderCSP']);
+$GLOBALS['core']->addBehavior('adminPageHTTPHeaderCSP', [__NAMESPACE__ . '\tplEditorialThemeAdmin', 'adminPageHTTPHeaderCSP']);
 
 class tplEditorialThemeAdmin
 {
@@ -41,10 +40,10 @@ class tplEditorialThemeAdmin
             $theme_url = \http::concatURL($core->blog->url, $core->blog->settings->system->themes_url . '/' . $core->blog->settings->system->theme);
         }
 
-        echo '<script src="' . $theme_url . '/assets/js/admin.js' . '"></script>'."\n".
-        '<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>'."\n".
-        '<link rel="stylesheet" media="screen" href="' . $theme_url . '/assets/css/admin.css'. '" />'."\n";
-        
+        echo '<script src="' . $theme_url . '/assets/js/admin.js' . '"></script>' . "\n" .
+        '<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>' . "\n" .
+        '<link rel="stylesheet" media="screen" href="' . $theme_url . '/assets/css/admin.css' . '" />' . "\n";
+
         $core->auth->user_prefs->addWorkspace('accessibility');
         if (!$core->auth->user_prefs->accessibility->nodragdrop) {
             echo
@@ -75,7 +74,7 @@ class tplEditorialThemeAdmin
         if ($core->blog->settings->system->theme != 'editorial') {
             return;
         }
-        
+
         if (isset($csp['script-src'])) {
             $csp['script-src'] .= ' use.fontawesome.com';
         } else {

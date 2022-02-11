@@ -6,17 +6,15 @@
 	 * @return {jQuery} jQuery object.
 	 */
 	$.fn.navList = function () {
-
-		var $this = $(this);
+		const $this = $(this);
 		$a = $this.find('a'),
 			b = [];
 
 		$a.each(function () {
-
-			var $this = $(this),
-				indent = Math.max(0, $this.parents('li').length - 1),
-				href = $this.attr('href'),
-				target = $this.attr('target');
+			const $this = $(this);
+			const indent = Math.max(0, $this.parents('li').length - 1);
+			const href = $this.attr('href');
+			const target = $this.attr('target');
 
 			b.push(
 				'<a ' +
@@ -185,22 +183,20 @@
 		})
 
 		$this.on('touchmove', function (event) {
-
-			if ($this.touchPosX === null ||
+if ($this.touchPosX === null ||
 				$this.touchPosY === null)
 				return;
 
-			var diffX = $this.touchPosX - event.originalEvent.touches[0].pageX,
-				diffY = $this.touchPosY - event.originalEvent.touches[0].pageY,
-				th = $this.outerHeight(),
-				ts = ($this.get(0).scrollHeight - $this.scrollTop());
+			const diffX = $this.touchPosX - event.originalEvent.touches[0].pageX;
+			const diffY = $this.touchPosY - event.originalEvent.touches[0].pageY;
+			const th = $this.outerHeight();
+			const ts = ($this.get(0).scrollHeight - $this.scrollTop());
 
 			// Hide on swipe?
 			if (config.hideOnSwipe) {
-
-				var result = false,
-					boundary = 20,
-					delta = 50;
+let result = false;
+				const boundary = 20;
+				const delta = 50;
 
 				switch (config.side) {
 
@@ -312,7 +308,7 @@
 		// Multiple elements?
 		if (this.length > 1) {
 
-			for (var i = 0; i < this.length; i++)
+			for (let i = 0; i < this.length; i++)
 				$(this[i]).placeholder();
 
 			return $this;

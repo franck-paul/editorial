@@ -169,7 +169,6 @@
 	$window.on('load.sidebar-lock', function () {
 		let sh;
 		let wh;
-		const st;
 
 		// Reset scroll position to 0 if it's 1.
 		if ($window.scrollTop() == 1)

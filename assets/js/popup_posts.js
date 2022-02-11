@@ -1,4 +1,3 @@
-'use strict';
 $(function () {
 
     $('#link-insert-cancel').on('click', function () {
@@ -7,7 +6,7 @@ $(function () {
     $('#form-entries tr>td.maximal>a').on('click', function () {
         function stripBaseURL(url) {
             if (base_url != '') {
-                var pos = url.indexOf(base_url);
+                const pos = url.indexOf(base_url);
                 if (pos == 0) {
                     return url.substr(base_url.length);
                 }
