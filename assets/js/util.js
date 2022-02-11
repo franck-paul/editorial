@@ -183,7 +183,7 @@
 		})
 
 		$this.on('touchmove', function (event) {
-if ($this.touchPosX === null ||
+			if ($this.touchPosX === null ||
 				$this.touchPosY === null)
 				return;
 
@@ -194,7 +194,7 @@ if ($this.touchPosX === null ||
 
 			// Hide on swipe?
 			if (config.hideOnSwipe) {
-let result = false;
+				let result = false;
 				const boundary = 20;
 				const delta = 50;
 
