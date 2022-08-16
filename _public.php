@@ -8,6 +8,7 @@
  * @copyright Philippe aka amalgame
  * @copyright GPL-2.0-only
  */
+
 namespace themes\editorial;
 
 if (!defined('DC_RC_PATH')) {
@@ -16,19 +17,19 @@ if (!defined('DC_RC_PATH')) {
 
 \l10n::set(dirname(__FILE__) . '/locales/' . $_lang . '/main');
 
-$core->tpl->addBlock('editorialDefaultIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialDefaultIf']);
-$core->tpl->addBlock('editorialFeaturedIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialFeaturedIf']);
+\dcCore::app()->tpl->addBlock('editorialDefaultIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialDefaultIf']);
+\dcCore::app()->tpl->addBlock('editorialFeaturedIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialFeaturedIf']);
 
-$core->tpl->addValue('editorialUserColors', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialUserColors']);
-$core->tpl->addValue('editorialSocialLinks', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialSocialLinks']);
+\dcCore::app()->tpl->addValue('editorialUserColors', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialUserColors']);
+\dcCore::app()->tpl->addValue('editorialSocialLinks', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialSocialLinks']);
 
-$core->addBehavior('templateBeforeBlock', [__NAMESPACE__ . '\behaviorsFeaturedPost', 'templateBeforeBlock']);
+\dcCore::app()->addBehavior('templateBeforeBlock', [__NAMESPACE__ . '\behaviorsFeaturedPost', 'templateBeforeBlock']);
 
 class featuredPostTpl
 {
     public static function editorialDefaultIf($attr, $content)
     {
-        $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
+        $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
@@ -42,14 +43,13 @@ class featuredPostTpl
 
         if ($featuredPostURL == '') {
             return $content;
-        } else {
-            return;
         }
+
     }
 
     public static function editorialFeaturedIf($attr, $content)
     {
-        $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
+        $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
@@ -63,9 +63,8 @@ class featuredPostTpl
 
         if ($featuredPostURL !== '') {
             return $content;
-        } else {
-            return;
         }
+
     }
 }
 
@@ -78,15 +77,13 @@ class tplEditorialTheme
 
     public static function editorialUserColorsHelper()
     {
-        $core = $GLOBALS['core'];
-
-        if (preg_match('#^http(s)?://#', $core->blog->settings->system->themes_url)) {
-            $theme_url = \http::concatURL($core->blog->settings->system->themes_url, '/' . $core->blog->settings->system->theme);
+        if (preg_match('#^http(s)?://#', \dcCore::app()->blog->settings->system->themes_url)) {
+            $theme_url = \http::concatURL(\dcCore::app()->blog->settings->system->themes_url, '/' . \dcCore::app()->blog->settings->system->theme);
         } else {
-            $theme_url = \http::concatURL($core->blog->url, $core->blog->settings->system->themes_url . '/' . $core->blog->settings->system->theme);
+            $theme_url = \http::concatURL(\dcCore::app()->blog->url, \dcCore::app()->blog->settings->system->themes_url . '/' . \dcCore::app()->blog->settings->system->theme);
         }
 
-        $s = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_featured');
+        $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
@@ -102,10 +99,10 @@ class tplEditorialTheme
 
         if ($editorial_user_main_color != '#f56a6a') {
             $editorial_user_main_color = substr($editorial_user_main_color, 1);
+
             return '<link rel="stylesheet" type="text/css" href="' . $editorial_user_colors_css_url . '?main_color=' . $editorial_user_main_color . '" media="screen" />';
-        } else {
-            return;
         }
+
     }
 
     public static function editorialSocialLinks($attr)
@@ -115,11 +112,10 @@ class tplEditorialTheme
 
     public static function editorialSocialLinksHelper()
     {
-        global $core;
         // Social media links
         $res = '';
 
-        $s = $core->blog->settings->themes->get($core->blog->settings->system->theme . '_stickers');
+        $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_stickers');
 
         if ($s === null) {
             $default = true;
@@ -158,6 +154,7 @@ class tplEditorialTheme
                 }
             }
         }
+
         return false;
     }
 }
@@ -166,7 +163,7 @@ class behaviorsFeaturedPost
 {
     public static function templateBeforeBlock($core, $b, $attr)
     {
-        $s = $GLOBALS['core']->blog->settings->themes->get($GLOBALS['core']->blog->settings->system->theme . '_featured');
+        $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
