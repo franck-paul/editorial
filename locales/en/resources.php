@@ -7,6 +7,6 @@
  * @copyright GPL-2.0-only
  */
 
-if (!isset($__resources['help']['editorial'])) {
-    $__resources['help']['editorial'] = dirname(__FILE__) . '/help/help.html';
+if (!isset(dcCore::app()->resources['help']['editorial'])) {
+    dcCore::app()->resources['help']['editorial'] = dirname(__FILE__) . '/help/help.html';
 }
