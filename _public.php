@@ -44,7 +44,6 @@ class featuredPostTpl
         if ($featuredPostURL == '') {
             return $content;
         }
-
     }
 
     public static function editorialFeaturedIf($attr, $content)
@@ -64,7 +63,6 @@ class featuredPostTpl
         if ($featuredPostURL !== '') {
             return $content;
         }
-
     }
 }
 
@@ -102,7 +100,6 @@ class tplEditorialTheme
 
             return '<link rel="stylesheet" type="text/css" href="' . $editorial_user_colors_css_url . '?main_color=' . $editorial_user_main_color . '" media="screen" />';
         }
-
     }
 
     public static function editorialSocialLinks($attr)
