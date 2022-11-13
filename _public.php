@@ -15,6 +15,9 @@ if (!defined('DC_RC_PATH')) {
     return;
 }
 
+use ArrayObject;
+use dcCore;
+
 \l10n::set(dirname(__FILE__) . '/locales/' . \dcCore::app()->lang . '/main');
 
 \dcCore::app()->tpl->addBlock('editorialDefaultIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialDefaultIf']);
@@ -23,7 +26,7 @@ if (!defined('DC_RC_PATH')) {
 \dcCore::app()->tpl->addValue('editorialUserColors', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialUserColors']);
 \dcCore::app()->tpl->addValue('editorialSocialLinks', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialSocialLinks']);
 
-\dcCore::app()->addBehavior('templateBeforeBlock', [__NAMESPACE__ . '\behaviorsFeaturedPost', 'templateBeforeBlock']);
+\dcCore::app()->addBehavior('templateBeforeBlockV2', [__NAMESPACE__ . behaviorsFeaturedPost::class, 'templateBeforeBlock']);
 
 class featuredPostTpl
 {
@@ -158,7 +161,7 @@ class tplEditorialTheme
 
 class behaviorsFeaturedPost
 {
-    public static function templateBeforeBlock($core, $b, $attr)
+    public static function templateBeforeBlock(string $block, ArrayObject $attr): string
     {
         $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
@@ -172,14 +175,14 @@ class behaviorsFeaturedPost
 
         $featuredPostURL = $s['featured_post_url'];
 
-        if ($b == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 1) {
+        if ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == '1') {
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
             "\$params['sql'] .= \"AND P.post_url = '" . urldecode($featuredPostURL) . "' \";\n" .
                 "?>\n";
-        } elseif ($b == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 0) {
+        } elseif ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == '0') {
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
