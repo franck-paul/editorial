@@ -16,7 +16,6 @@ if (!defined('DC_RC_PATH')) {
 }
 
 use ArrayObject;
-use dcCore;
 
 \l10n::set(dirname(__FILE__) . '/locales/' . \dcCore::app()->lang . '/main');
 
@@ -26,7 +25,7 @@ use dcCore;
 \dcCore::app()->tpl->addValue('editorialUserColors', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialUserColors']);
 \dcCore::app()->tpl->addValue('editorialSocialLinks', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialSocialLinks']);
 
-\dcCore::app()->addBehavior('templateBeforeBlockV2', [__NAMESPACE__ . behaviorsFeaturedPost::class, 'templateBeforeBlock']);
+\dcCore::app()->addBehavior('templateBeforeBlockV2', [behaviorsFeaturedPost::class, 'templateBeforeBlock']);
 
 class featuredPostTpl
 {
@@ -190,5 +189,7 @@ class behaviorsFeaturedPost
             "\$params['sql'] .= \"AND P.post_url != '" . urldecode($featuredPostURL) . "' \";\n" .
                 "?>\n";
         }
+
+        return '';
     }
 }
