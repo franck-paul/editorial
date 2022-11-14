@@ -44,7 +44,7 @@ class featuredPostTpl
 
         $featuredPostURL = $s['featured_post_url'];
 
-        if ($featuredPostURL == '') {
+        if (empty($featuredPostURL)) {
             return $content;
         }
     }
@@ -63,7 +63,7 @@ class featuredPostTpl
 
         $featuredPostURL = $s['featured_post_url'];
 
-        if ($featuredPostURL !== '') {
+        if (!empty($featuredPostURL)) {
             return $content;
         }
     }
@@ -175,14 +175,14 @@ class behaviorsFeaturedPost
 
         $featuredPostURL = $s['featured_post_url'];
 
-        if ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == '1') {
+        if ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 1) {
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
             "\$params['sql'] .= \"AND P.post_url = '" . urldecode($featuredPostURL) . "' \";\n" .
                 "?>\n";
-        } elseif ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == '0') {
+        } elseif ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 0) {
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
