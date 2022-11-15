@@ -19,11 +19,11 @@ use ArrayObject;
 
 \l10n::set(dirname(__FILE__) . '/locales/' . \dcCore::app()->lang . '/main');
 
-\dcCore::app()->tpl->addBlock('editorialDefaultIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialDefaultIf']);
-\dcCore::app()->tpl->addBlock('editorialFeaturedIf', [__NAMESPACE__ . '\featuredPostTpl', 'editorialFeaturedIf']);
+\dcCore::app()->tpl->addBlock('editorialDefaultIf', [featuredPostTpl::class, 'editorialDefaultIf']);
+\dcCore::app()->tpl->addBlock('editorialFeaturedIf', [featuredPostTpl::class, 'editorialFeaturedIf']);
 
-\dcCore::app()->tpl->addValue('editorialUserColors', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialUserColors']);
-\dcCore::app()->tpl->addValue('editorialSocialLinks', [__NAMESPACE__ . '\tplEditorialTheme', 'editorialSocialLinks']);
+\dcCore::app()->tpl->addValue('editorialUserColors', [tplEditorialTheme::class, 'editorialUserColors']);
+\dcCore::app()->tpl->addValue('editorialSocialLinks', [tplEditorialTheme::class, 'editorialSocialLinks']);
 
 \dcCore::app()->addBehavior('templateBeforeBlockV2', [behaviorsFeaturedPost::class, 'templateBeforeBlock']);
 
