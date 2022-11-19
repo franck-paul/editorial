@@ -29,7 +29,7 @@ use ArrayObject;
 
 class featuredPostTpl
 {
-    public static function editorialDefaultIf($attr, $content)
+    public static function editorialDefaultIf(ArrayObject $attr, string $content)
     {
         $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
@@ -48,7 +48,7 @@ class featuredPostTpl
         }
     }
 
-    public static function editorialFeaturedIf($attr, $content)
+    public static function editorialFeaturedIf(ArrayObject $attr, string $content)
     {
         $s = \dcCore::app()->blog->settings->themes->get(\dcCore::app()->blog->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
@@ -70,7 +70,7 @@ class featuredPostTpl
 
 class tplEditorialTheme
 {
-    public static function editorialUserColors($attr)
+    public static function editorialUserColors(ArrayObject $attr)
     {
         return '<?php echo ' . __NAMESPACE__ . '\tplEditorialTheme::editorialUserColorsHelper(); ?>';
     }
@@ -104,7 +104,7 @@ class tplEditorialTheme
         }
     }
 
-    public static function editorialSocialLinks($attr)
+    public static function editorialSocialLinks(ArrayObject $attr)
     {
         return '<?php echo ' . __NAMESPACE__ . '\tplEditorialTheme::editorialSocialLinksHelper(); ?>';
     }
