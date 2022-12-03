@@ -13,11 +13,11 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'Éditorial',                                    // Name
-    'A theme for Dotclear',                         // Description
-    'Philippe aka amalgame and contributors',       // Author
-    '2.3',                                        // Version
-    [                                               // Properties
+    'Éditorial',
+    'A theme for Dotclear',
+    'Philippe aka amalgame and contributors',
+    '2.3',
+    [
         'requires'          => [['core', '2.24']],
         'standalone_config' => true,
         'type'              => 'theme',
