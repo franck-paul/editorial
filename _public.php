@@ -121,7 +121,7 @@ class tplEditorialTheme
         } else {
             $s = $s ? (unserialize($s) ?: []) : [];
 
-            $s = array_filter($s, 'self::cleanSocialLinks');
+            $s = array_filter($s, self::class . '::cleanSocialLinks');
 
             $count = 0;
             foreach ($s as $sticker) {
