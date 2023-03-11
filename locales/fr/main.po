@@ -1,3 +1,15 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: editorial 3.0\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-03-11T16:20:14+00:00\n"
+"Last-Translator: Philippe Henaff\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
 msgid "Show menu"
 msgstr "Montrer le menu"
 
@@ -7,8 +19,3 @@ msgstr "Cacher le menu"
 msgid "Main menu"
 msgstr "Menu principal"
 
-msgid "Category"
-msgstr "Catégorie"
-
-msgid "Categories"
-msgstr "Catégories"
