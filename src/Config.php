@@ -174,7 +174,7 @@ class Config extends dcNsProcess
 
         echo '<div class="fieldset">';
 
-        echo '<h4 class="pretty-title">' . __('Blog\'s featured publication') . '</h4>';
+        echo '<h3>' . __('Blog\'s featured publication') . '</h3>';
 
         echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
             form::field('featured_post_url', 30, 255, dcCore::app()->admin->featured['featured_post_url']) .
@@ -183,7 +183,7 @@ class Config extends dcNsProcess
             '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';
         echo '</div>';
         echo '<div class="fieldset">';
-        echo '<h4 class="pretty-title">' . __('Colors') . '</h4>';
+        echo '<h3>' . __('Colors') . '</h3>';
 
         echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
             form::color('main_color', 30, 255, dcCore::app()->admin->style['main_color']) . '</p>' ;
@@ -198,8 +198,8 @@ class Config extends dcNsProcess
         echo '<div class="multi-part" id="themes-list' . (dcCore::app()->admin->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
         echo '<form id="theme_config" action="' . dcCore::app()->adminurl->get('admin.blog.theme', ['conf' => '1']) .
             '" method="post" enctype="multipart/form-data">';
-
-        echo '<h4 class="pretty-title">' . __('Social links') . '</h4>';
+        echo '<div class="fieldset">';
+        echo '<h3>' . __('Social links') . '</h3>';
 
         echo
         '<div class="table-outer">' .
@@ -234,6 +234,7 @@ class Config extends dcNsProcess
         echo
             '</tbody>' .
             '</table></div>';
+        echo '</div>';
 
         echo '<p><input type="hidden" name="conf_tab" value="links" /></p>';
         echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '" />' . dcCore::app()->formNonce() . '</p>';
