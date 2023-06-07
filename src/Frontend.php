@@ -8,31 +8,29 @@
  * @copyright Philippe aka amalgame and HTML5 UP
  * @copyright GPL-2.0-only
  */
+declare(strict_types=1);
 
-namespace Dotclear\Theme\Editorial;
+namespace Dotclear\Theme\editorial;
 
 use ArrayObject;
 use dcCore;
 use dcNsProcess;
-use l10n;
-use http;
 
 class Frontend extends dcNsProcess
 {
     public static function init(): bool
     {
-        self::$init = defined('DC_RC_PATH');
-
-        return self::$init;
+        return (static::$init = My::checkContext(My::FRONTEND));
     }
 
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
-        l10n::set(__DIR__ . '/../locales/' . dcCore::app()->lang . '/main');
+        # load locales
+        My::l10n('main'); 
 
         # Templates
         dcCore::app()->tpl->addBlock('editorialDefaultIf', [self::class, 'editorialDefaultIf']);
@@ -98,23 +96,16 @@ class Frontend extends dcNsProcess
             $style = [];
         }
         if (!isset($style['main_color'])) {
-            $style['main_color'] = '#F56A6A';
+            $style['main_color'] = '#f56a6a';
         }
 
         $editorial_user_main_color = $style['main_color'];
 
-        if (preg_match('#^http(s)?://#', dcCore::app()->blog->settings->system->themes_url)) {
-            $theme_url = http::concatURL(dcCore::app()->blog->settings->system->themes_url, '/' . dcCore::app()->blog->settings->system->theme);
-        } else {
-            $theme_url = http::concatURL(dcCore::app()->blog->url, dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme);
-        }
-
-        $editorial_user_colors_css_url = $theme_url . '/assets/css/user-colors.php';
-
-        if ($editorial_user_main_color != '#F56A6A') {
-            $editorial_user_main_color = substr($editorial_user_main_color, 1);
-
-            return '<link rel="stylesheet" type="text/css" href="' . $editorial_user_colors_css_url . '?main_color=' . $editorial_user_main_color . '" media="screen" />';
+        if ($editorial_user_main_color != '#f56a6a') {
+            return
+            '<style type="text/css">' . "\n" .
+            ':root {--main-color: ' . $editorial_user_main_color . '}' . "\n" .
+            '</style>' . "\n";
         }
     }
 

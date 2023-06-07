@@ -8,35 +8,32 @@
  * @copyright Philippe aka amalgame and HTML5 UP
  * @copyright GPL-2.0-only
  */
+declare(strict_types=1);
 
-namespace Dotclear\Theme\Editorial;
+namespace Dotclear\Theme\editorial;
 
 use dcCore;
 use dcNsProcess;
 use dcPage;
 use Exception;
 use form;
-use html;
-use l10n;
 
 class Config extends dcNsProcess
 {
     public static function init(): bool
     {
-        if (!defined('DC_CONTEXT_ADMIN')) {
+        static::$init = My::checkContext(My::CONFIG);
+
+        if (!static::$init) {
             return false;
         }
 
-        self::$init = true;
-
-        l10n::set(__DIR__ . '/../locales/' . dcCore::app()->lang . '/admin');
+        My::l10n('admin');
 
         dcCore::app()->admin->standalone_config = (bool) dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'standalone_config');
 
         // Load contextual help
-        if (file_exists(__DIR__ . '/../locales/' . dcCore::app()->lang . '/resources.php')) {
-            require __DIR__ . '/../locales/' . dcCore::app()->lang . '/resources.php';
-        }
+        dcCore::app()->themes->loadModuleL10Nresources(My::id(), dcCore::app()->lang);
 
         $featured = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_featured');
         $featured = $featured ? (unserialize($featured) ?: []) : [];
@@ -51,7 +48,7 @@ class Config extends dcNsProcess
         $style = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_style');
         $style = $style ? (unserialize($style) ?: []) : [];
         if (!isset($style['main_color'])) {
-            $style['main_color'] = '#F56A6A';
+            $style['main_color'] = '#f56a6a';
         }
 
         $stickers = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_stickers');
@@ -93,7 +90,7 @@ class Config extends dcNsProcess
      */
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
@@ -149,7 +146,7 @@ class Config extends dcNsProcess
                 // Template cache reset
                 dcCore::app()->emptyTemplatesCache();
 
-                dcPage::message(__('Theme configuration upgraded.'), true, true);
+                dcPage::success(__('Theme configuration upgraded.'), true, true);
             } catch (Exception $e) {
                 dcCore::app()->error->add($e->getMessage());
             }
@@ -163,7 +160,7 @@ class Config extends dcNsProcess
      */
     public static function render(): void
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return;
         }
 
@@ -178,7 +175,7 @@ class Config extends dcNsProcess
         echo '<h4 class="pretty-title">' . __('Blog\'s featured publication') . '</h4>';
 
         echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
-            form::field('featured_post_url', 30, 255, html::escapeHTML(dcCore::app()->admin->featured['featured_post_url'])) .
+            form::field('featured_post_url', 30, 255, dcCore::app()->admin->featured['featured_post_url']) .
             ' <button type="button" id="featured_post_url_selector">' . __('Choose an entry') . '</button>' .
             '</p>' .
             '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';

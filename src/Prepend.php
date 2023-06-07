@@ -8,38 +8,37 @@
  * @copyright Philippe aka amalgame and HTML5 UP
  * @copyright GPL-2.0-only
  */
+declare(strict_types=1);
 
-namespace Dotclear\Theme\Editorial;
+namespace Dotclear\Theme\editorial;
 
 use dcCore;
 use dcNsProcess;
 use dcPage;
-use http;
+use Dotclear\Helper\Network\Http;
 
 class Prepend extends dcNsProcess
 {
     public static function init(): bool
     {
-        self::$init = defined('DC_CONTEXT_ADMIN');
-
-        return self::$init;
+        return (static::$init = My::checkContext(My::PREPEND));
     }
 
     public static function process(): bool
     {
-        if (!self::$init) {
+        if (!static::$init) {
             return false;
         }
 
         dcCore::app()->addBehavior('adminPageHTMLHead', function () {
-            if (dcCore::app()->blog->settings->system->theme !== basename(dirname(__DIR__))) {
+            if (dcCore::app()->blog->settings->system->theme !== My::id()) {
                 return;
             }
 
             if (preg_match('#^http(s)?://#', dcCore::app()->blog->settings->system->themes_url)) {
-                $theme_url = http::concatURL(dcCore::app()->blog->settings->system->themes_url, '/' . dcCore::app()->blog->settings->system->theme);
+                $theme_url = Http::concatURL(dcCore::app()->blog->settings->system->themes_url, '/' . dcCore::app()->blog->settings->system->theme);
             } else {
-                $theme_url = http::concatURL(dcCore::app()->blog->url, dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme);
+                $theme_url = Http::concatURL(dcCore::app()->blog->url, dcCore::app()->blog->settings->system->themes_url . '/' . dcCore::app()->blog->settings->system->theme);
             }
 
             echo '<script src="' . $theme_url . '/assets/js/admin.js' . '"></script>' . "\n" .
@@ -56,7 +55,7 @@ class Prepend extends dcNsProcess
         });
 
         dcCore::app()->addBehavior('adminPageHTTPHeaderCSP', function ($csp) {
-            if (dcCore::app()->blog->settings->system->theme !== basename(dirname(__DIR__))) {
+            if (dcCore::app()->blog->settings->system->theme !== My::id()) {
                 return;
             }
 

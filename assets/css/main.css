@@ -5,6 +5,10 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
+:root {
+  --main-color: #f56a6a;
+}
+
 html,
 body,
 div,
@@ -253,13 +257,13 @@ a {
   -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
   border-bottom: dotted 1px;
-  color: #f56a6a;
+  color: var(--main-color);
   text-decoration: none;
 }
 
 a:hover {
-  border-bottom-color: #f56a6a;
-  color: #f56a6a !important;
+  border-bottom-color: var(--main-color);
+  color: var(--main-color) !important;
 }
 
 a:hover strong {
@@ -1892,7 +1896,7 @@ header p {
 }
 
 header.major> :last-child {
-  border-bottom: solid 3px #f56a6a;
+  border-bottom: solid 3px var(--main-color);
   display: inline-block;
   margin: 0 0 2em 0;
   padding: 0 0.75em 0.5em 0;
@@ -1957,8 +1961,8 @@ input[type="search"]:focus,
 input[type="url"]:focus,
 select:focus,
 textarea:focus {
-  border-color: #f56a6a;
-  box-shadow: 0 0 0 1px #f56a6a;
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 1px var(--main-color);
 }
 
 select {
@@ -2066,8 +2070,8 @@ input[type="radio"]:checked+label:before {
 
 input[type="checkbox"]:focus+label:before,
 input[type="radio"]:focus+label:before {
-  border-color: #f56a6a;
-  box-shadow: 0 0 0 1px #f56a6a;
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 1px var(--main-color);
 }
 
 input[type="checkbox"]+label:before {
@@ -2399,7 +2403,7 @@ ul.contact li:before {
 }
 
 ul.contact li:before {
-  color: #f56a6a;
+  color: var(--main-color);
   display: inline-block;
   font-size: 1.5em;
   height: 1.125em;
@@ -2457,7 +2461,7 @@ ul.pagination li>.page {
 }
 
 ul.pagination li>.page.active {
-  background-color: #f56a6a;
+  background-color: var(--main-color);
   color: #ffffff !important;
 }
 
@@ -2571,8 +2575,8 @@ button,
   background-color: transparent;
   border-radius: 0.375em;
   border: 0;
-  box-shadow: inset 0 0 0 2px #f56a6a;
-  color: #f56a6a !important;
+  box-shadow: inset 0 0 0 2px var(--main-color);
+  color: var(--main-color) !important;
   cursor: pointer;
   display: inline-block;
   font-family: "Roboto Slab", serif;
@@ -2643,7 +2647,7 @@ input[type="reset"].primary,
 input[type="button"].primary,
 button.primary,
 .button.primary {
-  background-color: #f56a6a;
+  background-color: var(--main-color);
   box-shadow: none;
   color: #ffffff !important;
 }
@@ -2760,7 +2764,7 @@ button:disabled,
 }
 
 .features article .icon:before {
-  color: #f56a6a;
+  color: var(--main-color);
   font-size: 2.75rem;
   position: relative;
   top: 0.05em;
@@ -3384,7 +3388,7 @@ button:disabled,
 
 /* Header */
 #header {
-  border-bottom: solid 5px #f56a6a;
+  border-bottom: solid 5px var(--main-color);
   padding: 6em 0 1em 0;
   position: relative;
 }
@@ -3523,7 +3527,7 @@ button:disabled,
 
 #menu ul a:hover,
 #menu ul span:hover {
-  color: #f56a6a;
+  color: var(--main-color);
 }
 
 #menu ul a.opener,
@@ -3565,7 +3569,7 @@ button:disabled,
 
 #menu ul a.opener:hover:before,
 #menu ul span.opener:hover:before {
-  color: #f56a6a;
+  color: var(--main-color);
 }
 
 #menu ul a.opener.active+ul,
@@ -3817,7 +3821,7 @@ ul.post-attachments-list {
 
 .widget {
   margin-bottom: 3em;
-  border-bottom: 1px solid #f56a6a;
+  border-bottom: 1px solid var(--main-color);
   padding-bottom: 1em;
 }
 
@@ -3848,7 +3852,7 @@ ul.post-attachments-list {
 
 #sidebar .toggle:focus,
 a:focus {
-  outline: #f56a6a dotted 1px;
+  outline: var(--main-color) dotted 1px;
 }
 
 @media screen and (min-width: 1281px) {
@@ -3877,7 +3881,7 @@ a:focus {
 
 #accessconfig button:hover {
   background: none;
-  color: #f56a6a !important;
+  color: var(--main-color) !important;
 }
 
 #footer {
@@ -3908,4 +3912,90 @@ a:focus {
   border: none;
   font-weight: bold;
   color: #636363;
+}
+
+a {
+  color: var(--main-color);
+}
+
+a:hover {
+  border-bottom-color: var(--main-color);
+  color: var(--main-color) !important;
+}
+
+header.major > :last-child {
+  border-bottom: solid 3px var(--main-color);
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="search"]:focus,
+input[type="url"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 1px var(--main-color);
+}
+
+input[type="checkbox"]:focus + label:before,
+input[type="radio"]:focus + label:before {
+  border-color: var(--main-color);
+  box-shadow: 0 0 0 1px var(--main-color);
+}
+
+ul.contact li:before {
+  color: var(--main-color);
+}
+
+ul.pagination li > .page.active {
+  background-color: var(--main-color);
+}
+
+/* Button */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button,
+.button {
+  box-shadow: inset 0 0 0 2px var(--main-color);
+  color: var(--main-color) !important;
+}
+
+input[type="submit"].primary,
+input[type="reset"].primary,
+input[type="button"].primary,
+button.primary,
+.button.primary {
+  background-color: var(--main-color);
+}
+
+.features article .icon:before {
+  color: var(--main-color);
+}
+
+#header {
+  border-bottom: solid 5px var(--main-color);
+}
+
+#menu ul a:hover, #menu ul span:hover {
+  color: var(--main-color);
+}
+
+#menu ul a.opener:hover:before, #menu ul span.opener:hover:before {
+  color: var(--main-color);
+}
+
+.widget {
+  border-bottom: 1px solid var(--main-color);
+}
+
+#sidebar .toggle:focus,
+a:focus {
+  outline: var(--main-color) dotted 1px;
+}
+
+#accessconfig button:hover {
+  background: none;
+  color: var(--main-color) !important;
 }
