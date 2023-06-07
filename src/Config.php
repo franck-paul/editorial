@@ -172,6 +172,8 @@ class Config extends dcNsProcess
         echo '<form id="theme_config" action="' . dcCore::app()->adminurl->get('admin.blog.theme', ['conf' => '1']) .
             '" method="post" enctype="multipart/form-data">';
 
+        echo '<div class="fieldset">';
+
         echo '<h4 class="pretty-title">' . __('Blog\'s featured publication') . '</h4>';
 
         echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
@@ -179,12 +181,13 @@ class Config extends dcNsProcess
             ' <button type="button" id="featured_post_url_selector">' . __('Choose an entry') . '</button>' .
             '</p>' .
             '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';
-
+        echo '</div>';
+        echo '<div class="fieldset">';
         echo '<h4 class="pretty-title">' . __('Colors') . '</h4>';
 
         echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
             form::color('main_color', 30, 255, dcCore::app()->admin->style['main_color']) . '</p>' ;
-
+        echo '</div>';
         echo '<p><input type="hidden" name="conf_tab" value="presentation" /></p>';
         echo '<p class="clear"><input type="submit" value="' . __('Save') . '" />' . dcCore::app()->formNonce() . '</p>';
         echo form::hidden(['base_url'], dcCore::app()->blog->url);
