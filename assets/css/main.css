@@ -2375,6 +2375,15 @@ ul.icons li .icon:before {
   font-size: 1.25em;
 }
 
+ul.icons .fab {
+  font-size: 1.25em;
+  margin-left: .2em
+}
+
+ul.icons .fab:hover {
+  filter: brightness(50%)
+}
+
 /* Contact */
 ul.contact {
   list-style: none;
@@ -3923,9 +3932,10 @@ a:hover {
   color: var(--main-color) !important;
 }
 
-header.major > :last-child {
+header.major> :last-child {
   border-bottom: solid 3px var(--main-color);
 }
+
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
@@ -3938,8 +3948,8 @@ textarea:focus {
   box-shadow: 0 0 0 1px var(--main-color);
 }
 
-input[type="checkbox"]:focus + label:before,
-input[type="radio"]:focus + label:before {
+input[type="checkbox"]:focus+label:before,
+input[type="radio"]:focus+label:before {
   border-color: var(--main-color);
   box-shadow: 0 0 0 1px var(--main-color);
 }
@@ -3948,7 +3958,7 @@ ul.contact li:before {
   color: var(--main-color);
 }
 
-ul.pagination li > .page.active {
+ul.pagination li>.page.active {
   background-color: var(--main-color);
 }
 
