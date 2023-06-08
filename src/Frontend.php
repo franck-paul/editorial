@@ -99,12 +99,12 @@ class Frontend extends dcNsProcess
             $style['main_color'] = '#f56a6a';
         }
 
-        $editorial_user_main_color = $style['main_color'];
+        $main_color = $style['main_color'];
 
-        if ($editorial_user_main_color != '#f56a6a') {
+        if ($main_color != '#f56a6a') {
             return
             '<style type="text/css">' . "\n" .
-            ':root {--main-color: ' . $editorial_user_main_color . '}' . "\n" .
+            ':root {--main-color: ' . $main_color . '}' . "\n" .
             '</style>' . "\n";
         }
     }
