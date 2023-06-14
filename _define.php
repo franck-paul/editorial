@@ -16,9 +16,9 @@ $this->registerModule(
     'Éditorial',
     'A theme for Dotclear',
     'Philippe aka amalgame and contributors',
-    '3.3',
+    '3.4',
     [
-        'requires'          => [['core', '2.25']],
+        'requires'          => [['core', '2.27']],
         'standalone_config' => true,
         'type'              => 'theme',
         'tplset'            => 'dotty',
