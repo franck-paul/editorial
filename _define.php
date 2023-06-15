@@ -8,10 +8,6 @@
  * @copyright Philippe aka amalgame and HTML5 UP
  * @copyright GPL-2.0-only
  */
-if (!defined('DC_RC_PATH')) {
-    return;
-}
-
 $this->registerModule(
     'Éditorial',
     'A theme for Dotclear',
