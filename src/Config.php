@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Theme\editorial;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Backend\Notices;
@@ -30,12 +30,12 @@ class Config extends Process
 
         My::l10n('admin');
 
-        dcCore::app()->admin->standalone_config = (bool) dcCore::app()->themes->moduleInfo(dcCore::app()->blog->settings->system->theme, 'standalone_config');
+        App::backend()->standalone_config = (bool) App::themes()->moduleInfo(App::blog()->settings->system->theme, 'standalone_config');
 
         // Load contextual help
-        dcCore::app()->themes->loadModuleL10Nresources(My::id(), dcCore::app()->lang);
+        App::themes()->loadModuleL10Nresources(My::id(), App::lang()->getLang());
 
-        $featured = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_featured');
+        $featured = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $featured = $featured ? (unserialize($featured) ?: []) : [];
 
         if (!is_array($featured)) {
@@ -45,13 +45,13 @@ class Config extends Process
             $featured['featured_post_url'] = '';
         }
 
-        $style = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_style');
+        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
         $style = $style ? (unserialize($style) ?: []) : [];
         if (!isset($style['main_color'])) {
             $style['main_color'] = '#f56a6a';
         }
 
-        $stickers = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_stickers');
+        $stickers = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
         $stickers = $stickers ? (unserialize($stickers) ?: []) : [];
 
         $stickers_full = [];
@@ -76,11 +76,11 @@ class Config extends Process
             }
         }
 
-        dcCore::app()->admin->featured = $featured;
-        dcCore::app()->admin->style    = $style;
-        dcCore::app()->admin->stickers = $stickers;
+        App::backend()->featured = $featured;
+        App::backend()->style    = $style;
+        App::backend()->stickers = $stickers;
 
-        dcCore::app()->admin->conf_tab = $_POST['conf_tab'] ?? 'presentation';
+        App::backend()->conf_tab = $_POST['conf_tab'] ?? 'presentation';
 
         return self::status();
     }
@@ -97,17 +97,17 @@ class Config extends Process
         if (!empty($_POST)) {
             try {
                 // HTML
-                if (dcCore::app()->admin->conf_tab === 'presentation') {
+                if (App::backend()->conf_tab === 'presentation') {
                     $featured                      = [];
                     $style                         = [];
                     $featured['featured_post_url'] = $_POST['featured_post_url'];
                     $style['main_color']           = $_POST['main_color'];
 
-                    dcCore::app()->admin->featured = $featured;
-                    dcCore::app()->admin->style    = $style;
+                    App::backend()->featured = $featured;
+                    App::backend()->style    = $style;
                 }
 
-                if (dcCore::app()->admin->conf_tab === 'links') {
+                if (App::backend()->conf_tab === 'links') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
                         $stickers[] = [
@@ -134,21 +134,21 @@ class Config extends Process
                         }
                         $stickers = $new_stickers;
                     }
-                    dcCore::app()->admin->stickers = $stickers;
+                    App::backend()->stickers = $stickers;
                 }
-                dcCore::app()->blog->settings->themes->put(dcCore::app()->blog->settings->system->theme . '_featured', serialize(dcCore::app()->admin->featured));
-                dcCore::app()->blog->settings->themes->put(dcCore::app()->blog->settings->system->theme . '_style', serialize(dcCore::app()->admin->style));
-                dcCore::app()->blog->settings->themes->put(dcCore::app()->blog->settings->system->theme . '_stickers', serialize(dcCore::app()->admin->stickers));
+                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
+                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
+                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
 
                 // Blog refresh
-                dcCore::app()->blog->triggerBlog();
+                App::blog()->triggerBlog();
 
                 // Template cache reset
-                dcCore::app()->emptyTemplatesCache();
+                App::cache()->emptyTemplatesCache();
 
-                Notices::success(__('Theme configuration upgraded.'), true, true);
+                Notices::message(__('Theme configuration upgraded.'), true, true);
             } catch (Exception $e) {
-                dcCore::app()->error->add($e->getMessage());
+                App::error()->add($e->getMessage());
             }
         }
 
@@ -164,12 +164,12 @@ class Config extends Process
             return;
         }
 
-        if (!dcCore::app()->admin->standalone_config) {
+        if (!App::backend()->standalone_config) {
             echo '</form>';
         }
-        echo '<div class="multi-part" id="themes-list' . (dcCore::app()->admin->conf_tab === 'presentation' ? '' : '-presentation') . '" title="' . __('Presentation') . '">';
+        echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'presentation' ? '' : '-presentation') . '" title="' . __('Presentation') . '">';
 
-        echo '<form id="theme_config" action="' . dcCore::app()->adminurl->get('admin.blog.theme', ['conf' => '1']) .
+        echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
             '" method="post" enctype="multipart/form-data">';
 
         echo '<div class="fieldset">';
@@ -177,7 +177,7 @@ class Config extends Process
         echo '<h3>' . __('Blog\'s featured publication') . '</h3>';
 
         echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
-            form::field('featured_post_url', 30, 255, dcCore::app()->admin->featured['featured_post_url']) .
+            form::field('featured_post_url', 30, 255, App::backend()->featured['featured_post_url']) .
             ' <button type="button" id="featured_post_url_selector">' . __('Choose an entry') . '</button>' .
             '</p>' .
             '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';
@@ -186,17 +186,17 @@ class Config extends Process
         echo '<h3>' . __('Colors') . '</h3>';
 
         echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
-            form::color('main_color', 30, 255, dcCore::app()->admin->style['main_color']) . '</p>' ;
+            form::color('main_color', 30, 255, App::backend()->style['main_color']) . '</p>' ;
         echo '</div>';
         echo '<p><input type="hidden" name="conf_tab" value="presentation" /></p>';
-        echo '<p class="clear"><input type="submit" value="' . __('Save') . '" />' . dcCore::app()->formNonce() . '</p>';
-        echo form::hidden(['base_url'], dcCore::app()->blog->url);
+        echo '<p class="clear"><input type="submit" value="' . __('Save') . '" />' . App::nonce()->getFormNonce() . '</p>';
+        echo form::hidden(['base_url'], App::blog()->url);
         echo '</form>';
 
         echo '</div>'; // Close tab
 
-        echo '<div class="multi-part" id="themes-list' . (dcCore::app()->admin->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
-        echo '<form id="theme_config" action="' . dcCore::app()->adminurl->get('admin.blog.theme', ['conf' => '1']) .
+        echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
+        echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
             '" method="post" enctype="multipart/form-data">';
         echo '<div class="fieldset">';
         echo '<h3>' . __('Social links') . '</h3>';
@@ -214,14 +214,14 @@ class Config extends Process
             '</thead>' .
             '<tbody id="stickerslist">';
         $count = 0;
-        foreach (dcCore::app()->admin->stickers as $i => $v) {
+        foreach (App::backend()->stickers as $i => $v) {
             $count++;
             $v['service'] = str_replace('-link.png', '', $v['image']);
             echo
             '<tr class="line" id="l_' . $i . '">' .
             '<td class="handle">' . form::number(['order[' . $i . ']'], [
                 'min'     => 0,
-                'max'     => count(dcCore::app()->admin->stickers),
+                'max'     => count(App::backend()->stickers),
                 'default' => $count,
                 'class'   => 'position',
             ]) .
@@ -237,7 +237,7 @@ class Config extends Process
         echo '</div>';
 
         echo '<p><input type="hidden" name="conf_tab" value="links" /></p>';
-        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '" />' . dcCore::app()->formNonce() . '</p>';
+        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '" />' . App::nonce()->getFormNonce() . '</p>';
         echo '</form>';
 
         echo '</div>'; // Close tab
@@ -245,7 +245,7 @@ class Config extends Process
         Page::helpBlock('editorial');
 
         // Legacy mode
-        if (!dcCore::app()->admin->standalone_config) {
+        if (!App::backend()->standalone_config) {
             echo '<form style="display:none">';
         }
     }

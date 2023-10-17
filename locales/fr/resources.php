@@ -7,6 +7,10 @@
  * @copyright GPL-2.0-only
  */
 
-if (!isset(dcCore::app()->resources['help']['editorial'])) {
-    dcCore::app()->resources['help']['editorial'] = dirname(__FILE__) . '/help/help.html';
-}
+declare(strict_types=1);
+
+namespace Dotclear\Theme\editorial;
+
+use Dotclear\App;
+
+App::backend()->resources()->set('help', 'editorial', __DIR__ . '/help/help.html');

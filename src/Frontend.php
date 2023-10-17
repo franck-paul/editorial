@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Dotclear\Theme\editorial;
 
 use ArrayObject;
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 
 class Frontend extends Process
@@ -33,20 +33,20 @@ class Frontend extends Process
         My::l10n('main');
 
         # Templates
-        dcCore::app()->tpl->addBlock('editorialDefaultIf', [self::class, 'editorialDefaultIf']);
-        dcCore::app()->tpl->addBlock('editorialFeaturedIf', [self::class, 'editorialFeaturedIf']);
+        App::frontend()->template()->addBlock('editorialDefaultIf', [self::class, 'editorialDefaultIf']);
+        App::frontend()->template()->addBlock('editorialFeaturedIf', [self::class, 'editorialFeaturedIf']);
 
-        dcCore::app()->tpl->addValue('editorialUserColors', [self::class, 'editorialUserColors']);
-        dcCore::app()->tpl->addValue('editorialSocialLinks', [self::class, 'editorialSocialLinks']);
+        App::frontend()->template()->addValue('editorialUserColors', [self::class, 'editorialUserColors']);
+        App::frontend()->template()->addValue('editorialSocialLinks', [self::class, 'editorialSocialLinks']);
 
-        dcCore::app()->addBehavior('templateBeforeBlockV2', [self::class, 'templateBeforeBlock']);
+        App::behavior()->addBehavior('templateBeforeBlockV2', [self::class, 'templateBeforeBlock']);
 
         return true;
     }
 
     public static function editorialDefaultIf(ArrayObject $attr, string $content)
     {
-        $s = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_featured');
+        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
@@ -65,7 +65,7 @@ class Frontend extends Process
 
     public static function editorialFeaturedIf(ArrayObject $attr, string $content)
     {
-        $s = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_featured');
+        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
@@ -89,7 +89,7 @@ class Frontend extends Process
 
     public static function editorialUserColorsHelper()
     {
-        $style = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_style');
+        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
         $style = $style ? (unserialize($style) ?: []) : [];
 
         if (!is_array($style)) {
@@ -118,7 +118,7 @@ class Frontend extends Process
         # Social media links
         $res = '';
 
-        $style = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_stickers');
+        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
 
         if ($style === null) {
             $default = true;
@@ -161,7 +161,7 @@ class Frontend extends Process
 
     public static function templateBeforeBlock(string $block, ArrayObject $attr): string
     {
-        $s = dcCore::app()->blog->settings->themes->get(dcCore::app()->blog->settings->system->theme . '_featured');
+        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
         if (!is_array($s)) {
