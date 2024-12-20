@@ -6,19 +6,19 @@
             <tpl:FeaturedMedia>
                 <tpl:FeaturedMediaIf is_image="1">
                     <div class="post-featured-media" id="featured-media-{{tpl:EntryID}}">
-                        <img src="{{tpl:FeaturedMediaImageURL size=" o"}}" alt="{{tpl:FeaturedMediaTitle}}" />
+                        <img src="{{tpl:FeaturedMediaImageURL size=" o"}}" alt="{{tpl:FeaturedMediaTitle}}">
                     </div>
                     {{tpl:else}}
                     <div class="post-featured-media">
                         <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-1920x1080.jpg"
-                            alt="Image placeholder" />
+                            alt="Image placeholder">
                     </div>
                 </tpl:FeaturedMediaIf>
             </tpl:FeaturedMedia>
         </tpl:EntryIf>
         <tpl:EntryIf has_featured_media="0">
             <div class="post-featured-media">
-                <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-1920x1080.jpg" alt="Image placeholder" />
+                <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-1920x1080.jpg" alt="Image placeholder">
             </div>
         </tpl:EntryIf>
     </header>

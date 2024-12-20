@@ -37,7 +37,7 @@ class Backend extends Process
             echo
             My::jsLoad('admin.js') . "\n" .
             My::jsLoad('popup_posts.js') . "\n" .
-            '<script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>' . "\n" .
+            My::jsLoad('fontawesome.js') . "\n" .
             My::cssLoad('admin.css') . "\n" ;
 
             App::auth()->user_prefs->addWorkspace('accessibility');

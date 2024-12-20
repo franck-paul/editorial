@@ -1,5 +1,5 @@
-$(function () {
-
+'use strict';
+dotclear.ready(() => {
     $('#link-insert-cancel').on('click', function () {
         window.close();
     });

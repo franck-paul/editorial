@@ -188,8 +188,8 @@ class Config extends Process
         echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
             form::color('main_color', 30, 255, App::backend()->style['main_color']) . '</p>' ;
         echo '</div>';
-        echo '<p><input type="hidden" name="conf_tab" value="presentation" /></p>';
-        echo '<p class="clear"><input type="submit" value="' . __('Save') . '" />' . App::nonce()->getFormNonce() . '</p>';
+        echo '<p><input type="hidden" name="conf_tab" value="presentation"></p>';
+        echo '<p class="clear"><input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
         echo form::hidden(['base_url'], App::blog()->url);
         echo '</form>';
 
@@ -236,8 +236,8 @@ class Config extends Process
             '</table></div>';
         echo '</div>';
 
-        echo '<p><input type="hidden" name="conf_tab" value="links" /></p>';
-        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '" />' . App::nonce()->getFormNonce() . '</p>';
+        echo '<p><input type="hidden" name="conf_tab" value="links"></p>';
+        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
         echo '</form>';
 
         echo '</div>'; // Close tab
