@@ -19,3 +19,17 @@ msgstr "Cacher le menu"
 msgid "Main menu"
 msgstr "Menu principal"
 
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Custom menu"
+msgstr "Menu personnel"
+
+msgid "Entries"
+msgstr "Entrées"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Welcome"
+msgstr "Bienvenue"
