@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief Editorial, a theme for Dotclear 2
  *
@@ -260,7 +261,7 @@ class Config extends Process
         '<img id="default_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_image_url'] . '" width="240" height="160">' .
         '</p>';
 
-        echo '<p class="editorial_buttons"><button type="button" id="default_image_selector">' . __('Change') . '</button>' .
+        echo '<p class="form-buttons"><button type="button" id="default_image_selector">' . __('Change') . '</button>' .
         '<button class="delete" type="button" id="default_image_selector_reset">' . __('Reset') . '</button>' .
         '</p>' ;
 
@@ -277,7 +278,7 @@ class Config extends Process
         '<img id="default_small_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_small_image_url'] . '" width="240" height="160">' .
         '</p>';
 
-        echo '<p class="editorial_buttons"><button type="button" id="default_small_image_selector">' . __('Change') . '</button>' .
+        echo '<p class="form-buttons"><button type="button" id="default_small_image_selector">' . __('Change') . '</button>' .
         '<button class="delete" type="button" id="default_small_image_selector_reset">' . __('Reset') . '</button>' .
         '</p>' ;
 
