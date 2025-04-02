@@ -1,14 +1,35 @@
+# Language: Français
+# Module: editorial - 4.5
+# Date: 2025-04-01 21:25:56
+# Translated with translater 2025.03.03
+
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: editorial 3.0\n"
+"Project-Id-Version: editorial 4.5\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-11T16:20:14+00:00\n"
-"Last-Translator: Philippe Henaff\n"
+"PO-Revision-Date: 2025-04-01T21:25:56+00:00\n"
+"Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/Config.php:246
+msgid "Links and buttons"
+msgstr "Liens et boutons"
+
+#: src/Config.php:252
+msgid "Placeholder images"
+msgstr "Images de substitution"
+
+#: src/Config.php:256
+msgid "Big image"
+msgstr "Grande image"
+
+#: src/Config.php:273
+msgid "Small image"
+msgstr "Petite image"
 
 msgid "Show menu"
 msgstr "Montrer le menu"
@@ -19,17 +40,6 @@ msgstr "Cacher le menu"
 msgid "Main menu"
 msgstr "Menu principal"
 
-msgid "Category"
-msgstr "Catégorie"
-
 msgid "Custom menu"
 msgstr "Menu personnel"
 
-msgid "Entries"
-msgstr "Entrées"
-
-msgid "Pages"
-msgstr "Pages"
-
-msgid "Welcome"
-msgstr "Bienvenue"

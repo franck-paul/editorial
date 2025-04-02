@@ -10,7 +10,7 @@
                     </div>
                     {{tpl:else}}
                     <div class="post-featured-media">
-                        <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-1920x1080.jpg"
+                        <img src="{{tpl:editorialBigImage}}"
                             alt="Image placeholder">
                     </div>
                 </tpl:FeaturedMediaIf>
@@ -18,7 +18,7 @@
         </tpl:EntryIf>
         <tpl:EntryIf has_featured_media="0">
             <div class="post-featured-media">
-                <img src="{{tpl:BlogThemeURL}}/images/image-placeholder-1920x1080.jpg" alt="Image placeholder">
+                <img src="{{tpl:editorialBigImage}}" alt="Image placeholder">
             </div>
         </tpl:EntryIf>
     </header>

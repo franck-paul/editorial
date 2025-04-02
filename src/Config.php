@@ -35,6 +35,40 @@ class Config extends Process
         // Load contextual help
         App::themes()->loadModuleL10Nresources(My::id(), App::lang()->getLang());
 
+        # default or user defined images settings
+        $images = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $images = $images ? (unserialize($images) ?: []) : [];
+
+        if (!is_array($images)) {
+            $images = [];
+        }
+        //Big image
+        if (!isset($images['default_image_url'])) {
+            $images['default_image_url'] = My::fileURL('/images/image-placeholder-1920x1080.jpg');
+        }
+        if (!isset($images['default_image_tb_url'])) {
+            $images['default_image_tb_url'] = My::fileURL('/images/.image-placeholder-1920x1080_s.jpg');
+        }
+
+        //Small image
+        if (!isset($images['default_small_image_url'])) {
+            $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
+        }
+        if (!isset($images['default_small_image_tb_url'])) {
+            $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg');
+        }
+
+        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
+        $style = $style ? (unserialize($style) ?: []) : [];
+
+        if (!is_array($style)) {
+            $style = [];
+        }
+
+        if (!isset($style['main_color'])) {
+            $style['main_color'] = '#f56a6a';
+        }
+
         $featured = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $featured = $featured ? (unserialize($featured) ?: []) : [];
 
@@ -43,12 +77,6 @@ class Config extends Process
         }
         if (!isset($featured['featured_post_url'])) {
             $featured['featured_post_url'] = '';
-        }
-
-        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
-        $style = $style ? (unserialize($style) ?: []) : [];
-        if (!isset($style['main_color'])) {
-            $style['main_color'] = '#f56a6a';
         }
 
         $stickers = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
@@ -78,6 +106,7 @@ class Config extends Process
 
         App::backend()->featured = $featured;
         App::backend()->style    = $style;
+        App::backend()->images   = $images;
         App::backend()->stickers = $stickers;
 
         App::backend()->conf_tab = $_POST['conf_tab'] ?? 'presentation';
@@ -103,8 +132,37 @@ class Config extends Process
                     $featured['featured_post_url'] = $_POST['featured_post_url'];
                     $style['main_color']           = $_POST['main_color'];
 
+                    //BIG IMAGE
+                    # default image setting
+                    if (!empty($_POST['default_image_url'])) {
+                        $images['default_image_url'] = $_POST['default_image_url'];
+                    } else {
+                        $images['default_image_url'] = My::fileURL('/images/image-placeholder-1920x1080.jpg');
+                    }
+                    # default image thumbnail settings
+                    if (!empty($_POST['default_image_tb_url'])) {
+                        $images['default_image_tb_url'] = $_POST['default_image_tb_url'];
+                    } else {
+                        $images['default_image_tb_url'] = My::fileURL('.image-placeholder-1920x1080_s.jpg') . '/';
+                    }
+
+                    //SMALL IMAGE
+                    # default small image setting
+                    if (!empty($_POST['default_small_image_url'])) {
+                        $images['default_small_image_url'] = $_POST['default_small_image_url'];
+                    } else {
+                        $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
+                    }
+                    # default small image settings
+                    if (!empty($_POST['default_small_image_tb_url'])) {
+                        $images['default_small_image_tb_url'] = $_POST['default_small_image_tb_url'];
+                    } else {
+                        $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg') . '/';
+                    }
+
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
+                    App::backend()->images   = $images;
                 }
 
                 if (App::backend()->conf_tab === 'links') {
@@ -138,6 +196,7 @@ class Config extends Process
                 }
                 App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                 App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
+                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
                 App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
 
                 // Blog refresh
@@ -188,9 +247,55 @@ class Config extends Process
         echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
             form::color('main_color', 30, 255, App::backend()->style['main_color']) . '</p>' ;
         echo '</div>';
+
+        echo '<div class="fieldset">';
+
+        echo '<h4 class="pretty-title">' . __('Placeholder images') . '</h4>';
+
+        echo '<div class="box theme">';
+
+        echo '<p>' . __('Big image') . '</p>';
+
+        echo '<p> ' .
+        '<img id="default_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_image_url'] . '" width="240" height="160">' .
+        '</p>';
+
+        echo '<p class="editorial_buttons"><button type="button" id="default_image_selector">' . __('Change') . '</button>' .
+        '<button class="delete" type="button" id="default_image_selector_reset">' . __('Reset') . '</button>' .
+        '</p>' ;
+
+        echo '<p class="sr-only">' . form::field('default_image_url', 30, 255, App::backend()->images['default_image_url']) . '</p>';
+        echo '<p class="sr-only">' . form::field('default_image_tb_url', 30, 255, App::backend()->images['default_image_tb_url']) . '</p>';
+
+        echo '</div>';
+
+        echo '<div class="box theme">';
+
+        echo '<p>' . __('Small image') . '</p>';
+
+        echo '<p> ' .
+        '<img id="default_small_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_small_image_url'] . '" width="240" height="160">' .
+        '</p>';
+
+        echo '<p class="editorial_buttons"><button type="button" id="default_small_image_selector">' . __('Change') . '</button>' .
+        '<button class="delete" type="button" id="default_small_image_selector_reset">' . __('Reset') . '</button>' .
+        '</p>' ;
+
+        echo '<p class="sr-only">' . form::field('default_small_image_url', 30, 255, App::backend()->images['default_small_image_url']) . '</p>';
+        echo '<p class="sr-only">' . form::field('default_small_image_tb_url', 30, 255, App::backend()->images['default_small_image_tb_url']) . '</p>';
+
+        echo '</div>';
+
+        echo '</div>'; // Close fieldset
+
         echo '<p><input type="hidden" name="conf_tab" value="presentation"></p>';
         echo '<p class="clear"><input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
         echo form::hidden(['base_url'], App::blog()->url);
+
+        echo form::hidden(['theme-url'], My::fileURL(''));
+
+        echo form::hidden(['change-button-id'], '');
+
         echo '</form>';
 
         echo '</div>'; // Close tab

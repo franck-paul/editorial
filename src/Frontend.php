@@ -33,8 +33,14 @@ class Frontend extends Process
         My::l10n('main');
 
         # Templates
+
+        App::behavior()->addBehavior('publicHeadContent', [self::class, 'publicHeadContent']);
+
         App::frontend()->template()->addBlock('editorialDefaultIf', [self::class, 'editorialDefaultIf']);
         App::frontend()->template()->addBlock('editorialFeaturedIf', [self::class, 'editorialFeaturedIf']);
+
+        App::frontend()->template()->addValue('editorialBigImage', [self::class, 'editorialBigImage']);
+        App::frontend()->template()->addValue('editorialSmallImage', [self::class, 'editorialSmallImage']);
 
         App::frontend()->template()->addValue('editorialUserColors', [self::class, 'editorialUserColors']);
         App::frontend()->template()->addValue('editorialSocialLinks', [self::class, 'editorialSocialLinks']);
@@ -80,6 +86,44 @@ class Frontend extends Process
         if (!empty($featuredPostURL)) {
             return $content;
         }
+    }
+
+    public static function editorialBigImage(ArrayObject $attr): string
+    {
+        return '<?php echo ' . self::class . '::bigImageHelper(); ?>';
+    }
+
+    public static function bigImageHelper()
+    {
+        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $si = $si ? (unserialize($si) ?: []) : [];
+
+        if (!is_array($si)) {
+            $si = [];
+        }
+
+        $imgSrc = $si['default_image_url'];
+        
+
+        return $imgSrc;
+    }
+
+    
+
+    public static function editorialSmallImage(ArrayObject $attr): string
+    {
+        return '<?php echo ' . self::class . '::smallImageHelper(); ?>';
+    }
+
+    public static function smallImageHelper()
+    {
+        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $si = $si ? (unserialize($si) ?: []) : [];
+        
+        $imgSrc = $si['default_small_image_url'];
+        
+
+        return $imgSrc;
     }
 
     public static function editorialUserColors(ArrayObject $attr): string
