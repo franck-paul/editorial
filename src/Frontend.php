@@ -103,12 +103,9 @@ class Frontend extends Process
         }
 
         $imgSrc = $si['default_image_url'];
-        
 
         return $imgSrc;
     }
-
-    
 
     public static function editorialSmallImage(ArrayObject $attr): string
     {
@@ -119,9 +116,8 @@ class Frontend extends Process
     {
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
-        
+
         $imgSrc = $si['default_small_image_url'];
-        
 
         return $imgSrc;
     }
