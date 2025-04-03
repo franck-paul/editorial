@@ -28,6 +28,7 @@ use Dotclear\Helper\Html\Form\Image;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Submit;
@@ -39,7 +40,6 @@ use Dotclear\Helper\Html\Form\Th;
 use Dotclear\Helper\Html\Form\Thead;
 use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
-use form; //will have to disable this in the future
 use Exception;
 
 class Config extends Process
@@ -363,7 +363,7 @@ class Config extends Process
         ->render();
         
         //Stickers tab
-        /*echo
+        echo
         (new Div('stickers'))
             ->class('multi-part')
             ->title(__('Stickers'))
@@ -373,52 +373,7 @@ class Config extends Process
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
-                        (new Table)
-                            ->class('dragable')
-                            ->caption(__('Social links (header)'))
-                            ->thead((new Thead())->items([
-                                (new Tr())->items([
-                                    (new Th())->scope('col')->text(''),
-                                    (new Th())->scope('col')->text(__('Image')),
-                                    (new Th())->scope('col')->text(__('Label')),
-                                    (new Th())->scope('col')->text(__('URL')),
-                                ]),
-                            ]))
-                            ->tbody((new Tbody())->id('stickerslist')->items([
-                                (new Tr())->items([
-                                    (new Td())->class('handle')->items([
-                                        (new Hidden('order[]'))
-                                            ->type('number')
-                                            ->min(0)
-                                            ->max(count(App::backend()->stickers))
-                                            ->default(0)
-                                            ->class('position'),
-                                        (new Hidden(['dynorder[]', 'dynorder-' . $i]))
-                                            ->value($i),
-                                    ]),
-                                    (new Td())->class('linkimg')->items([
-                                        (new Hidden(['sticker_image[]']))
-                                            ->value($v['image']),
-                                        (new Image($v['image'], 'sticker_image_src'))
-                                            ->alt($v['label'])
-                                            ->width(40)
-                                            ->height(40)
-                                            ->disabled(true),
-                                    ]),
-                                    (new Td())->scope('row')->items([
-                                        (new Hidden(['sticker_label[]', 'dsl-' . $i]))
-                                            ->size(20)
-                                            ->maxlength(255)
-                                            ->value($v['label']),
-                                    ]),
-                                    (new Td())->items([
-                                        (new Hidden(['sticker_url[]', 'dsu-' . $i]))
-                                            ->size(40)
-                                            ->maxlength(255)
-                                            ->value($v['url']),
-                                    ]),
-                                ]),
-                            ])),
+                        
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save')))
@@ -426,10 +381,10 @@ class Config extends Process
                     ]),
                 ]),
             ])
-        ->render();*/
+        ->render();
 
         
-
+        /*
         echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
         echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
             '" method="post" enctype="multipart/form-data">';
@@ -454,16 +409,16 @@ class Config extends Process
             $v['service'] = str_replace('-link.png', '', $v['image']);
             echo
             '<tr class="line" id="l_' . $i . '">' .
-            '<td class="handle">' . form::number(['order[' . $i . ']'], [
+            '<td class="handle">' . Form::hidden(['order[' . $i . ']'], [
                 'min'     => 0,
                 'max'     => count(App::backend()->stickers),
                 'default' => $count,
                 'class'   => 'position',
             ]) .
-            form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
-            '<td class="linkimg">' . form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .
-            '<td scope="row">' . form::field(['sticker_label[]', 'dsl-' . $i], 20, 255, $v['label']) . '</td>' .
-            '<td>' . form::field(['sticker_url[]', 'dsu-' . $i], 40, 255, $v['url']) . '</td>' .
+            Form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
+            '<td class="linkimg">' . Form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .
+            '<td scope="row">' . Form::field(['sticker_label[]', 'dsl-' . $i], 20, 255, $v['label']) . '</td>' .
+            '<td>' . Form::field(['sticker_url[]', 'dsu-' . $i], 40, 255, $v['url']) . '</td>' .
                 '</tr>';
         }
         echo
@@ -472,7 +427,7 @@ class Config extends Process
         echo '</div>';
 
         echo '<p><input type="hidden" name="conf_tab" value="links"></p>';
-        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
+        echo '<p class="clear">' . Form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
         echo '</form>';
 
         echo '</div>'; // Close tab*/
