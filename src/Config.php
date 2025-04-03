@@ -376,8 +376,8 @@ class Config extends Process
                         
                     ]),
                     (new Para())->items([
-                        (new Submit(['opts'], __('Save')))
-                            ->accesskey('s'),
+                        (new Submit(['opts'], __('Save'))),
+                            App::nonce()->formNonce(),
                     ]),
                 ]),
             ])
