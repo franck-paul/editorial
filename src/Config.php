@@ -14,11 +14,25 @@ declare(strict_types=1);
 namespace Dotclear\Theme\editorial;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Backend\ThemeConfig;
+use Dotclear\Core\Process;
+use Dotclear\Helper\File\Files;
+use Dotclear\Helper\File\Path;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Color;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Single;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Textarea;
+use Dotclear\Helper\Html\Html;
 use Exception;
-use form;
 
 class Config extends Process
 {
@@ -224,7 +238,43 @@ class Config extends Process
             return;
         }
 
-        if (!App::backend()->standalone_config) {
+        echo
+        (new Div('presentation'))
+            ->class('multi-part')
+            ->title(__('Presentation'))
+            ->items([
+                (new Form('presentation-form'))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1']))
+                ->method('post')
+                ->fields([
+                    
+                    (new Para())->items([
+                        (new Submit(['opts'], __('Save')))
+                            ->accesskey('s'),
+                    ]),
+                ]),
+            ])
+        ->render();
+
+        echo
+        (new Div('stickers'))
+            ->class('multi-part')
+            ->title(__('Stickers'))
+            ->items([
+                (new Form('stickers-form'))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1']))
+                ->method('post')
+                ->fields([
+                    
+                    (new Para())->items([
+                        (new Submit(['opts'], __('Save')))
+                            ->accesskey('s'),
+                    ]),
+                ]),
+            ])
+        ->render();
+
+        /*if (!App::backend()->standalone_config) {
             echo '</form>';
         }
         echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'presentation' ? '' : '-presentation') . '" title="' . __('Presentation') . '">';
@@ -353,6 +403,6 @@ class Config extends Process
         // Legacy mode
         if (!App::backend()->standalone_config) {
             echo '<form style="display:none">';
-        }
+        }*/
     }
 }
