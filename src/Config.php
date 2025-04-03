@@ -130,8 +130,9 @@ class Config extends Process
         App::backend()->images   = $images;
         App::backend()->stickers = $stickers;
 
-        App::backend()->conf_tab = $_POST['conf_tab'] ?? 'presentation';
+        App::backend()->conf_tab = $_POST['conf_tab'] ?? ($_GET['conf_tab'] ?? 'presentation');
 
+        
         return self::status();
     }
 
@@ -189,7 +190,7 @@ class Config extends Process
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
                 
-                } elseif (App::backend()->conf_tab === 'links') {
+                } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
                         $stickers[] = [
@@ -364,12 +365,12 @@ class Config extends Process
 
         //Stickers tab
         echo
-        (new Div('links'))
+        (new Div('stickers'))
             ->class('multi-part')
             ->title(__('Stickers'))
             ->items([
                 (new Form('theme_links'))
-                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', '&', 'conf_tab' => 'links', ]))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers' ]))
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
@@ -379,11 +380,11 @@ class Config extends Process
                     (new Para())->items([
                         (new Input('conf_tab'))
                             ->type('hidden')
-                            ->value('links'),
+                            ->value('stickers'),
                     ]),
 
                     (new Para())->items([
-                        (new Submit(['links'], __('Save'))),
+                        (new Submit(['stickers'], __('Save'))),
                         App::nonce()->formNonce(),
                     ]),
                 ]),
