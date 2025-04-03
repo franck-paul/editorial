@@ -188,9 +188,8 @@ class Config extends Process
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
-                }
-
-                if (App::backend()->conf_tab === 'links') {
+                
+                } elseif (App::backend()->conf_tab === 'links') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
                         $stickers[] = [
@@ -218,7 +217,6 @@ class Config extends Process
                         $stickers = $new_stickers;
                     }
                     App::backend()->stickers = $stickers;
-
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
                 }
 
@@ -252,7 +250,7 @@ class Config extends Process
             ->class('multi-part')
             ->title(__('Presentation'))
             ->items([
-                (new Form('theme_config'))
+                (new Form('theme_presentation'))
                 ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'presentation']))
                 ->method('post')
                 ->fields([
@@ -351,7 +349,9 @@ class Config extends Process
                         (new Input('change-button-id'))
                             ->type('hidden')
                             ->value(''),
-
+                        (new Input('conf_tab'))
+                            ->type('hidden')
+                            ->value('presentation'),
                     ]),
                     (new Para())->items([
                         (new Submit(['presentation'], __('Save'))),
@@ -368,17 +368,22 @@ class Config extends Process
             ->class('multi-part')
             ->title(__('Stickers'))
             ->items([
-                (new Form('theme_config'))
-                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'links']))
+                (new Form('theme_links'))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', '&', 'conf_tab' => 'links', ]))
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
 
                         ... self::myTable(),
                     ]),
+                    (new Para())->items([
+                        (new Input('conf_tab'))
+                            ->type('hidden')
+                            ->value('links'),
+                    ]),
 
                     (new Para())->items([
-                        (new Submit(['stickers'], __('Save'))),
+                        (new Submit(['links'], __('Save'))),
                         App::nonce()->formNonce(),
                     ]),
                 ]),
