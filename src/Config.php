@@ -409,16 +409,16 @@ class Config extends Process
             $v['service'] = str_replace('-link.png', '', $v['image']);
             echo
             '<tr class="line" id="l_' . $i . '">' .
-            '<td class="handle">' . Form::hidden(['order[' . $i . ']'], [
+            '<td class="handle">' . form::hidden(['order[' . $i . ']'], [
                 'min'     => 0,
                 'max'     => count(App::backend()->stickers),
                 'default' => $count,
                 'class'   => 'position',
             ]) .
-            Form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
-            '<td class="linkimg">' . Form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .
-            '<td scope="row">' . Form::field(['sticker_label[]', 'dsl-' . $i], 20, 255, $v['label']) . '</td>' .
-            '<td>' . Form::field(['sticker_url[]', 'dsu-' . $i], 40, 255, $v['url']) . '</td>' .
+            form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
+            '<td class="linkimg">' . form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .
+            '<td scope="row">' . form::field(['sticker_label[]', 'dsl-' . $i], 20, 255, $v['label']) . '</td>' .
+            '<td>' . form::field(['sticker_url[]', 'dsu-' . $i], 40, 255, $v['url']) . '</td>' .
                 '</tr>';
         }
         echo
@@ -427,7 +427,7 @@ class Config extends Process
         echo '</div>';
 
         echo '<p><input type="hidden" name="conf_tab" value="links"></p>';
-        echo '<p class="clear">' . Form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
+        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
         echo '</form>';
 
         echo '</div>'; // Close tab*/
