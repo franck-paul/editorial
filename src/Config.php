@@ -252,10 +252,10 @@ class Config extends Process
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Blog\'s featured publication'))))->fields([
                         (new Para())->items([
-                            (new Label(__('Entry URL:'), Label::OUTSIDE_LABEL_BEFORE))->for('featured_post_url')->class('classic')
+                            (new Label(__('Entry URL:'), Label::INSIDE_LABEL_BEFORE))->for('featured_post_url')->class('classic')
                                 ->class('classic'),
                             (new Input('featured_post_url'))
-                                ->size(30)
+                                ->size(50)
                                 ->maxlength(255)
                                 ->value(App::backend()->featured['featured_post_url']),
                             (new Button('featured_post_url_selector', __('Choose an entry')))
@@ -263,8 +263,9 @@ class Config extends Process
                                 ->type('button')
                                 ->id('featured_post_url_selector'),
                         ]),
-                        (new Para(__('Leave this field empty to use the default presentation (latest post)')))
-                            ->class('form-note info maximal'),
+                        (new Note())
+                            ->class(['form-note', 'info'])
+                            ->text(__('Leave this field empty to use the default presentation (latest post)')),
 
                     ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
@@ -277,17 +278,23 @@ class Config extends Process
                         ]),
                     ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Placeholder images'))))->fields([
-                        (new Div())->class('box theme')->items([
-                            (new Para(__('Big image'))),
-                            (new Image('default_image_tb_src'))
-                                ->alt(__('Thumbnail'))
-                                ->src(App::backend()->images['default_image_tb_url'])
-                                ->width(240)
-                                ->height(160),
+                        (new Div())
+                            ->class(['box', 'theme'])->items([
+                                (new Para())->items([
+                                    (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
+                                    ->class('classic')
+                                ]),
+                                (new Para())->items([
+                                    (new Image(App::backend()->images['default_image_tb_url'], 'default_image_tb_src'))
+                                    ->alt(__('Thumbnail'))
+                                    ->width(240)
+                                    ->height(160),
+                                ]),
                             (new Para())->items([
                                 (new Button('default_image_selector', __('Change')))
                                     ->type('button')
                                     ->id('default_image_selector'),
+                                (new Text('span', ' ')),
                                 (new Button('default_image_selector_reset', __('Reset')))
                                     ->class('delete')
                                     ->type('button')
@@ -298,17 +305,23 @@ class Config extends Process
                             (new Hidden('default_image_tb_url'))
                                 ->value(App::backend()->images['default_image_tb_url']),
                         ]),
-                        (new Div())->class('box theme')->items([
-                            (new Para(__('Small image'))),
-                            (new Image('default_small_image_tb_src'))
-                                ->alt(__('Thumbnail'))
-                                ->src(App::backend()->images['default_small_image_tb_url'])
-                                ->width(240)
-                                ->height(160),
+                        (new Div())
+                            ->class(['box', 'theme'])->items([
+                                (new Para())->items([
+                                    (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
+                                    ->class('classic')
+                                ]),
+                                (new Para())->items([
+                                    (new Image(App::backend()->images['default_small_image_tb_url'], 'default_small_image_tb_src'))
+                                    ->alt(__('Thumbnail'))
+                                    ->width(240)
+                                    ->height(160),
+                                ]),
                             (new Para())->items([
                                 (new Button('default_small_image_selector', __('Change')))
                                     ->type('button')
                                     ->id('default_small_image_selector'),
+                                (new Text('span', ' ')),
                                 (new Button('default_small_image_selector_reset', __('Reset')))
                                     ->class('delete')
                                     ->type('button')
@@ -320,7 +333,6 @@ class Config extends Process
                                 ->value(App::backend()->images['default_small_image_tb_url']),
                         ]),
                     ]),
-
                     (new Para())->items([
                         (new Input('base_url'))
                             ->type('hidden')
@@ -331,11 +343,12 @@ class Config extends Process
                         (new Input('change-button-id'))
                             ->type('hidden')
                             ->value(''),
-                        
+                                       
                 ]),
                     (new Para())->items([
-                        (new Submit(['opts'], __('Save')))
-                            ->accesskey('s'),
+                        (new Submit(['opts'], __('Save'))),
+                            App::nonce()->formNonce(),
+                            
                     ]),
                 ]),
             ])
