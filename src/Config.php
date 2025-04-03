@@ -376,6 +376,13 @@ class Config extends Process
                         ... self::myTable(),
                     ]),
                     (new Para())->items([
+                        (new Input('ds_order'))
+                            ->type('hidden')
+                            ->value(''),
+                        
+
+                    ]),
+                    (new Para())->items([
                         (new Submit(['stickers'], __('Save'))),
                         App::nonce()->formNonce(),
                     ]),
