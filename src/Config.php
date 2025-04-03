@@ -361,6 +361,8 @@ class Config extends Process
                 ]),
             ])
         ->render();
+
+
         
         //Stickers tab
         echo
@@ -373,7 +375,7 @@ class Config extends Process
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
-                        
+                        ... self::myYieldFunction(),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save'))),
@@ -433,5 +435,16 @@ class Config extends Process
         echo '</div>'; // Close tab*/
 
         Page::helpBlock('editorial');
+    }
+
+    public static function myYieldFunction(): array
+    {
+        // Example implementation returning an array of fields
+        return [
+            (new Para())->items([
+                (new Label(__('Example Label'), Label::INSIDE_LABEL_BEFORE))->for('example_field'),
+                (new Input('example_field'))->size(50)->maxlength(255)->value('Example Value'),
+            ]),
+        ];
     }
 }
