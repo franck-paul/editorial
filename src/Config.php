@@ -151,8 +151,8 @@ class Config extends Process
                 if (App::backend()->conf_tab === 'presentation') {
                     $featured                      = [];
                     $style                         = [];
-                    $featured['featured_post_url'] = $_POST['featured_post_url'];
-                    $style['main_color']           = $_POST['main_color'];
+                    $featured['featured_post_url'] = $_POST['featured_post_url'] ?? '';
+                    $style['main_color']           = $_POST['main_color'] ?? ($style['main_color'] ?? '#f56a6a');
 
                     //BIG IMAGE
                     # default image setting
@@ -353,7 +353,7 @@ class Config extends Process
 
                     ]),
                     (new Para())->items([
-                        (new Submit(['opts'], __('Save'))),
+                        (new Submit(['presentation'], __('Save'))),
                         App::nonce()->formNonce(),
 
                     ]),
@@ -367,74 +367,26 @@ class Config extends Process
             ->class('multi-part')
             ->title(__('Stickers'))
             ->items([
-                (new Form('stickers-form'))
+                (new Form('theme_config'))
                 ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'links']))
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
 
-                        ... self::myYieldFunction(),
+                        ... self::myTable(),
                     ]),
                     (new Para())->items([
-                        (new Submit(['opts'], __('Save'))),
+                        (new Submit(['stickers'], __('Save'))),
                         App::nonce()->formNonce(),
                     ]),
                 ]),
             ])
         ->render();
 
-        /*
-        echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
-        echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
-            '" method="post" enctype="multipart/form-data">';
-        echo '<div class="fieldset">';
-        echo '<h3>' . __('Social links') . '</h3>';
-
-        echo
-        '<div class="table-outer">' .
-        '<table class="dragable">' . '<caption class="sr-only">' . __('Social links (header)') . '</caption>' .
-        '<thead>' .
-        '<tr>' .
-        '<th scope="col">' . '</th>' .
-        '<th scope="col">' . __('Image') . '</th>' .
-        '<th scope="col">' . __('Label') . '</th>' .
-        '<th scope="col">' . __('URL') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody id="stickerslist">';
-        $count = 0;
-        foreach (App::backend()->stickers as $i => $v) {
-            $count++;
-            $v['service'] = str_replace('-link.png', '', $v['image']);
-            echo
-            '<tr class="line" id="l_' . $i . '">' .
-            '<td class="handle">' . form::hidden(['order[' . $i . ']'], [
-                'min'     => 0,
-                'max'     => count(App::backend()->stickers),
-                'default' => $count,
-                'class'   => 'position',
-            ]) .
-            form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
-            '<td class="linkimg">' . form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .
-            '<td scope="row">' . form::field(['sticker_label[]', 'dsl-' . $i], 20, 255, $v['label']) . '</td>' .
-            '<td>' . form::field(['sticker_url[]', 'dsu-' . $i], 40, 255, $v['url']) . '</td>' .
-                '</tr>';
-        }
-        echo
-            '</tbody>' .
-            '</table></div>';
-        echo '</div>';
-
-        echo '<p><input type="hidden" name="conf_tab" value="links"></p>';
-        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
-        echo '</form>';
-
-        echo '</div>'; // Close tab*/
-
         Page::helpBlock('editorial');
     }
 
-    public static function myYieldFunction(): array
+    public static function myTable(): array
     {
         $fields = [
             (new Table())->class('dragable')->items([
