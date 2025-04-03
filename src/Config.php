@@ -14,11 +14,31 @@ declare(strict_types=1);
 namespace Dotclear\Theme\editorial;
 
 use Dotclear\App;
-use Dotclear\Core\Process;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Backend\Notices;
+use Dotclear\Core\Backend\Page;
+use Dotclear\Core\Process;
+use Dotclear\Helper\Html\Form\Button;
+use Dotclear\Helper\Html\Form\Color;
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Fieldset;
+use Dotclear\Helper\Html\Form\Form;
+use Dotclear\Helper\Html\Form\Hidden;
+use Dotclear\Helper\Html\Form\Image;
+use Dotclear\Helper\Html\Form\Input;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Submit;
+use Dotclear\Helper\Html\Form\Table;
+use Dotclear\Helper\Html\Form\Tbody;
+use Dotclear\Helper\Html\Form\Td;
+use Dotclear\Helper\Html\Form\Text;
+use Dotclear\Helper\Html\Form\Th;
+use Dotclear\Helper\Html\Form\Thead;
+use Dotclear\Helper\Html\Form\Tr;
+use Dotclear\Helper\Html\Html;
 use Exception;
-use form;
 
 class Config extends Process
 {
@@ -110,8 +130,9 @@ class Config extends Process
         App::backend()->images   = $images;
         App::backend()->stickers = $stickers;
 
-        App::backend()->conf_tab = $_POST['conf_tab'] ?? 'presentation';
+        App::backend()->conf_tab = $_POST['conf_tab'] ?? ($_GET['conf_tab'] ?? 'presentation');
 
+        
         return self::status();
     }
 
@@ -130,8 +151,8 @@ class Config extends Process
                 if (App::backend()->conf_tab === 'presentation') {
                     $featured                      = [];
                     $style                         = [];
-                    $featured['featured_post_url'] = $_POST['featured_post_url'];
-                    $style['main_color']           = $_POST['main_color'];
+                    $featured['featured_post_url'] = $_POST['featured_post_url'] ?? '';
+                    $style['main_color']           = $_POST['main_color']        ?? ($style['main_color'] ?? '#f56a6a');
 
                     //BIG IMAGE
                     # default image setting
@@ -164,9 +185,12 @@ class Config extends Process
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
                     App::backend()->images   = $images;
-                }
 
-                if (App::backend()->conf_tab === 'links') {
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
+                
+                } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
                         $stickers[] = [
@@ -194,11 +218,8 @@ class Config extends Process
                         $stickers = $new_stickers;
                     }
                     App::backend()->stickers = $stickers;
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
                 }
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
 
                 // Blog refresh
                 App::blog()->triggerBlog();
@@ -224,135 +245,208 @@ class Config extends Process
             return;
         }
 
-        if (!App::backend()->standalone_config) {
-            echo '</form>';
-        }
-        echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'presentation' ? '' : '-presentation') . '" title="' . __('Presentation') . '">';
-
-        echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
-            '" method="post" enctype="multipart/form-data">';
-
-        echo '<div class="fieldset">';
-
-        echo '<h3>' . __('Blog\'s featured publication') . '</h3>';
-
-        echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
-            form::field('featured_post_url', 30, 255, App::backend()->featured['featured_post_url']) .
-            ' <button type="button" id="featured_post_url_selector">' . __('Choose an entry') . '</button>' .
-            '</p>' .
-            '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';
-        echo '</div>';
-        echo '<div class="fieldset">';
-        echo '<h3>' . __('Colors') . '</h3>';
-
-        echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
-            form::color('main_color', 30, 255, App::backend()->style['main_color']) . '</p>' ;
-        echo '</div>';
-
-        echo '<div class="fieldset">';
-
-        echo '<h4 class="pretty-title">' . __('Placeholder images') . '</h4>';
-
-        echo '<div class="box theme">';
-
-        echo '<p>' . __('Big image') . '</p>';
-
-        echo '<p> ' .
-        '<img id="default_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_image_url'] . '" width="240" height="160">' .
-        '</p>';
-
-        echo '<p class="form-buttons"><button type="button" id="default_image_selector">' . __('Change') . '</button>' .
-        '<button class="delete" type="button" id="default_image_selector_reset">' . __('Reset') . '</button>' .
-        '</p>' ;
-
-        echo '<p class="sr-only">' . form::field('default_image_url', 30, 255, App::backend()->images['default_image_url']) . '</p>';
-        echo '<p class="sr-only">' . form::field('default_image_tb_url', 30, 255, App::backend()->images['default_image_tb_url']) . '</p>';
-
-        echo '</div>';
-
-        echo '<div class="box theme">';
-
-        echo '<p>' . __('Small image') . '</p>';
-
-        echo '<p> ' .
-        '<img id="default_small_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_small_image_url'] . '" width="240" height="160">' .
-        '</p>';
-
-        echo '<p class="form-buttons"><button type="button" id="default_small_image_selector">' . __('Change') . '</button>' .
-        '<button class="delete" type="button" id="default_small_image_selector_reset">' . __('Reset') . '</button>' .
-        '</p>' ;
-
-        echo '<p class="sr-only">' . form::field('default_small_image_url', 30, 255, App::backend()->images['default_small_image_url']) . '</p>';
-        echo '<p class="sr-only">' . form::field('default_small_image_tb_url', 30, 255, App::backend()->images['default_small_image_tb_url']) . '</p>';
-
-        echo '</div>';
-
-        echo '</div>'; // Close fieldset
-
-        echo '<p><input type="hidden" name="conf_tab" value="presentation"></p>';
-        echo '<p class="clear"><input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
-        echo form::hidden(['base_url'], App::blog()->url);
-
-        echo form::hidden(['theme-url'], My::fileURL(''));
-
-        echo form::hidden(['change-button-id'], '');
-
-        echo '</form>';
-
-        echo '</div>'; // Close tab
-
-        echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
-        echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
-            '" method="post" enctype="multipart/form-data">';
-        echo '<div class="fieldset">';
-        echo '<h3>' . __('Social links') . '</h3>';
-
+        //Presentation tab
         echo
-        '<div class="table-outer">' .
-        '<table class="dragable">' . '<caption class="sr-only">' . __('Social links (header)') . '</caption>' .
-        '<thead>' .
-        '<tr>' .
-        '<th scope="col">' . '</th>' .
-        '<th scope="col">' . __('Image') . '</th>' .
-        '<th scope="col">' . __('Label') . '</th>' .
-        '<th scope="col">' . __('URL') . '</th>' .
-            '</tr>' .
-            '</thead>' .
-            '<tbody id="stickerslist">';
-        $count = 0;
-        foreach (App::backend()->stickers as $i => $v) {
-            $count++;
-            $v['service'] = str_replace('-link.png', '', $v['image']);
-            echo
-            '<tr class="line" id="l_' . $i . '">' .
-            '<td class="handle">' . form::number(['order[' . $i . ']'], [
-                'min'     => 0,
-                'max'     => count(App::backend()->stickers),
-                'default' => $count,
-                'class'   => 'position',
-            ]) .
-            form::hidden(['dynorder[]', 'dynorder-' . $i], $i) . '</td>' .
-            '<td class="linkimg">' . form::hidden(['sticker_image[]'], $v['image']) . '<i class="' . $v['image'] . '" title="' . $v['label'] . '"></i> ' . '</td>' .
-            '<td scope="row">' . form::field(['sticker_label[]', 'dsl-' . $i], 20, 255, $v['label']) . '</td>' .
-            '<td>' . form::field(['sticker_url[]', 'dsu-' . $i], 40, 255, $v['url']) . '</td>' .
-                '</tr>';
-        }
+        (new Div('presentation'))
+            ->class('multi-part')
+            ->title(__('Presentation'))
+            ->items([
+                (new Form('theme_presentation'))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'presentation']))
+                ->method('post')
+                ->fields([
+                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Blog\'s featured publication'))))->fields([
+                        (new Para())->items([
+                            (new Label(__('Entry URL:'), Label::INSIDE_LABEL_BEFORE))->for('featured_post_url')->class('classic')
+                                ->class('classic'),
+                            (new Input('featured_post_url'))
+                                ->size(50)
+                                ->maxlength(255)
+                                ->value(App::backend()->featured['featured_post_url']),
+                            (new Button('featured_post_url_selector', __('Choose an entry')))
+                                ->class('button')
+                                ->type('button')
+                                ->id('featured_post_url_selector'),
+                        ]),
+                        (new Note())
+                            ->class(['form-note', 'info'])
+                            ->text(__('Leave this field empty to use the default presentation (latest post)')),
+
+                    ]),
+                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
+                        (new Para())->items([
+                            (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
+                            (new Color('main_color'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value(App::backend()->style['main_color']),
+                        ]),
+                    ]),
+                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Placeholder images'))))->fields([
+                        (new Div())
+                            ->class(['box', 'theme'])->items([
+                                (new Para())->items([
+                                    (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
+                                    ->class('classic'),
+                                ]),
+                                (new Para())->items([
+                                    (new Image(App::backend()->images['default_image_tb_url'], 'default_image_tb_src'))
+                                    ->alt(__('Thumbnail'))
+                                    ->width(240)
+                                    ->height(160)
+                                    ->disabled(true),
+                                ]),
+                                (new Para())->items([
+                                    (new Button('default_image_selector', __('Change')))
+                                        ->type('button')
+                                        ->id('default_image_selector'),
+                                    (new Text('span', ' ')),
+                                    (new Button('default_image_selector_reset', __('Reset')))
+                                        ->class('delete')
+                                        ->type('button')
+                                        ->id('default_image_selector_reset'),
+                                ]),
+                                (new Hidden('default_image_url'))
+                                    ->value(App::backend()->images['default_image_url']),
+                                (new Hidden('default_image_tb_url'))
+                                    ->value(App::backend()->images['default_image_tb_url']),
+                            ]),
+                        (new Div())
+                            ->class(['box', 'theme'])->items([
+                                (new Para())->items([
+                                    (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
+                                    ->class('classic'),
+                                ]),
+                                (new Para())->items([
+                                    (new Image(App::backend()->images['default_small_image_tb_url'], 'default_small_image_tb_src'))
+                                    ->alt(__('Thumbnail'))
+                                    ->width(240)
+                                    ->height(160)
+                                    ->disabled(true),
+                                ]),
+                                (new Para())->items([
+                                    (new Button('default_small_image_selector', __('Change')))
+                                        ->type('button')
+                                        ->id('default_small_image_selector'),
+                                    (new Text('span', ' ')),
+                                    (new Button('default_small_image_selector_reset', __('Reset')))
+                                        ->class('delete')
+                                        ->type('button')
+                                        ->id('default_small_image_selector_reset'),
+                                ]),
+                                (new Hidden('default_small_image_url'))
+                                    ->value(App::backend()->images['default_small_image_url']),
+                                (new Hidden('default_small_image_tb_url'))
+                                    ->value(App::backend()->images['default_small_image_tb_url']),
+                            ]),
+                    ]),
+                    (new Para())->items([
+                        (new Input('base_url'))
+                            ->type('hidden')
+                            ->value(App::blog()->url),
+                        (new Input('theme-url'))
+                            ->type('hidden')
+                            ->value(My::fileURL('')),
+                        (new Input('change-button-id'))
+                            ->type('hidden')
+                            ->value(''),
+                        (new Input('conf_tab'))
+                            ->type('hidden')
+                            ->value('presentation'),
+                    ]),
+                    (new Para())->items([
+                        (new Submit(['presentation'], __('Save'))),
+                        App::nonce()->formNonce(),
+
+                    ]),
+                ]),
+            ])
+        ->render();
+
+        //Stickers tab
         echo
-            '</tbody>' .
-            '</table></div>';
-        echo '</div>';
+        (new Div('stickers'))
+            ->class('multi-part')
+            ->title(__('Stickers'))
+            ->items([
+                (new Form('theme_links'))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers' ]))
+                ->method('post')
+                ->fields([
+                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
 
-        echo '<p><input type="hidden" name="conf_tab" value="links"></p>';
-        echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
-        echo '</form>';
+                        ... self::myTable(),
+                    ]),
+                    (new Para())->items([
+                        (new Input('conf_tab'))
+                            ->type('hidden')
+                            ->value('stickers'),
+                    ]),
 
-        echo '</div>'; // Close tab
+                    (new Para())->items([
+                        (new Submit(['stickers'], __('Save'))),
+                        App::nonce()->formNonce(),
+                    ]),
+                ]),
+            ])
+        ->render();
 
         Page::helpBlock('editorial');
+    }
 
-        // Legacy mode
-        if (!App::backend()->standalone_config) {
-            echo '<form style="display:none">';
-        }
+    public static function myTable(): array
+    {
+        $fields = [
+            (new Table())->class('dragable')->items([
+                (new Thead())->items([
+                    (new Tr())->items([
+                        (new Th())->text(''),
+                        (new Th())->text(__('Image')),
+                        (new Th())->text(__('Label')),
+                        (new Th())->text(__('URL')),
+                    ]),
+                ]),
+                (new Tbody())->id('stickerslist')->items(
+                    array_map(function ($i, $v) use (&$count) {
+                        $count++;
+                        $v['service'] = str_replace('-link.png', '', $v['image']);
+
+                        return (new Tr())
+                            ->class('line')
+                            ->id('l_' . $i)
+                            ->items([
+                                (new Td())->class('handle')->items([
+                                    (new Hidden('order[' . $i . ']'))
+                                        ->min(0)
+                                        ->max(count(App::backend()->stickers))
+                                        ->value($count)
+                                        ->class('position'),
+                                    (new Hidden('dynorder[]'))->value($i),
+                                    (new Hidden('dynorder-' . $i))->value($i),
+                                    (new Hidden('ds_order'))->value(''),
+                                ]),
+                                (new Td())->class('linkimg')->items([
+                                    (new Hidden('sticker_image[]'))->value($v['image']),
+                                    (new Text('i', ''))->class($v['image'])->title($v['label']),
+                                ]),
+                                (new Td())->scope('row')->items([
+                                    (new Input('sticker_label[]'))
+                                        ->size(20)
+                                        ->maxlength(255)
+                                        ->value($v['label']),
+                                ]),
+                                (new Td())->items([
+                                    (new Input('sticker_url[]'))
+                                        ->size(40)
+                                        ->maxlength(255)
+                                        ->value($v['url']),
+                                ]),
+                            ]);
+                    }, array_keys(App::backend()->stickers), App::backend()->stickers)
+                ),
+            ]),
+        ];
+
+        return $fields;
     }
 }

@@ -2,7 +2,7 @@
     font-size: 2em;
 }
 
-#theme_config .box img {
+#default_image_tb_src, #default_small_image_tb_src {
     object-fit: cover;
     background: var(--theme-img-background);
     box-shadow:
