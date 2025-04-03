@@ -28,7 +28,6 @@ use Dotclear\Helper\Html\Form\Image;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
-use Dotclear\Helper\Html\Form\Number;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Submit;
@@ -362,8 +361,6 @@ class Config extends Process
             ])
         ->render();
 
-
-        
         //Stickers tab
         echo
         (new Div('stickers'))
@@ -375,17 +372,17 @@ class Config extends Process
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
+
                         ... self::myYieldFunction(),
                     ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save'))),
-                            App::nonce()->formNonce(),
+                        App::nonce()->formNonce(),
                     ]),
                 ]),
             ])
         ->render();
 
-        
         /*
         echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
         echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
@@ -439,12 +436,54 @@ class Config extends Process
 
     public static function myYieldFunction(): array
     {
-        // Example implementation returning an array of fields
-        return [
-            (new Para())->items([
-                (new Label(__('Example Label'), Label::INSIDE_LABEL_BEFORE))->for('example_field'),
-                (new Input('example_field'))->size(50)->maxlength(255)->value('Example Value'),
+        $fields = [
+            (new Table())->class('dragable')->items([
+                (new Thead())->items([
+                    (new Tr())->items([
+                        (new Th())->text(''),
+                        (new Th())->text(__('Image')),
+                        (new Th())->text(__('Label')),
+                        (new Th())->text(__('URL')),
+                    ]),
+                ]),
+                (new Tbody())->id('stickerslist')->items(
+                    array_map(function ($i, $v) use (&$count) {
+                        $count++;
+                        $v['service'] = str_replace('-link.png', '', $v['image']);
+                        return (new Tr())
+                            ->class('line')
+                            ->id('l_' . $i)
+                            ->items([
+                                (new Td())->class('handle')->items([
+                                    (new Hidden('order[' . $i . ']'))
+                                        ->min(0)
+                                        ->max(count(App::backend()->stickers))
+                                        ->value($count)
+                                        ->class('position'),
+                                    (new Hidden('dynorder[]'))->value($i),
+                                    (new Hidden('dynorder-' . $i))->value($i),
+                                ]),
+                                (new Td())->class('linkimg')->items([
+                                    (new Hidden('sticker_image[]'))->value($v['image']),
+                                    (new Text('i', ''))->class($v['image'])->title($v['label']),
+                                ]),
+                                (new Td())->scope('row')->items([
+                                    (new Input('sticker_label[]'))
+                                        ->size(20)
+                                        ->maxlength(255)
+                                        ->value($v['label']),
+                                ]),
+                                (new Td())->items([
+                                    (new Input('sticker_url[]'))
+                                        ->size(40)
+                                        ->maxlength(255)
+                                        ->value($v['url']),
+                                ]),
+                            ]);
+                    }, array_keys(App::backend()->stickers), App::backend()->stickers)
+                ),
             ]),
         ];
+        return $fields;
     }
 }
