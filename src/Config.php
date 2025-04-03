@@ -29,7 +29,6 @@ use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Input;
-use Dotclear\Helper\Html\Form\None;
 use Dotclear\Helper\Html\Form\Field;
 use Dotclear\Helper\Html\Form\Button;
 use Dotclear\Helper\Html\Form\Text;
@@ -270,7 +269,7 @@ class Config extends Process
                     ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
                         (new Para())->items([
-                            (new Label(__('Links and buttons\' color:'), Label::OUTSIDE_LABEL_BEFORE))->for('main_color'),
+                            (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
                             (new Color('main_color'))
                                 ->size(30)
                                 ->maxlength(255)
@@ -282,56 +281,58 @@ class Config extends Process
                             ->class(['box', 'theme'])->items([
                                 (new Para())->items([
                                     (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
-                                    ->class('classic')
+                                    ->class('classic'),
                                 ]),
                                 (new Para())->items([
                                     (new Image(App::backend()->images['default_image_tb_url'], 'default_image_tb_src'))
                                     ->alt(__('Thumbnail'))
                                     ->width(240)
-                                    ->height(160),
+                                    ->height(160)
+                                    ->disabled(true),
                                 ]),
-                            (new Para())->items([
-                                (new Button('default_image_selector', __('Change')))
-                                    ->type('button')
-                                    ->id('default_image_selector'),
-                                (new Text('span', ' ')),
-                                (new Button('default_image_selector_reset', __('Reset')))
-                                    ->class('delete')
-                                    ->type('button')
-                                    ->id('default_image_selector_reset'),
+                                (new Para())->items([
+                                    (new Button('default_image_selector', __('Change')))
+                                        ->type('button')
+                                        ->id('default_image_selector'),
+                                    (new Text('span', ' ')),
+                                    (new Button('default_image_selector_reset', __('Reset')))
+                                        ->class('delete')
+                                        ->type('button')
+                                        ->id('default_image_selector_reset'),
+                                ]),
+                                (new Hidden('default_image_url'))
+                                    ->value(App::backend()->images['default_image_url']),
+                                (new Hidden('default_image_tb_url'))
+                                    ->value(App::backend()->images['default_image_tb_url']),
                             ]),
-                            (new Hidden('default_image_url'))
-                                ->value(App::backend()->images['default_image_url']),
-                            (new Hidden('default_image_tb_url'))
-                                ->value(App::backend()->images['default_image_tb_url']),
-                        ]),
                         (new Div())
                             ->class(['box', 'theme'])->items([
                                 (new Para())->items([
                                     (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
-                                    ->class('classic')
+                                    ->class('classic'),
                                 ]),
                                 (new Para())->items([
                                     (new Image(App::backend()->images['default_small_image_tb_url'], 'default_small_image_tb_src'))
                                     ->alt(__('Thumbnail'))
                                     ->width(240)
-                                    ->height(160),
+                                    ->height(160)
+                                    ->disabled(true),
                                 ]),
-                            (new Para())->items([
-                                (new Button('default_small_image_selector', __('Change')))
-                                    ->type('button')
-                                    ->id('default_small_image_selector'),
-                                (new Text('span', ' ')),
-                                (new Button('default_small_image_selector_reset', __('Reset')))
-                                    ->class('delete')
-                                    ->type('button')
-                                    ->id('default_small_image_selector_reset'),
+                                (new Para())->items([
+                                    (new Button('default_small_image_selector', __('Change')))
+                                        ->type('button')
+                                        ->id('default_small_image_selector'),
+                                    (new Text('span', ' ')),
+                                    (new Button('default_small_image_selector_reset', __('Reset')))
+                                        ->class('delete')
+                                        ->type('button')
+                                        ->id('default_small_image_selector_reset'),
+                                ]),
+                                (new Hidden('default_small_image_url'))
+                                    ->value(App::backend()->images['default_small_image_url']),
+                                (new Hidden('default_small_image_tb_url'))
+                                    ->value(App::backend()->images['default_small_image_tb_url']),
                             ]),
-                            (new Hidden('default_small_image_url'))
-                                ->value(App::backend()->images['default_small_image_url']),
-                            (new Hidden('default_small_image_tb_url'))
-                                ->value(App::backend()->images['default_small_image_tb_url']),
-                        ]),
                     ]),
                     (new Para())->items([
                         (new Input('base_url'))
@@ -343,12 +344,12 @@ class Config extends Process
                         (new Input('change-button-id'))
                             ->type('hidden')
                             ->value(''),
-                                       
-                ]),
+
+                    ]),
                     (new Para())->items([
                         (new Submit(['opts'], __('Save'))),
-                            App::nonce()->formNonce(),
-                            
+                        App::nonce()->formNonce(),
+
                     ]),
                 ]),
             ])
@@ -372,82 +373,7 @@ class Config extends Process
             ])
         ->render();
 
-        /*if (!App::backend()->standalone_config) {
-            echo '</form>';
-        }
-        echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'presentation' ? '' : '-presentation') . '" title="' . __('Presentation') . '">';
-
-        echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
-            '" method="post" enctype="multipart/form-data">';
-
-        echo '<div class="fieldset">';
-
-        echo '<h3>' . __('Blog\'s featured publication') . '</h3>';
-
-        echo '<p><label for="featured_post_url" class="classic">' . __('Entry URL:') . '</label> ' .
-            form::field('featured_post_url', 30, 255, App::backend()->featured['featured_post_url']) .
-            ' <button type="button" id="featured_post_url_selector">' . __('Choose an entry') . '</button>' .
-            '</p>' .
-            '<p class="form-note info maximal">' . __('Leave this field empty to use the default presentation (latest post)') . '</p> ';
-        echo '</div>';
-        echo '<div class="fieldset">';
-        echo '<h3>' . __('Colors') . '</h3>';
-
-        echo '<p class="field"><label for="main_color">' . __('Links and buttons\' color:') . '</label> ' .
-            form::color('main_color', 30, 255, App::backend()->style['main_color']) . '</p>' ;
-        echo '</div>';
-
-        echo '<div class="fieldset">';
-
-        echo '<h4 class="pretty-title">' . __('Placeholder images') . '</h4>';
-
-        echo '<div class="box theme">';
-
-        echo '<p>' . __('Big image') . '</p>';
-
-        echo '<p> ' .
-        '<img id="default_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_image_url'] . '" width="240" height="160">' .
-        '</p>';
-
-        echo '<p class="form-buttons"><button type="button" id="default_image_selector">' . __('Change') . '</button>' .
-        '<button class="delete" type="button" id="default_image_selector_reset">' . __('Reset') . '</button>' .
-        '</p>' ;
-
-        echo '<p class="sr-only">' . form::field('default_image_url', 30, 255, App::backend()->images['default_image_url']) . '</p>';
-        echo '<p class="sr-only">' . form::field('default_image_tb_url', 30, 255, App::backend()->images['default_image_tb_url']) . '</p>';
-
-        echo '</div>';
-
-        echo '<div class="box theme">';
-
-        echo '<p>' . __('Small image') . '</p>';
-
-        echo '<p> ' .
-        '<img id="default_small_image_tb_src" alt="' . __('Thumbnail') . '" src="' . App::backend()->images['default_small_image_url'] . '" width="240" height="160">' .
-        '</p>';
-
-        echo '<p class="form-buttons"><button type="button" id="default_small_image_selector">' . __('Change') . '</button>' .
-        '<button class="delete" type="button" id="default_small_image_selector_reset">' . __('Reset') . '</button>' .
-        '</p>' ;
-
-        echo '<p class="sr-only">' . form::field('default_small_image_url', 30, 255, App::backend()->images['default_small_image_url']) . '</p>';
-        echo '<p class="sr-only">' . form::field('default_small_image_tb_url', 30, 255, App::backend()->images['default_small_image_tb_url']) . '</p>';
-
-        echo '</div>';
-
-        echo '</div>'; // Close fieldset
-
-        echo '<p><input type="hidden" name="conf_tab" value="presentation"></p>';
-        echo '<p class="clear"><input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
-        echo form::hidden(['base_url'], App::blog()->url);
-
-        echo form::hidden(['theme-url'], My::fileURL(''));
-
-        echo form::hidden(['change-button-id'], '');
-
-        echo '</form>';
-
-        echo '</div>'; // Close tab
+        /*
 
         echo '<div class="multi-part" id="themes-list' . (App::backend()->conf_tab === 'links' ? '' : '-links') . '" title="' . __('Stickers') . '">';
         echo '<form id="theme_config" action="' . App::backend()->url()->get('admin.blog.theme', ['conf' => '1']) .
@@ -494,13 +420,8 @@ class Config extends Process
         echo '<p class="clear">' . form::hidden('ds_order', '') . '<input type="submit" value="' . __('Save') . '">' . App::nonce()->getFormNonce() . '</p>';
         echo '</form>';
 
-        echo '</div>'; // Close tab
+        echo '</div>'; // Close tab*/
 
         Page::helpBlock('editorial');
-
-        // Legacy mode
-        if (!App::backend()->standalone_config) {
-            echo '<form style="display:none">';
-        }*/
     }
 }
