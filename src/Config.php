@@ -20,7 +20,6 @@ use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Button;
 use Dotclear\Helper\Html\Form\Color;
 use Dotclear\Helper\Html\Form\Div;
-use Dotclear\Helper\Html\Form\Field;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Hidden;
@@ -152,7 +151,7 @@ class Config extends Process
                     $featured                      = [];
                     $style                         = [];
                     $featured['featured_post_url'] = $_POST['featured_post_url'] ?? '';
-                    $style['main_color']           = $_POST['main_color'] ?? ($style['main_color'] ?? '#f56a6a');
+                    $style['main_color']           = $_POST['main_color']        ?? ($style['main_color'] ?? '#f56a6a');
 
                     //BIG IMAGE
                     # default image setting
@@ -185,6 +184,10 @@ class Config extends Process
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
                     App::backend()->images   = $images;
+
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
                 }
 
                 if (App::backend()->conf_tab === 'links') {
@@ -215,11 +218,9 @@ class Config extends Process
                         $stickers = $new_stickers;
                     }
                     App::backend()->stickers = $stickers;
+
+                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
                 }
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
-                App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
 
                 // Blog refresh
                 App::blog()->triggerBlog();
@@ -363,7 +364,7 @@ class Config extends Process
 
         //Stickers tab
         echo
-        (new Div('stickers'))
+        (new Div('links'))
             ->class('multi-part')
             ->title(__('Stickers'))
             ->items([
@@ -375,13 +376,7 @@ class Config extends Process
 
                         ... self::myTable(),
                     ]),
-                    (new Para())->items([
-                        (new Input('ds_order'))
-                            ->type('hidden')
-                            ->value(''),
-                        
 
-                    ]),
                     (new Para())->items([
                         (new Submit(['stickers'], __('Save'))),
                         App::nonce()->formNonce(),
@@ -409,6 +404,7 @@ class Config extends Process
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
                         $v['service'] = str_replace('-link.png', '', $v['image']);
+
                         return (new Tr())
                             ->class('line')
                             ->id('l_' . $i)
@@ -421,6 +417,7 @@ class Config extends Process
                                         ->class('position'),
                                     (new Hidden('dynorder[]'))->value($i),
                                     (new Hidden('dynorder-' . $i))->value($i),
+                                    (new Hidden('ds_order'))->value(''),
                                 ]),
                                 (new Td())->class('linkimg')->items([
                                     (new Hidden('sticker_image[]'))->value($v['image']),
@@ -443,6 +440,7 @@ class Config extends Process
                 ),
             ]),
         ];
+
         return $fields;
     }
 }
