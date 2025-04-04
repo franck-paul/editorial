@@ -24,8 +24,8 @@ msgid "Presentation"
 msgstr "Présentation"
 
 #: src/Config.php:258
-msgid "Entry URL:"
-msgstr "URL de l'entrée :"
+msgid "Entry URL: "
+msgstr "URL de l'entrée : "
 
 #: src/Config.php:271
 msgid "Leave this field empty to use the default presentation (latest post)"
