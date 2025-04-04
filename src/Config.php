@@ -469,7 +469,7 @@ class Config extends Process
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
-                                        ->placeholder(empty($v['url']) ? $placeholder . ' ' . 'URL:' : ''),
+                                        ->placeholder(empty($v['url']) ? __('Your URL:') : ''),
                                 ]),
                             ]);
                     }, array_keys(App::backend()->stickers), App::backend()->stickers)

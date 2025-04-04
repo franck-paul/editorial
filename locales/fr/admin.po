@@ -1,6 +1,6 @@
 # Language: Français
 # Module: editorial - 4.7
-# Date: 2025-04-04 05:32:16
+# Date: 2025-04-04 11:15:22
 # Translated with translater 2025.03.03
 
 msgid ""
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: editorial 4.7\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-04-04T05:32:16+00:00\n"
+"PO-Revision-Date: 2025-04-04T11:15:22+00:00\n"
 "Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Présentation"
 
 #: src/Config.php:258
 msgid "Entry URL:"
-msgstr "URL de la publication :"
+msgstr "URL de l'entrée :"
 
 #: src/Config.php:271
 msgid "Leave this field empty to use the default presentation (latest post)"
