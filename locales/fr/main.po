@@ -1,33 +1,33 @@
 # Language: Français
-# Module: editorial - 4.5
-# Date: 2025-04-01 21:25:56
+# Module: editorial - 4.7
+# Date: 2025-04-03 21:34:50
 # Translated with translater 2025.03.03
 
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: editorial 4.5\n"
+"Project-Id-Version: editorial 4.7\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-04-01T21:25:56+00:00\n"
+"PO-Revision-Date: 2025-04-03T21:34:50+00:00\n"
 "Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/Config.php:246
+#: src/Config.php:278
 msgid "Links and buttons"
 msgstr "Liens et boutons"
 
-#: src/Config.php:252
+#: src/Config.php:285
 msgid "Placeholder images"
 msgstr "Images de substitution"
 
-#: src/Config.php:256
+#: src/Config.php:289
 msgid "Big image"
 msgstr "Grande image"
 
-#: src/Config.php:273
+#: src/Config.php:317
 msgid "Small image"
 msgstr "Petite image"
 

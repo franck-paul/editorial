@@ -132,7 +132,6 @@ class Config extends Process
 
         App::backend()->conf_tab = $_POST['conf_tab'] ?? ($_GET['conf_tab'] ?? 'presentation');
 
-        
         return self::status();
     }
 
@@ -189,7 +188,6 @@ class Config extends Process
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
-                
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
@@ -370,7 +368,7 @@ class Config extends Process
             ->title(__('Stickers'))
             ->items([
                 (new Form('theme_links'))
-                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers' ]))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers']))
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
@@ -396,6 +394,8 @@ class Config extends Process
 
     public static function myTable(): array
     {
+        $count = 0;
+
         $fields = [
             (new Table())->class('dragable')->items([
                 (new Thead())->items([

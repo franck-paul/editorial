@@ -1,49 +1,48 @@
 # Language: Français
-# Module: editorial - 4.5
-# Date: 2025-04-01 21:25:56
+# Module: editorial - 4.7
+# Date: 2025-04-03 21:34:50
 # Translated with translater 2025.03.03
 
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: editorial 4.5\n"
+"Project-Id-Version: editorial 4.7\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-04-01T21:25:56+00:00\n"
+"PO-Revision-Date: 2025-04-03T21:34:50+00:00\n"
 "Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/Config.php:207
+#: src/Config.php:230
 msgid "Theme configuration upgraded."
 msgstr "La configuration du thème a été mise à jour."
 
-#: src/Config.php:228
+#: src/Config.php:252
 msgid "Presentation"
 msgstr "Présentation"
 
-#: src/Config.php:237
+#: src/Config.php:260
 msgid "Entry URL:"
 msgstr "URL de la publication :"
 
-#: src/Config.php:241
+#: src/Config.php:273
 msgid "Leave this field empty to use the default presentation (latest post)"
 msgstr "Laisser ce champ vide pour utiliser la présentation par défaut (billet le plus récent)"
 
-#: src/Config.php:244
+#: src/Config.php:276
 msgid "Colors"
 msgstr "Couleurs"
 
-#: src/Config.php:297
+#: src/Config.php:370
 msgid "Stickers"
 msgstr "Étiquettes"
 
-#: src/Config.php:301
+#: src/Config.php:376
 msgid "Social links"
 msgstr "Liens vers les médias sociaux"
 
-#: src/Config.php:305
 msgid "Social links (header)"
 msgstr "Lien vers les médias sociaux (en-tête)"
 
