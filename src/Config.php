@@ -461,7 +461,6 @@ class Config extends Process
                                 (new Td())->scope('row')->items([
                                     (new Input('sticker_label[]'))
                                         ->size(20)
-                                        ->placeholder(empty($v['label']) ? 'Enter URL:' : '')
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
                                         ->placeholder($placeholder),
@@ -471,7 +470,7 @@ class Config extends Process
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
-                                        ->placeholder($placeholders[$v['image']] ?? ''),
+                                        ->placeholder(empty($v['url']) ? $placeholder . ' ' . 'URL:' : ''),
                                 ]),
                             ]);
                     }, array_keys(App::backend()->stickers), App::backend()->stickers)
