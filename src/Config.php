@@ -372,7 +372,6 @@ class Config extends Process
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
-
                         ... self::myTable(),
                     ]),
                     (new Para())->items([
