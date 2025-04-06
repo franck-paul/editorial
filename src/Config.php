@@ -414,6 +414,9 @@ class Config extends Process
                         $count++;
 
                         // Define placeholder based on the sticker image
+                        // Add more icons as needed
+                        // Don't forget to add them into stickers_images array in init() function
+
                         $placeholders = [
                             'fab fa-github'      => 'GitHub',
                             'fab fa-twitter'     => 'Twitter',
@@ -438,8 +441,6 @@ class Config extends Process
                             'fab fa-soundcloud'  => 'SoundCloud',
                             'fab fa-mastodon'    => 'Mastodon',
                             'fab fa-diaspora'    => 'Diaspora',
-                            // Add more iconsngs as needed 
-                            // Don't forget to add them into stickers_images array in init() function
                         ];
                         $placeholder = $placeholders[$v['image']] ?? '';
 
