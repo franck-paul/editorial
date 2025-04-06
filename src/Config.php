@@ -113,6 +113,10 @@ class Config extends Process
         // Get social media images
         $stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
             'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube', ];
+        // If you add stickers, remember to add them in myTable function into placeholders array
+
+        // Add stickers images not already used
+
         if (is_array($stickers_images)) {
             foreach ($stickers_images as $v) {
                 if (!in_array($v, $stickers_full)) {
@@ -408,7 +412,6 @@ class Config extends Process
                 (new Tbody())->id('stickerslist')->items(
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
-                        $v['service'] = str_replace('-link.png', '', $v['image']);
 
                         // Define placeholder based on the sticker image
                         $placeholders = [
@@ -435,7 +438,7 @@ class Config extends Process
                             'fab fa-soundcloud'  => 'SoundCloud',
                             'fab fa-mastodon'    => 'Mastodon',
                             'fab fa-diaspora'    => 'Diaspora',
-                            // Add more mappings as needed
+                            // Add more mappings as needed see stickers_images array in init() function
                         ];
                         $placeholder = $placeholders[$v['image']] ?? '';
 
