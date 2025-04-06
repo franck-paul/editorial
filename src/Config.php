@@ -438,7 +438,8 @@ class Config extends Process
                             'fab fa-soundcloud'  => 'SoundCloud',
                             'fab fa-mastodon'    => 'Mastodon',
                             'fab fa-diaspora'    => 'Diaspora',
-                            // Add more mappings as needed see stickers_images array in init() function
+                            // Add more iconsngs as needed 
+                            // Don't forget to add them into stickers_images array in init() function
                         ];
                         $placeholder = $placeholders[$v['image']] ?? '';
 
