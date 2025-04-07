@@ -413,37 +413,6 @@ class Config extends Process
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
 
-                        // Define placeholder based on the sticker image
-                        // Add more icons as needed
-                        // Don't forget to add them into stickers_images array in init() function
-
-                        $placeholders = [
-                            'fab fa-github'      => 'GitHub',
-                            'fab fa-twitter'     => 'Twitter',
-                            'fab fa-facebook-f'  => 'Facebook',
-                            'fab fa-instagram'   => 'Instagram',
-                            'fab fa-github'      => 'GitHub',
-                            'fab fa-gitlab'      => 'GitLab',
-                            'fas fa-rss'         => 'RSS',
-                            'fab fa-twitter'     => 'Twitter',
-                            'fab fa-facebook-f'  => 'Facebook',
-                            'fab fa-linkedin-in' => 'LinkedIn',
-                            'fab fa-youtube'     => 'YouTube',
-                            'fab fa-pinterest'   => 'Pinterest',
-                            'fab fa-snapchat'    => 'Snapchat',
-                            'fab fa-soundcloud'  => 'SoundCloud',
-                            'fab fa-mastodon'    => 'Mastodon',
-                            'fab fa-diaspora'    => 'Diaspora',
-                            'fab fa-linkedin-in' => 'LinkedIn',
-                            'fab fa-youtube'     => 'YouTube',
-                            'fab fa-pinterest'   => 'Pinterest',
-                            'fab fa-snapchat'    => 'Snapchat',
-                            'fab fa-soundcloud'  => 'SoundCloud',
-                            'fab fa-mastodon'    => 'Mastodon',
-                            'fab fa-diaspora'    => 'Diaspora',
-                        ];
-                        $placeholder = $placeholders[$v['image']] ?? '';
-
                         return (new Tr())
                             ->class('line')
                             ->id('l_' . $i)
@@ -460,21 +429,19 @@ class Config extends Process
                                 ]),
                                 (new Td())->class('linkimg')->items([
                                     (new Hidden('sticker_image[]'))->value($v['image']),
-                                    (new Text('i', ''))->class($v['image'])->title($v['label'] ?? $placeholder),
+                                    (new Text('i', ''))->class($v['image'])->title($v['label'] ?? ''),
                                 ]),
                                 (new Td())->scope('row')->items([
                                     (new Input('sticker_label[]'))
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
-                                        ->placeholder($placeholder),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
-                                        ->placeholder(empty($v['url']) ? __('Your URL:') : ''),
                                 ]),
                             ]);
                     }, array_keys(App::backend()->stickers), App::backend()->stickers)
