@@ -103,8 +103,8 @@ class Config extends Process
         $stickers = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
         $stickers = $stickers ? (unserialize($stickers) ?: []) : [];
 
-        $stickers_full = [];
         // Get all sticker images already used
+        $stickers_full = [];
         if (is_array($stickers)) {
             foreach ($stickers as $v) {
                 $stickers_full[] = $v['image'];
@@ -113,10 +113,8 @@ class Config extends Process
         // Get social media images
         $stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
             'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube', ];
-        // If you add stickers, remember to add them in myTable function into placeholders array
 
         // Add stickers images not already used
-
         if (is_array($stickers_images)) {
             foreach ($stickers_images as $v) {
                 if (!in_array($v, $stickers_full)) {
@@ -436,14 +434,14 @@ class Config extends Process
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
-                                        ->title($v['label'] ?? '')
+                                        ->title($v['label'] ?? ''),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
-                                        ->title($v['label'] ?? '')
+                                        ->title($v['label'] ?? ''),
                                 ]),
                             ]);
                     }, array_keys(App::backend()->stickers), App::backend()->stickers)
