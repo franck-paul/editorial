@@ -29,7 +29,7 @@ msgid "Blog's featured publication"
 msgstr ""
 
 #: ../git-themes/editorial/src/Config.php:179
-msgid "Entry URL:"
+msgid "Entry URL: "
 msgstr ""
 
 #: ../git-themes/editorial/src/Config.php:183

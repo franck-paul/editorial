@@ -25,7 +25,7 @@ msgstr ""
 msgid "Blog's featured publication"
 msgstr ""
 
-msgid "Entry URL:"
+msgid "Entry URL: "
 msgstr ""
 
 msgid "Leave this field empty to use the default presentation (latest post)"

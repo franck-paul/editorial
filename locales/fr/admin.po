@@ -16,8 +16,8 @@ msgstr "La configuration du thème a été mise à jour."
 msgid "Presentation"
 msgstr "Présentation"
 
-msgid "Entry URL:"
-msgstr "URL de l'entrée :"
+msgid "Entry URL: "
+msgstr "URL de l'entrée : "
 
 msgid "Leave this field empty to use the default presentation (latest post)"
 msgstr "Laisser ce champ vide pour utiliser la présentation par défaut (billet le plus récent)"
