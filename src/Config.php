@@ -434,14 +434,12 @@ class Config extends Process
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
-                                        ->title($v['label'] ?? ''),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
-                                        ->title($v['label'] ?? ''),
                                 ]),
                             ]);
                     }, array_keys(App::backend()->stickers), App::backend()->stickers)
