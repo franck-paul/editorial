@@ -57,7 +57,7 @@ dotclear.ready(() => {
     });
 
     $('#featured_post_url_selector').on('click', function (e) {
-        window.open('popup_posts.php?plugin_id=admin.blog.theme&amp;type=post', 'dc_popup', 'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no');
+        window.open('popup_posts.php?plugin_id=admin.blog.theme&type=post', 'dc_popup', 'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no');
         e.preventDefault();
         return false;
     });
