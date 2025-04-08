@@ -113,7 +113,7 @@ class Config extends Process
         // Get social media images
         $stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
             'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube', ];
-        // If you add stickers, remember to add them in myTable function into placeholders array
+        // If you add stickers, remember to add them in myTable function into titles array
 
         // Add stickers images not already used
 
@@ -413,7 +413,7 @@ class Config extends Process
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
 
-                        // Define placeholder based on the sticker image
+                        // Define title based on the sticker image
                         // Add more icons as needed
                         // Don't forget to add them into stickers_images array in init() function
 
