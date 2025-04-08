@@ -191,6 +191,7 @@ class Config extends Process
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
+                
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
@@ -202,11 +203,13 @@ class Config extends Process
                     }
 
                     $order = [];
+                    
                     if (empty($_POST['ds_order']) && !empty($_POST['order'])) {
                         $order = $_POST['order'];
                         asort($order);
                         $order = array_keys($order);
                     }
+
                     if (!empty($order)) {
                         $new_stickers = [];
                         foreach ($order as $i => $k) {
@@ -218,6 +221,7 @@ class Config extends Process
                         }
                         $stickers = $new_stickers;
                     }
+
                     App::backend()->stickers = $stickers;
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
                 }
