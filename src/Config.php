@@ -103,8 +103,8 @@ class Config extends Process
         $stickers = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
         $stickers = $stickers ? (unserialize($stickers) ?: []) : [];
 
-        // Get all sticker images already used
         $stickers_full = [];
+        // Get all sticker images already used
         if (is_array($stickers)) {
             foreach ($stickers as $v) {
                 $stickers_full[] = $v['image'];
@@ -113,8 +113,10 @@ class Config extends Process
         // Get social media images
         $stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
             'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube', ];
+        // If you add stickers, remember to add them in myTable function into placeholders array
 
         // Add stickers images not already used
+
         if (is_array($stickers_images)) {
             foreach ($stickers_images as $v) {
                 if (!in_array($v, $stickers_full)) {
@@ -411,6 +413,37 @@ class Config extends Process
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
 
+                        // Define placeholder based on the sticker image
+                        // Add more icons as needed
+                        // Don't forget to add them into stickers_images array in init() function
+
+                        $titles = [
+                            'fab fa-github'      => 'GitHub',
+                            'fab fa-twitter'     => 'Twitter',
+                            'fab fa-facebook-f'  => 'Facebook',
+                            'fab fa-instagram'   => 'Instagram',
+                            'fab fa-github'      => 'GitHub',
+                            'fab fa-gitlab'      => 'GitLab',
+                            'fas fa-rss'         => 'RSS',
+                            'fab fa-twitter'     => 'Twitter',
+                            'fab fa-facebook-f'  => 'Facebook',
+                            'fab fa-linkedin-in' => 'LinkedIn',
+                            'fab fa-youtube'     => 'YouTube',
+                            'fab fa-pinterest'   => 'Pinterest',
+                            'fab fa-snapchat'    => 'Snapchat',
+                            'fab fa-soundcloud'  => 'SoundCloud',
+                            'fab fa-mastodon'    => 'Mastodon',
+                            'fab fa-diaspora'    => 'Diaspora',
+                            'fab fa-linkedin-in' => 'LinkedIn',
+                            'fab fa-youtube'     => 'YouTube',
+                            'fab fa-pinterest'   => 'Pinterest',
+                            'fab fa-snapchat'    => 'Snapchat',
+                            'fab fa-soundcloud'  => 'SoundCloud',
+                            'fab fa-mastodon'    => 'Mastodon',
+                            'fab fa-diaspora'    => 'Diaspora',
+                        ];
+                        $title = $titles[$v['image']] ?? '';
+
                         return (new Tr())
                             ->class('line')
                             ->id('l_' . $i)
@@ -425,21 +458,23 @@ class Config extends Process
                                     (new Hidden('dynorder-' . $i))->value($i),
                                     (new Hidden('ds_order'))->value(''),
                                 ]),
-                                (new Td())->class('linkimg')->items([
+                                (new Td())->class('linkimg')->title($title)->items([
                                     (new Hidden('sticker_image[]'))->value($v['image']),
-                                    (new Text('i', ''))->class($v['image'])->title($v['label'] ?? ''),
+                                    (new Text('i', ''))->class($v['image'])->title($v['label'] ?? $title),
                                 ]),
                                 (new Td())->scope('row')->items([
                                     (new Input('sticker_label[]'))
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
+                                        ->title($title),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
+                                        ->title(empty($v['url']) ? __('Your URL:') : $v['url']),
                                 ]),
                             ]);
                     }, array_keys(App::backend()->stickers), App::backend()->stickers)

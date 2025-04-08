@@ -14,7 +14,7 @@ $this->registerModule(
     'Philippe aka amalgame and contributors',
     '5.0',
     [
-        'requires'          => [['core', '2.28']],
+        'requires'          => [['core', '2.33']],
         'standalone_config' => true,
         'type'              => 'theme',
         'tplset'            => 'dotty',
