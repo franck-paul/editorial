@@ -228,7 +228,7 @@ class Config extends Process
                 // Template cache reset
                 App::cache()->emptyTemplatesCache();
 
-                Notices::message(__('Theme configuration upgraded.'), true, true);
+                Notices::addSuccessNotice(__('Theme configuration upgraded.'));
             } catch (Exception $e) {
                 App::error()->add($e->getMessage());
             }
