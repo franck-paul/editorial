@@ -203,7 +203,7 @@ class Config extends Process
                     }
 
                     $order = [];
-                    
+
                     if (empty($_POST['ds_order']) && !empty($_POST['order'])) {
                         $order = $_POST['order'];
                         asort($order);
@@ -262,7 +262,7 @@ class Config extends Process
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Blog\'s featured publication'))))->fields([
                         (new Para())->items([
-                            (new Label(__('Entry URL: '), Label::INSIDE_LABEL_BEFORE))->for('featured_post_url')->class('classic')
+                            (new Label(__('Entry URL:') . ' ', Label::INSIDE_LABEL_BEFORE))->for('featured_post_url')->class('classic')
                                 ->class('classic'),
                             (new Input('featured_post_url'))
                                 ->size(50)
