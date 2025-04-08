@@ -103,20 +103,19 @@ class Config extends Process
         $stickers = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
         $stickers = $stickers ? (unserialize($stickers) ?: []) : [];
 
-        $stickers_full = [];
         // Get all sticker images already used
+        $stickers_full = [];
         if (is_array($stickers)) {
             foreach ($stickers as $v) {
                 $stickers_full[] = $v['image'];
             }
         }
         // Get social media images
+        // If you add stickers, remember to add them in myTable function into titles array
         $stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
             'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube', ];
-        // If you add stickers, remember to add them in myTable function into titles array
 
         // Add stickers images not already used
-
         if (is_array($stickers_images)) {
             foreach ($stickers_images as $v) {
                 if (!in_array($v, $stickers_full)) {
@@ -413,10 +412,8 @@ class Config extends Process
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
 
-                        // Define title based on the sticker image
-                        // Add more icons as needed
-                        // Don't forget to add them into stickers_images array in init() function
-
+                        // Define title based on the sticker image. Add more icons as needed.
+                        // Don't forget to add them into stickers_images array in init() function !
                         $titles = [
                             'fab fa-github'      => 'GitHub',
                             'fab fa-twitter'     => 'Twitter',
