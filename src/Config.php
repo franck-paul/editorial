@@ -458,7 +458,7 @@ class Config extends Process
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
-                                        ->title($title),
+                                        ->title(empty($v['label']) ? $title : $v['label']),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))
