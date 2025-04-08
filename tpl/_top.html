@@ -2,7 +2,7 @@
     <header id="header">
         <h1 class="logo"><a href="{{tpl:BlogURL}}"><strong>{{tpl:BlogName
                     encode_html="1"}}</strong></a></h1>
-        <p><span class="blogdesc">{{tpl:BlogDescription}}</span></p>
+        <p><span class="blogdesc">{{tpl:BlogDescription cut_string="180" remove_html="1" encode_html="1"}}</span></p>
         <ul class="icons">
             {{tpl:editorialSocialLinks}}
         </ul>
