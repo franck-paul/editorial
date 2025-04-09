@@ -108,8 +108,8 @@ class Frontend extends Process
             $parsedUrl = parse_url($imgSrc);
             $path      = $parsedUrl['path'] ?? '';
 
-            $pathInfo  = pathinfo($path);
-            $imgSrc    = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
+            $pathInfo = pathinfo($path);
+            $imgSrc   = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
         }
 
         return $imgSrc;
