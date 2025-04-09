@@ -216,7 +216,7 @@ class Frontend extends Process
         if ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 1) {
             return
             "<?php\n" .
-            "if (!isset(\$params)) { \$params = []; }\n" .
+            "if (!isset(\$params)) { \$params['post_type'] = ['post', 'page', 'related']; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
             "\$params['sql'] .= \"AND P.post_url = '" . urldecode($featuredPostURL) . "' \";\n" .
                 "?>\n";
