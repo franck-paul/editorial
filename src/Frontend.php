@@ -95,13 +95,20 @@ class Frontend extends Process
 
     public static function bigImageHelper()
     {
+        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $si = $si ? (unserialize($si) ?: []) : [];
+
+        $imgSrc = $si['default_image_url'];
+
         if (!empty($imgSrc)) {
             $parsedUrl = parse_url($imgSrc);
             $path      = $parsedUrl['path'] ?? '';
 
-            $pathInfo = pathinfo($path);
-            $imgSrc   = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
+            $pathInfo  = pathinfo($path);
+            $imgSrc    = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
         }
+
+        return $imgSrc;
     }
 
     public static function editorialSmallImage(ArrayObject $attr): string
