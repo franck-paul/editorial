@@ -95,16 +95,13 @@ class Frontend extends Process
 
     public static function bigImageHelper()
     {
-        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $si = $si ? (unserialize($si) ?: []) : [];
+        if (!empty($imgSrc)) {
+            $parsedUrl = parse_url($imgSrc);
+            $path      = $parsedUrl['path'] ?? '';
 
-        if (!is_array($si)) {
-            $si = [];
+            $pathInfo = pathinfo($path);
+            $imgSrc   = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
         }
-
-        $imgSrc = $si['default_image_url'];
-
-        return $imgSrc;
     }
 
     public static function editorialSmallImage(ArrayObject $attr): string
@@ -113,22 +110,22 @@ class Frontend extends Process
     }
 
     public static function smallImageHelper()
-{
-    $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-    $si = $si ? (unserialize($si) ?: []) : [];
+    {
+        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $si = $si ? (unserialize($si) ?: []) : [];
 
-    $imgSrc = $si['default_small_image_url'];
+        $imgSrc = $si['default_small_image_url'];
 
-    if (!empty($imgSrc)) {
-        $parsedUrl = parse_url($imgSrc);
-        $path = $parsedUrl['path'] ?? '';
-        $pathInfo = pathinfo($path);
-        $extension = strtolower($pathInfo['extension']) === 'jpeg' ? 'jpg' : $pathInfo['extension'];
-        $imgSrc = $pathInfo['dirname'] . '/' . '.' .  $pathInfo['filename'] . '_m.' . $extension;
+        if (!empty($imgSrc)) {
+            $parsedUrl = parse_url($imgSrc);
+            $path      = $parsedUrl['path'] ?? '';
+            $pathInfo  = pathinfo($path);
+            $extension = strtolower($pathInfo['extension']) === 'jpeg' ? 'jpg' : $pathInfo['extension'];
+            $imgSrc    = $pathInfo['dirname'] . '/' . '.' . $pathInfo['filename'] . '_m.' . $extension;
+        }
+
+        return $imgSrc;
     }
-
-    return $imgSrc;
-}
 
     public static function editorialUserColors(ArrayObject $attr): string
     {
