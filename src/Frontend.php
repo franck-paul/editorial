@@ -119,6 +119,7 @@ class Frontend extends Process
         if (!empty($imgSrc)) {
             $parsedUrl = parse_url($imgSrc);
             $path      = $parsedUrl['path'] ?? '';
+
             $pathInfo  = pathinfo($path);
             $extension = strtolower($pathInfo['extension']) === 'jpeg' ? 'jpg' : $pathInfo['extension'];
             $imgSrc    = $pathInfo['dirname'] . '/' . '.' . $pathInfo['filename'] . '_m.' . $extension;
