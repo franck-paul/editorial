@@ -126,9 +126,12 @@ class Frontend extends Process
 
         $imgSrc = $si['default_image_url'];
 
+        $file       = new \stdClass();
+        $file->path = $imgSrc;
+
         
 
-        $media_alt = App::media()->getMediaAlt($imgSrc);
+        $media_alt = App::media()->getMediaAlt($file->path);
 
         return $media_alt;
     }
