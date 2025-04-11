@@ -42,6 +42,9 @@ class Frontend extends Process
         App::frontend()->template()->addValue('editorialBigImage', [self::class, 'editorialBigImage']);
         App::frontend()->template()->addValue('editorialSmallImage', [self::class, 'editorialSmallImage']);
 
+        App::frontend()->template()->addValue('editorialBigImageAlt', [self::class, 'editorialBigImageAlt']);
+        //App::frontend()->template()->addValue('editorialSmallImageAlt', [self::class, 'editorialSmallImageAlt']);
+
         App::frontend()->template()->addValue('editorialUserColors', [self::class, 'editorialUserColors']);
         App::frontend()->template()->addValue('editorialSocialLinks', [self::class, 'editorialSocialLinks']);
 
@@ -104,13 +107,31 @@ class Frontend extends Process
             $parsedUrl = parse_url($imgSrc);
             $path      = $parsedUrl['path'] ?? '';
 
-            $pathInfo  = pathinfo($path);
-            $imgSrc    = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
+            $pathInfo = pathinfo($path);
+            $imgSrc   = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
         }
 
         return $imgSrc;
     }
 
+    public static function editorialBigImageAlt(ArrayObject $attr): string
+    {
+        return '<?php echo ' . self::class . '::bigImageAltHelper(); ?>';
+    }
+
+    public static function bigImageAltHelper()
+    {
+        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $si = $si ? (unserialize($si) ?: []) : [];
+
+        $imgSrc = $si['default_image_url'];
+
+        
+
+        $media_alt = App::media()->getMediaAlt($imgSrc);
+
+        return $media_alt;
+    }
     public static function editorialSmallImage(ArrayObject $attr): string
     {
         return '<?php echo ' . self::class . '::smallImageHelper(); ?>';
