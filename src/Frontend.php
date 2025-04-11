@@ -15,6 +15,7 @@ namespace Dotclear\Theme\editorial;
 use ArrayObject;
 use Dotclear\App;
 use Dotclear\Core\Process;
+use Dotclear\Helper\File\File;
 
 class Frontend extends Process
 {
@@ -126,14 +127,21 @@ class Frontend extends Process
 
         $imgSrc = $si['default_image_url'];
 
-        $file       = new \stdClass();
-        $file->path = $imgSrc;
+        //a:4:{s:17:"default_image_url";s:63:"https://dotclear.unstable.local/public/Tests/1600-1067-max.jpeg";s:20:"default_image_tb_url";s:65:"https://dotclear.unstable.local/public/Tests/.1600-1067-max_s.jpg";s:23:"default_small_image_url";s:56:"https://dotclear.unstable.local/public/Tests/bernie.jpeg";s:26:"default_small_image_tb_url";s:58:"https://dotclear.unstable.local/public/Tests/.bernie_s.jpg";}
 
+        $file = $imgSrc[1];
+        //$file->file_url = App::media()->getRootUrl() . $imgSrc;
+        
+        // Ensure the required properties are initialized
+        ////$file->media_title = ''; // Initialize media_title to avoid undefined property error
+
+        //$media_alt = App::media()->getMediaAlt($file);
         
 
-        $media_alt = App::media()->getMediaAlt($file->path);
 
-        return $media_alt;
+
+        return $file;
+
     }
     public static function editorialSmallImage(ArrayObject $attr): string
     {
