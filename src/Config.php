@@ -71,12 +71,20 @@ class Config extends Process
             $images['default_image_tb_url'] = My::fileURL('/images/.image-placeholder-1920x1080_s.jpg');
         }
 
+        if (!isset($images['default_image_media_alt'])) {
+            $images['default_image_media_alt'] = '';
+        }
+
         //Small image
         if (!isset($images['default_small_image_url'])) {
             $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
         }
         if (!isset($images['default_small_image_tb_url'])) {
             $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg');
+        }
+
+        if (!isset($images['default_small_image_media_alt'])) {
+            $images['default_small_image_media_alt'] = '';
         }
 
         $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
@@ -169,6 +177,12 @@ class Config extends Process
                     } else {
                         $images['default_image_tb_url'] = My::fileURL('.image-placeholder-1920x1080_s.jpg') . '/';
                     }
+                    # default image media alt settings
+                    if (!empty($_POST['default_image_media_alt'])) {
+                        $images['default_image_media_alt'] = $_POST['default_image_media_alt'];
+                    } else {
+                        $images['default_image_media_alt'] = '';
+                    }
 
                     //SMALL IMAGE
                     # default small image setting
@@ -183,6 +197,12 @@ class Config extends Process
                     } else {
                         $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg') . '/';
                     }
+                    # default small image media alt settings
+                    if (!empty($_POST['default_small_image_media_alt'])) {
+                        $images['default_small_image_media_alt'] = $_POST['default_small_image_media_alt'];
+                    } else {
+                        $images['default_small_image_media_alt'] = '';
+                    }
 
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
@@ -191,7 +211,7 @@ class Config extends Process
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
-                
+                    
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
@@ -315,6 +335,8 @@ class Config extends Process
                                     ->value(App::backend()->images['default_image_url']),
                                 (new Hidden('default_image_tb_url'))
                                     ->value(App::backend()->images['default_image_tb_url']),
+                                (new Hidden('default_image_media_alt'))
+                                    ->value(App::backend()->images['default_image_media_alt']),
                             ]),
                         (new Div())
                             ->class(['box', 'theme'])->items([
@@ -343,6 +365,8 @@ class Config extends Process
                                     ->value(App::backend()->images['default_small_image_url']),
                                 (new Hidden('default_small_image_tb_url'))
                                     ->value(App::backend()->images['default_small_image_tb_url']),
+                                (new Hidden('default_small_image_media_alt'))
+                                    ->value(App::backend()->images['default_small_image_media_alt']),
                             ]),
                     ]),
                     (new Para())->items([

@@ -12,14 +12,14 @@
                     </div>
                     {{tpl:else}}
                     <div class="post-featured-media">
-                        <img src="{{tpl:editorialSmallImage}}" alt="Image placeholder">
+                        <img src="{{tpl:editorialSmallImage}}" alt="{{tpl:editorialSmallImageAlt}}">
                     </div>
                 </tpl:FeaturedMediaIf>
             </tpl:FeaturedMedia>
         </tpl:EntryIf>
         <tpl:EntryIf has_featured_media="0">
             <div class="post-featured-media">
-                <img src="{{tpl:editorialSmallImage}}" alt="Image placeholder">
+                <img src="{{tpl:editorialSmallImage}}" alt="{{tpl:editorialSmallImageAlt}}">
             </div>
         </tpl:EntryIf>
     </header>

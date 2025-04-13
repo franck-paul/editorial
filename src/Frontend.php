@@ -15,7 +15,6 @@ namespace Dotclear\Theme\editorial;
 use ArrayObject;
 use Dotclear\App;
 use Dotclear\Core\Process;
-use Dotclear\Helper\File\File;
 
 class Frontend extends Process
 {
@@ -44,7 +43,7 @@ class Frontend extends Process
         App::frontend()->template()->addValue('editorialSmallImage', [self::class, 'editorialSmallImage']);
 
         App::frontend()->template()->addValue('editorialBigImageAlt', [self::class, 'editorialBigImageAlt']);
-        //App::frontend()->template()->addValue('editorialSmallImageAlt', [self::class, 'editorialSmallImageAlt']);
+        App::frontend()->template()->addValue('editorialSmallImageAlt', [self::class, 'editorialSmallImageAlt']);
 
         App::frontend()->template()->addValue('editorialUserColors', [self::class, 'editorialUserColors']);
         App::frontend()->template()->addValue('editorialSocialLinks', [self::class, 'editorialSocialLinks']);
@@ -125,23 +124,9 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgSrc = $si['default_image_url'];
+        $imgAlt = $si['default_image_media_alt'] ?? '';
 
-        //a:4:{s:17:"default_image_url";s:63:"https://dotclear.unstable.local/public/Tests/1600-1067-max.jpeg";s:20:"default_image_tb_url";s:65:"https://dotclear.unstable.local/public/Tests/.1600-1067-max_s.jpg";s:23:"default_small_image_url";s:56:"https://dotclear.unstable.local/public/Tests/bernie.jpeg";s:26:"default_small_image_tb_url";s:58:"https://dotclear.unstable.local/public/Tests/.bernie_s.jpg";}
-
-        $file = $imgSrc[1];
-        //$file->file_url = App::media()->getRootUrl() . $imgSrc;
-        
-        // Ensure the required properties are initialized
-        ////$file->media_title = ''; // Initialize media_title to avoid undefined property error
-
-        //$media_alt = App::media()->getMediaAlt($file);
-        
-
-
-
-        return $file;
-
+        return $imgAlt;
     }
     public static function editorialSmallImage(ArrayObject $attr): string
     {
@@ -165,6 +150,20 @@ class Frontend extends Process
         }
 
         return $imgSrc;
+    }
+
+    public static function editorialSmallImageAlt(ArrayObject $attr): string
+    {
+        return '<?php echo ' . self::class . '::smallImageAltHelper(); ?>';
+    }
+
+    public static function smallImageAltHelper()
+    {
+        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $si = $si ? (unserialize($si) ?: []) : [];
+
+        $imgAlt = $si['default_small_image_media_alt'] ?? '';
+        return $imgAlt;
     }
 
     public static function editorialUserColors(ArrayObject $attr): string
