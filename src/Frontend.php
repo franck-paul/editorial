@@ -124,7 +124,7 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgAlt = $si['default_image_media_alt'] ?? '';
+        $imgAlt = $si['default_image_media_alt'];
 
         return $imgAlt;
     }
@@ -162,7 +162,7 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgAlt = $si['default_small_image_media_alt'] ?? '';
+        $imgAlt = $si['default_small_image_media_alt'];
         return $imgAlt;
     }
 
