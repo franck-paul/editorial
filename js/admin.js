@@ -17,6 +17,7 @@ dotclear.ready(() => {
         $('#default_image_url').val(url);
         $('#default_image_tb_url').val(thumb);
         $('#default_image_tb_src').attr('src', thumb);
+        $('#default_image_media_alt').val('');
     });
 
     $('#default_image_url').on('change', (e) => {
@@ -45,6 +46,7 @@ dotclear.ready(() => {
         $('#default_small_image_url').val(url);
         $('#default_small_image_tb_url').val(thumb);
         $('#default_small_image_tb_src').attr('src', thumb);
+        $('#default_small_image_media_alt').val('');
     });
 
     $('#default_small_image_url').on('change', (e) => {
