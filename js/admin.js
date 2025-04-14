@@ -1,8 +1,8 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', () => {
-    const themeConfig = document.getElementById('stickers');
-    if (themeConfig) {
-
+    const presentation = document.getElementById('presentation');
+    if (presentation) {
+        //Presentation tab
 
         // Big image
         document.getElementById('default_image_selector').addEventListener('click', function (e) {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('default_image_url').addEventListener('change', () => {
             const themeUrl = document.querySelector('input[name="theme-url"]').value;
             const defaultUrl = `${themeUrl}/images/image-placeholder-1920x1080.jpg`;
-            const thumb = `${themeUrl}/images/.image-placeholder-1920x1080_s.jpg`;
+            let thumb = `${themeUrl}/images/.image-placeholder-1920x1080_s.jpg`;
             if (document.getElementById('default_image_url').value !== defaultUrl) {
                 thumb = document.getElementById('default_image_tb_url').value;
             }
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('default_small_image_url').addEventListener('change', () => {
             const themeUrl = document.querySelector('input[name="theme-url"]').value;
             const defaultUrl = `${themeUrl}/images/image-placeholder-600x338.jpg`;
-            const thumb = `${themeUrl}/images/.image-placeholder-600x338_s.jpg`;
+            let thumb = `${themeUrl}/images/.image-placeholder-600x338_s.jpg`;
             if (document.getElementById('default_small_image_url').value !== defaultUrl) {
                 thumb = document.getElementById('default_small_image_tb_url').value;
             }
@@ -74,6 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
             );
             e.preventDefault();
         });
+    }
+    
+    // Stickers tab
+    const stickers = document.getElementById('stickers');
+    if (stickers) {
 
         // Stickers reorder
         const stickersList = document.getElementById('stickerslist');
@@ -111,9 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.style.cursor = 'move';
             const handle = row.querySelector('td.handle');
             if (handle) {
-                //handle.style.display = 'block';
                 handle.style.backgroundImage = 'url("style/drag.svg")';
-                handle.style.backgroundRepeat = 'no-repeat';
                 handle.style.backgroundPosition = 'center';
                 handle.style.width = '20px';
                 handle.style.height = '20px';
@@ -124,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Array.from(stickersList.querySelectorAll('tr td.handle')).forEach(handler => handler.classList.add('handler'));
 
 
-        themeConfig.addEventListener('submit', () => {
+        stickers.addEventListener('submit', () => {
             const order = Array.from(stickersList.querySelectorAll('tr td input.position')).map(input =>
                 input.name.replace(/^order\[([^\]]+)\]$/, '$1')
             );
