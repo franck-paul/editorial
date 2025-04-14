@@ -1,90 +1,130 @@
 'use strict';
-dotclear.ready(() => {
-    //Big image
-    $('#default_image_selector').on('click', function (e) {
-        $('input[name="change-button-id"]').val(this.id);
+document.addEventListener('DOMContentLoaded', () => {
+    // Big image
+    document.getElementById('default_image_selector').addEventListener('click', function (e) {
+        document.querySelector('input[name="change-button-id"]').value = this.id;
         window.open(
             'index.php?process=Media&plugin_id=admin.blog.theme&popup=1&select=1',
             'dc_popup',
-            'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no',
+            'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no'
         );
         e.preventDefault();
-        return false;
-    });
-    $('#default_image_selector_reset').on('click', (e) => {
-        const url = `${$('input[name="theme-url"]').val()}/images/image-placeholder-1920x1080.jpg`;
-        const thumb = `${$('input[name="theme-url"]').val()}/images/.image-placeholder-1920x1080_s.jpg`;
-        $('#default_image_url').val(url);
-        $('#default_image_tb_url').val(thumb);
-        $('#default_image_tb_src').attr('src', thumb);
-        $('#default_image_media_alt').val('');
     });
 
-    $('#default_image_url').on('change', (e) => {
-        const url = `${$('input[name="theme-url"]').val()}/images/image-placeholder-1920x1080.jpg`;
-        let thumb = `${$('input[name="theme-url"]').val()}/images/.image-placeholder-1920x1080_s.jpg`;
-        if ($('#default_image_url').val() != url) {
-            thumb = $('#default_image_tb_url').val();
-        }
-        $('#default_image_tb_src').attr('src', thumb);
+    document.getElementById('default_image_selector_reset').addEventListener('click', () => {
+        const themeUrl = document.querySelector('input[name="theme-url"]').value;
+        const url = `${themeUrl}/images/image-placeholder-1920x1080.jpg`;
+        const thumb = `${themeUrl}/images/.image-placeholder-1920x1080_s.jpg`;
+        document.getElementById('default_image_url').value = url;
+        document.getElementById('default_image_tb_url').value = thumb;
+        document.getElementById('default_image_tb_src').src = thumb;
+        document.getElementById('default_image_media_alt').value = '';
     });
-    
-    //Small image
-    $('#default_small_image_selector').on('click', function (e) {
-        $('input[name="change-button-id"]').val(this.id);
+
+    document.getElementById('default_image_url').addEventListener('change', () => {
+        const themeUrl = document.querySelector('input[name="theme-url"]').value;
+        const defaultUrl = `${themeUrl}/images/image-placeholder-1920x1080.jpg`;
+        const thumb = `${themeUrl}/images/.image-placeholder-1920x1080_s.jpg`;
+        if (document.getElementById('default_image_url').value !== defaultUrl) {
+            thumb = document.getElementById('default_image_tb_url').value;
+        }
+        document.getElementById('default_image_tb_src').src = thumb;
+    });
+
+    // Small image
+    document.getElementById('default_small_image_selector').addEventListener('click', function (e) {
+        document.querySelector('input[name="change-button-id"]').value = this.id;
         window.open(
             'index.php?process=Media&plugin_id=admin.blog.theme&popup=1&select=1',
             'dc_popup',
-            'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no',
+            'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no'
         );
         e.preventDefault();
-        return false;
-    });
-    $('#default_small_image_selector_reset').on('click', (e) => {
-        const url = `${$('input[name="theme-url"]').val()}/images/image-placeholder-600x338.jpg`;
-        const thumb = `${$('input[name="theme-url"]').val()}/images/.image-placeholder-600x338_s.jpg`;
-        $('#default_small_image_url').val(url);
-        $('#default_small_image_tb_url').val(thumb);
-        $('#default_small_image_tb_src').attr('src', thumb);
-        $('#default_small_image_media_alt').val('');
     });
 
-    $('#default_small_image_url').on('change', (e) => {
-        const url = `${$('input[name="theme-url"]').val()}/images/image-placeholder-600x338.jpg`;
-        let thumb = `${$('input[name="theme-url"]').val()}/images/.image-placeholder-600x338_s.jpg`;
-        if ($('#default_small_image_url').val() != url) {
-            thumb = $('#default_small_image_tb_url').val();
+    document.getElementById('default_small_image_selector_reset').addEventListener('click', () => {
+        const themeUrl = document.querySelector('input[name="theme-url"]').value;
+        const url = `${themeUrl}/images/image-placeholder-600x338.jpg`;
+        const thumb = `${themeUrl}/images/.image-placeholder-600x338_s.jpg`;
+        document.getElementById('default_small_image_url').value = url;
+        document.getElementById('default_small_image_tb_url').value = thumb;
+        document.getElementById('default_small_image_tb_src').src = thumb;
+        document.getElementById('default_small_image_media_alt').value = '';
+    });
+
+    document.getElementById('default_small_image_url').addEventListener('change', () => {
+        const themeUrl = document.querySelector('input[name="theme-url"]').value;
+        const defaultUrl = `${themeUrl}/images/image-placeholder-600x338.jpg`;
+        const thumb = `${themeUrl}/images/.image-placeholder-600x338_s.jpg`;
+        if (document.getElementById('default_small_image_url').value !== defaultUrl) {
+            thumb = document.getElementById('default_small_image_tb_url').value;
         }
-        $('#default_small_image_tb_src').attr('src', thumb);
+        document.getElementById('default_small_image_tb_src').src = thumb;
     });
 
-    $('#featured_post_url_selector').on('click', function (e) {
-        window.open('popup_posts.php?plugin_id=admin.blog.theme&type=post', 'dc_popup', 'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no');
+    document.getElementById('featured_post_url_selector').addEventListener('click', function (e) {
+        window.open(
+            'popup_posts.php?plugin_id=admin.blog.theme&type=post',
+            'dc_popup',
+            'alwaysRaised=yes,dependent=yes,toolbar=yes,height=500,width=760,menubar=no,resizable=yes,scrollbars=yes,status=no'
+        );
         e.preventDefault();
-        return false;
     });
 
-    // stickers reorder
-    $('#stickerslist').sortable({
-        'cursor': 'move'
+    // Stickers reorder
+    const stickersList = document.getElementById('stickerslist');
+    let draggedRow = null;
+
+    stickersList.addEventListener('dragstart', (e) => {
+        if (e.target.tagName === 'TR') {
+            draggedRow = e.target;
+            e.target.style.opacity = '0.5';
+        }
     });
-    $('#stickerslist tr').hover(function () {
-        $(this).css({
-            'cursor': 'move'
-        });
-    }, function () {
-        $(this).css({
-            'cursor': 'auto'
-        });
+
+    stickersList.addEventListener('dragend', (e) => {
+        if (e.target.tagName === 'TR') {
+            e.target.style.opacity = '';
+        }
     });
-    $('#theme_config').submit(function () {
-        const order = [];
-        $('#stickerslist tr td input.position').each(function () {
-            order.push(this.name.replace(/^order\[([^\]]+)\]$/, '$1'));
-        });
-        $('input[name=ds_order]')[0].value = order.join(',');
-        return true;
+
+    stickersList.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const targetRow = e.target.closest('tr');
+        if (targetRow && targetRow !== draggedRow) {
+            const bounding = targetRow.getBoundingClientRect();
+            const offset = e.clientY - bounding.top;
+            if (offset > bounding.height / 2) {
+                targetRow.after(draggedRow);
+            } else {
+                targetRow.before(draggedRow);
+            }
+        }
     });
-    $('#stickerslist tr td input.position').hide();
-    $('#stickerslist tr td.handle').addClass('handler');
+
+    stickersList.querySelectorAll('tr').forEach(row => {
+        row.setAttribute('draggable', true);
+        const handle = row.querySelector('td.handle');
+        if (handle) {
+            handle.style.cursor = 'grab';
+            handle.style.display = 'block'; // Ensure the handle is visible
+            handle.style.backgroundImage = 'url("path/to/handle-image.png")'; // Add handle image
+            handle.style.backgroundRepeat = 'no-repeat';
+            handle.style.backgroundPosition = 'center';
+            handle.style.width = '20px'; // Adjust width for visibility
+            handle.style.height = '20px'; // Adjust height for visibility
+        }
+    });
+
+    Array.from(stickersList.querySelectorAll('tr td input.position')).forEach(input => input.style.display = 'none');
+    Array.from(stickersList.querySelectorAll('tr td.handle')).forEach(handle => handle.classList.add('handler'));
+
+    document.getElementById('theme_config').addEventListener('submit', () => {
+        const order = Array.from(stickersList.querySelectorAll('tr td input.position')).map(input =>
+            input.name.replace(/^order\[([^\]]+)\]$/, '$1')
+        );
+        document.querySelector('input[name="ds_order"]').value = order.join(',');
+    });
+
+
 });
