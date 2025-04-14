@@ -119,12 +119,15 @@ document.addEventListener('DOMContentLoaded', () => {
     Array.from(stickersList.querySelectorAll('tr td input.position')).forEach(input => input.style.display = 'none');
     Array.from(stickersList.querySelectorAll('tr td.handle')).forEach(handle => handle.classList.add('handler'));
 
-    document.getElementById('theme_config').addEventListener('submit', () => {
-        const order = Array.from(stickersList.querySelectorAll('tr td input.position')).map(input =>
-            input.name.replace(/^order\[([^\]]+)\]$/, '$1')
-        );
-        document.querySelector('input[name="ds_order"]').value = order.join(',');
-    });
+    const themeConfig = document.getElementById('theme_config');
+    if (themeConfig) {
+        themeConfig.addEventListener('submit', () => {
+            const order = Array.from(stickersList.querySelectorAll('tr td input.position')).map(input =>
+                input.name.replace(/^order\[([^\]]+)\]$/, '$1')
+            );
+            document.querySelector('input[name="ds_order"]').value = order.join(',');
+        });
+    }
 
 
 });
