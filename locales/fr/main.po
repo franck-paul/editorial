@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: editorial 4.9\n"
+"Project-Id-Version: editorial 5.4\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-04-07T06:32:18+00:00\n"
+"PO-Revision-Date: 2025-04-16T08:37:41+00:00\n"
 "Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,12 @@ msgstr "Grande image"
 msgid "Small image"
 msgstr "Petite image"
 
+msgid "Disable featured images"
+msgstr "Désactiver les images à la une"
+
+msgid "This will disable all featured images, including the substitute ones. Images in your entries content will not be affected"
+msgstr "Ceci désactivera les images à la une, y compris celles de substitution. Les images contenues dans vos entrées ne seront pas affectées."
+
 msgid "Your URL:"
 msgstr "Votre URL :"
 
@@ -37,17 +43,3 @@ msgstr "Menu principal"
 msgid "Custom menu"
 msgstr "Menu personnel"
 
-msgid "Category"
-msgstr "Catégorie"
-
-msgid "Custom menu"
-msgstr "Menu personnel"
-
-msgid "Entries"
-msgstr "Entrées"
-
-msgid "Pages"
-msgstr "Pages"
-
-msgid "Welcome"
-msgstr "Bienvenue"

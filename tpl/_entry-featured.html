@@ -4,7 +4,8 @@
     <header>
       <h2 class="post-title"><a href="{{tpl:EntryURL}}">{{tpl:EntryTitle encode_html="1"}}</a></h2>
       <p class="post-day-date"><time datetime="{{tpl:EntryDate iso8601="1"}}">{{tpl:EntryDate}}</time></p>
-        <tpl:EntryIf has_featured_media="1">
+      <tpl:editorialImagesIf>
+      <tpl:EntryIf has_featured_media="1">
           <tpl:FeaturedMedia>
             <tpl:FeaturedMediaIf is_image="1">
               <div class="post-featured-media" id="featured-media-{{tpl:EntryID}}">
@@ -22,6 +23,7 @@
             <img src="{{tpl:editorialBigImage}}" alt="{{tpl:editorialBigImageAlt}}">
           </div>
         </tpl:EntryIf>
+        </tpl:editorialImagesIf>
     </header>
     <!-- # Entry with an excerpt -->
     <tpl:EntryIf extended="1">

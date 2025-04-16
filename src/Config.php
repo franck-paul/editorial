@@ -18,6 +18,7 @@ use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
 use Dotclear\Helper\Html\Form\Button;
+use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Color;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Fieldset;
@@ -85,6 +86,10 @@ class Config extends Process
 
         if (!isset($images['default_small_image_media_alt'])) {
             $images['default_small_image_media_alt'] = '';
+        }
+
+        if (!isset($images['images_disabled'])) {
+            $images['images_disabled'] = false;
         }
 
         $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
@@ -204,6 +209,8 @@ class Config extends Process
                         $images['default_small_image_media_alt'] = '';
                     }
 
+                    $images['images_disabled'] = !empty($_POST['images_disabled']);
+                    
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
                     App::backend()->images   = $images;
@@ -211,7 +218,6 @@ class Config extends Process
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
-                    
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
@@ -368,6 +374,18 @@ class Config extends Process
                                 (new Hidden('default_small_image_media_alt'))
                                     ->value(App::backend()->images['default_small_image_media_alt']),
                             ]),
+
+                    ]),
+                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
+                        (new Para())->items([
+
+                            (new Checkbox('images_disabled', App::backend()->images['images_disabled']))
+                                
+                                ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
+                            (new Note())
+                                ->class(['form-note', 'info'])
+                                ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
+                        ]),
                     ]),
                     (new Para())->items([
                         (new Input('base_url'))

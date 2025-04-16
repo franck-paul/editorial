@@ -39,6 +39,8 @@ class Frontend extends Process
         App::frontend()->template()->addBlock('editorialDefaultIf', [self::class, 'editorialDefaultIf']);
         App::frontend()->template()->addBlock('editorialFeaturedIf', [self::class, 'editorialFeaturedIf']);
 
+        App::frontend()->template()->addBlock('editorialImagesIf', [self::class, 'editorialImagesIf']);
+
         App::frontend()->template()->addValue('editorialBigImage', [self::class, 'editorialBigImage']);
         App::frontend()->template()->addValue('editorialSmallImage', [self::class, 'editorialSmallImage']);
 
@@ -87,6 +89,23 @@ class Frontend extends Process
         $featuredPostURL = $s['featured_post_url'];
 
         if (!empty($featuredPostURL)) {
+            return $content;
+        }
+    }
+
+    public static function editorialImagesIf(ArrayObject $attr, string $content)
+    {
+        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
+        $s = $s ? (unserialize($s) ?: []) : [];
+
+        if (!is_array($s)) {
+            $s = [];
+        }
+        if (!isset($s['images_disabled'])) {
+            $s['images_disabled'] = false;
+        }
+
+        if ($s['images_disabled'] == false) {
             return $content;
         }
     }
@@ -163,6 +182,7 @@ class Frontend extends Process
         $si = $si ? (unserialize($si) ?: []) : [];
 
         $imgAlt = $si['default_small_image_media_alt'];
+
         return $imgAlt;
     }
 
