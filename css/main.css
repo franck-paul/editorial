@@ -4096,3 +4096,12 @@ a:focus {
 a.social-icon:hover {
   color: #3d4449 !important;
 }
+
+.error {
+  border-radius: .375em;
+  background-color: var(--main-color);
+  color: #fff;
+  font-size: 1..2em;
+  font-weight: bold;
+  padding: 1em;
+}
