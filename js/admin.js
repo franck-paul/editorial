@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Stickers tab
     const stickers = document.getElementById('stickers');
     if (stickers) {
-
         // Stickers reorder
         const stickersList = document.getElementById('stickerslist');
         let draggedRow = null;
@@ -123,9 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        Array.from(stickersList.querySelectorAll('tr td input.position')).forEach(input => input.style.display = 'none');
-        Array.from(stickersList.querySelectorAll('tr td.handle')).forEach(handler => handler.classList.add('handler'));
+        Array.from(stickersList.querySelectorAll('tr td input.position')).forEach(input => {
+            input.style.display = 'none';
+        });
 
+        Array.from(stickersList.querySelectorAll('tr td.handle')).forEach(handler => {
+            handler.classList.add('handler');
+        });
+
+        stickersList.querySelectorAll('input').forEach(input => {
+            input.addEventListener('click', () => {
+                input.select();
+            });
+        });
 
         stickers.addEventListener('submit', () => {
             const order = Array.from(stickersList.querySelectorAll('tr td input.position')).map(input =>
@@ -134,6 +143,4 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('input[name="ds_order"]').value = order.join(',');
         });
     }
-
-
 });
