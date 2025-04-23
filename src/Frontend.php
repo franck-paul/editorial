@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @brief Editorial, a theme for Dotclear 2
  *
@@ -34,23 +35,24 @@ class Frontend extends Process
 
         # Templates
 
-        App::behavior()->addBehavior('publicHeadContent', [self::class, 'publicHeadContent']);
+        // There is no publicHeadContent() method in this class
+        // App::behavior()->addBehavior('publicHeadContent', self::publicHeadContent(...));
 
-        App::frontend()->template()->addBlock('editorialDefaultIf', [self::class, 'editorialDefaultIf']);
-        App::frontend()->template()->addBlock('editorialFeaturedIf', [self::class, 'editorialFeaturedIf']);
+        App::frontend()->template()->addBlock('editorialDefaultIf', self::editorialDefaultIf(...));
+        App::frontend()->template()->addBlock('editorialFeaturedIf', self::editorialFeaturedIf(...));
 
-        App::frontend()->template()->addBlock('editorialImagesIf', [self::class, 'editorialImagesIf']);
+        App::frontend()->template()->addBlock('editorialImagesIf', self::editorialImagesIf(...));
 
-        App::frontend()->template()->addValue('editorialBigImage', [self::class, 'editorialBigImage']);
-        App::frontend()->template()->addValue('editorialSmallImage', [self::class, 'editorialSmallImage']);
+        App::frontend()->template()->addValue('editorialBigImage', self::editorialBigImage(...));
+        App::frontend()->template()->addValue('editorialSmallImage', self::editorialSmallImage(...));
 
-        App::frontend()->template()->addValue('editorialBigImageAlt', [self::class, 'editorialBigImageAlt']);
-        App::frontend()->template()->addValue('editorialSmallImageAlt', [self::class, 'editorialSmallImageAlt']);
+        App::frontend()->template()->addValue('editorialBigImageAlt', self::editorialBigImageAlt(...));
+        App::frontend()->template()->addValue('editorialSmallImageAlt', self::editorialSmallImageAlt(...));
 
-        App::frontend()->template()->addValue('editorialUserColors', [self::class, 'editorialUserColors']);
-        App::frontend()->template()->addValue('editorialSocialLinks', [self::class, 'editorialSocialLinks']);
+        App::frontend()->template()->addValue('editorialUserColors', self::editorialUserColors(...));
+        App::frontend()->template()->addValue('editorialSocialLinks', self::editorialSocialLinks(...));
 
-        App::behavior()->addBehavior('templateBeforeBlockV2', [self::class, 'templateBeforeBlock']);
+        App::behavior()->addBehavior('templateBeforeBlockV2', self::templateBeforeBlock(...));
 
         return true;
     }
@@ -63,11 +65,8 @@ class Frontend extends Process
         if (!is_array($s)) {
             $s = [];
         }
-        if (!isset($s['featured_post_url'])) {
-            $s['featured_post_url'] = '';
-        }
 
-        $featuredPostURL = $s['featured_post_url'];
+        $featuredPostURL = $s['featured_post_url'] ?? '';
 
         if (empty($featuredPostURL)) {
             return $content;
@@ -82,11 +81,8 @@ class Frontend extends Process
         if (!is_array($s)) {
             $s = [];
         }
-        if (!isset($s['featured_post_url'])) {
-            $s['featured_post_url'] = '';
-        }
 
-        $featuredPostURL = $s['featured_post_url'];
+        $featuredPostURL = $s['featured_post_url'] ?? '';
 
         if (!empty($featuredPostURL)) {
             return $content;
@@ -101,15 +97,14 @@ class Frontend extends Process
         if (!is_array($s)) {
             $s = [];
         }
-        if (!isset($s['images_disabled'])) {
-            $s['images_disabled'] = false;
-        }
+
+        $s['images_disabled'] ??= false;
 
         if (!App::plugins()->moduleExists('featuredMedia')) {
             $s['images_disabled'] = true;
         }
 
-        if ($s['images_disabled'] == false) {
+        if ($s['images_disabled'] === false) {
             return $content;
         }
     }
@@ -124,7 +119,7 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgSrc = $si['default_image_url'];
+        $imgSrc = $si['default_image_url'] ?? '';
 
         if (!empty($imgSrc)) {
             $parsedUrl = parse_url($imgSrc);
@@ -139,7 +134,7 @@ class Frontend extends Process
 
     public static function editorialBigImageAlt(ArrayObject $attr): string
     {
-        return '<?php echo ' . self::class . '::bigImageAltHelper(); ?>';
+        return '<?= ' . self::class . '::bigImageAltHelper() ?>';
     }
 
     public static function bigImageAltHelper()
@@ -147,13 +142,11 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgAlt = $si['default_image_media_alt'];
-
-        return $imgAlt;
+        return $si['default_image_media_alt'] ?? '';
     }
     public static function editorialSmallImage(ArrayObject $attr): string
     {
-        return '<?php echo ' . self::class . '::smallImageHelper(); ?>';
+        return '<?= ' . self::class . '::smallImageHelper() ?>';
     }
 
     public static function smallImageHelper()
@@ -161,7 +154,7 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgSrc = $si['default_small_image_url'];
+        $imgSrc = $si['default_small_image_url'] ?? '';
 
         if (!empty($imgSrc)) {
             $parsedUrl = parse_url($imgSrc);
@@ -177,7 +170,7 @@ class Frontend extends Process
 
     public static function editorialSmallImageAlt(ArrayObject $attr): string
     {
-        return '<?php echo ' . self::class . '::smallImageAltHelper(); ?>';
+        return '<?= ' . self::class . '::smallImageAltHelper() ?>';
     }
 
     public static function smallImageAltHelper()
@@ -185,14 +178,12 @@ class Frontend extends Process
         $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $si = $si ? (unserialize($si) ?: []) : [];
 
-        $imgAlt = $si['default_small_image_media_alt'];
-
-        return $imgAlt;
+        return $si['default_small_image_media_alt'] ?? '';
     }
 
     public static function editorialUserColors(ArrayObject $attr): string
     {
-        return '<?php echo ' . self::class . '::editorialUserColorsHelper(); ?>';
+        return '<?= ' . self::class . '::editorialUserColorsHelper() ?>';
     }
 
     public static function editorialUserColorsHelper()
@@ -203,13 +194,10 @@ class Frontend extends Process
         if (!is_array($style)) {
             $style = [];
         }
-        if (!isset($style['main_color'])) {
-            $style['main_color'] = '#f56a6a';
-        }
 
-        $main_color = $style['main_color'];
+        $main_color = $style['main_color'] ?? '#f56a6a';
 
-        if ($main_color != '#f56a6a') {
+        if ($main_color !== '#f56a6a') {
             return
             '<style type="text/css">' . "\n" .
             ':root {--main-color: ' . $main_color . '}' . "\n" .
@@ -219,7 +207,7 @@ class Frontend extends Process
 
     public static function editorialSocialLinks($attr)
     {
-        return '<?php echo ' . self::class . '::editorialSocialLinksHelper(); ?>';
+        return '<?= ' . self::class . '::editorialSocialLinksHelper() ?>';
     }
     public static function editorialSocialLinksHelper()
     {
@@ -233,7 +221,7 @@ class Frontend extends Process
         } else {
             $style = $style ? (unserialize($style) ?: []) : [];
 
-            $style = array_filter($style, self::class . '::cleanSocialLinks');
+            $style = array_filter($style, self::cleanSocialLinks(...));
 
             $count = 0;
             foreach ($style as $sticker) {
@@ -242,7 +230,7 @@ class Frontend extends Process
             }
         }
 
-        if ($res != '') {
+        if ($res !== '') {
             return $res;
         }
     }
@@ -258,7 +246,7 @@ class Frontend extends Process
     {
         if (is_array($style)) {
             if (isset($style['label']) && isset($style['url']) && isset($style['image'])) {
-                if ($style['label'] != null && $style['url'] != null && $style['image'] != null) {
+                if ($style['label'] && $style['url'] && $style['image']) {
                     return true;
                 }
             }
@@ -275,13 +263,10 @@ class Frontend extends Process
         if (!is_array($s)) {
             $s = [];
         }
-        if (!isset($s['featured_post_url'])) {
-            $s['featured_post_url'] = '';
-        }
 
-        $featuredPostURL = $s['featured_post_url'];
+        $featuredPostURL = $s['featured_post_url'] ?? '';
 
-        if ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 1) {
+        if ($block === 'Entries' && isset($attr['featured_url']) && (bool) $attr['featured_url']) {
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params['post_type'] = ['post', 'page', 'related']; }\n" .
