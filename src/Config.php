@@ -210,7 +210,7 @@ class Config extends Process
                     }
 
                     $images['images_disabled'] = !empty($_POST['images_disabled']);
-                    
+
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
                     App::backend()->images   = $images;
@@ -313,80 +313,8 @@ class Config extends Process
                                 ->value(App::backend()->style['main_color']),
                         ]),
                     ]),
-                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Placeholder images'))))->fields([
-                        (new Div())
-                            ->class(['box', 'theme'])->items([
-                                (new Para())->items([
-                                    (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
-                                    ->class('classic'),
-                                ]),
-                                (new Para())->items([
-                                    (new Image(App::backend()->images['default_image_tb_url'], 'default_image_tb_src'))
-                                    ->alt(__('Thumbnail'))
-                                    ->width(240)
-                                    ->height(160)
-                                    ->disabled(true),
-                                ]),
-                                (new Para())->items([
-                                    (new Button('default_image_selector', __('Change')))
-                                        ->type('button')
-                                        ->id('default_image_selector'),
-                                    (new Text('span', ' ')),
-                                    (new Button('default_image_selector_reset', __('Reset')))
-                                        ->class('delete')
-                                        ->type('button')
-                                        ->id('default_image_selector_reset'),
-                                ]),
-                                (new Hidden('default_image_url'))
-                                    ->value(App::backend()->images['default_image_url']),
-                                (new Hidden('default_image_tb_url'))
-                                    ->value(App::backend()->images['default_image_tb_url']),
-                                (new Hidden('default_image_media_alt'))
-                                    ->value(App::backend()->images['default_image_media_alt']),
-                            ]),
-                        (new Div())
-                            ->class(['box', 'theme'])->items([
-                                (new Para())->items([
-                                    (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
-                                    ->class('classic'),
-                                ]),
-                                (new Para())->items([
-                                    (new Image(App::backend()->images['default_small_image_tb_url'], 'default_small_image_tb_src'))
-                                    ->alt(__('Thumbnail'))
-                                    ->width(240)
-                                    ->height(160)
-                                    ->disabled(true),
-                                ]),
-                                (new Para())->items([
-                                    (new Button('default_small_image_selector', __('Change')))
-                                        ->type('button')
-                                        ->id('default_small_image_selector'),
-                                    (new Text('span', ' ')),
-                                    (new Button('default_small_image_selector_reset', __('Reset')))
-                                        ->class('delete')
-                                        ->type('button')
-                                        ->id('default_small_image_selector_reset'),
-                                ]),
-                                (new Hidden('default_small_image_url'))
-                                    ->value(App::backend()->images['default_small_image_url']),
-                                (new Hidden('default_small_image_tb_url'))
-                                    ->value(App::backend()->images['default_small_image_tb_url']),
-                                (new Hidden('default_small_image_media_alt'))
-                                    ->value(App::backend()->images['default_small_image_media_alt']),
-                            ]),
+                    ... self::myFeatured(),
 
-                    ]),
-                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
-                        (new Para())->items([
-
-                            (new Checkbox('images_disabled', App::backend()->images['images_disabled']))
-                                
-                                ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
-                            (new Note())
-                                ->class(['form-note', 'info'])
-                                ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
-                        ]),
-                    ]),
                     (new Para())->items([
                         (new Input('base_url'))
                             ->type('hidden')
@@ -420,9 +348,7 @@ class Config extends Process
                 ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers']))
                 ->method('post')
                 ->fields([
-                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Social links'))))->fields([
-                        ... self::myTable(),
-                    ]),
+                    ... self::myTable(),
                     (new Para())->items([
                         (new Input('conf_tab'))
                             ->type('hidden')
@@ -440,6 +366,98 @@ class Config extends Process
         Page::helpBlock('editorial');
     }
 
+    /**
+     * @brief featuredMedia settings
+     */
+    public static function myFeatured(): array
+    {
+        if (App::plugins()->moduleExists('featuredMedia')) {
+            $fields = [
+                (new Fieldset())->class('fieldset')->legend((new Legend(__('Placeholder images'))))->fields([
+                    (new Div())
+                    ->class(['box', 'theme'])->items([
+                        (new Para())->items([
+                            (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
+                            ->class('classic'),
+                        ]),
+                        (new Para())->items([
+                            (new Image(App::backend()->images['default_image_tb_url'], 'default_image_tb_src'))
+                            ->alt(__('Thumbnail'))
+                            ->width(240)
+                            ->height(160)
+                            ->disabled(true),
+                        ]),
+                        (new Para())->items([
+                            (new Button('default_image_selector', __('Change')))
+                                ->type('button')
+                                ->id('default_image_selector'),
+                            (new Text('span', ' ')),
+                            (new Button('default_image_selector_reset', __('Reset')))
+                                ->class('delete')
+                                ->type('button')
+                                ->id('default_image_selector_reset'),
+                        ]),
+                        (new Hidden('default_image_url'))
+                            ->value(App::backend()->images['default_image_url']),
+                        (new Hidden('default_image_tb_url'))
+                            ->value(App::backend()->images['default_image_tb_url']),
+                        (new Hidden('default_image_media_alt'))
+                            ->value(App::backend()->images['default_image_media_alt']),
+                    ]),
+                    (new Div())
+                        ->class(['box', 'theme'])->items([
+                            (new Para())->items([
+                                (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
+                                ->class('classic'),
+                            ]),
+                            (new Para())->items([
+                                (new Image(App::backend()->images['default_small_image_tb_url'], 'default_small_image_tb_src'))
+                                ->alt(__('Thumbnail'))
+                                ->width(240)
+                                ->height(160)
+                                ->disabled(true),
+                            ]),
+                            (new Para())->items([
+                                (new Button('default_small_image_selector', __('Change')))
+                                    ->type('button')
+                                    ->id('default_small_image_selector'),
+                                (new Text('span', ' ')),
+                                (new Button('default_small_image_selector_reset', __('Reset')))
+                                    ->class('delete')
+                                    ->type('button')
+                                    ->id('default_small_image_selector_reset'),
+                            ]),
+                            (new Hidden('default_small_image_url'))
+                                ->value(App::backend()->images['default_small_image_url']),
+                            (new Hidden('default_small_image_tb_url'))
+                                ->value(App::backend()->images['default_small_image_tb_url']),
+                            (new Hidden('default_small_image_media_alt'))
+                                ->value(App::backend()->images['default_small_image_media_alt']),
+                        ]),
+                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
+                        (new Para())->items([
+
+                            (new Checkbox('images_disabled', App::backend()->images['images_disabled']))
+
+                                ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
+                            (new Note())
+                                ->class(['form-note', 'info'])
+                                ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
+                        ]),
+                    ]),
+                ]),
+            ];
+        } else {
+            $fields = [];
+
+        }
+
+        return $fields;
+    }
+
+    /**
+     * @brief Stickers settings
+     */
     public static function myTable(): array
     {
         $count = 0;
