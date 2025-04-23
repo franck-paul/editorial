@@ -169,55 +169,58 @@ class Config extends Process
                     $featured['featured_post_url'] = $_POST['featured_post_url'] ?? '';
                     $style['main_color']           = $_POST['main_color']        ?? ($style['main_color'] ?? '#f56a6a');
 
-                    //BIG IMAGE
-                    # default image setting
-                    if (!empty($_POST['default_image_url'])) {
-                        $images['default_image_url'] = $_POST['default_image_url'];
-                    } else {
-                        $images['default_image_url'] = My::fileURL('/images/image-placeholder-1920x1080.jpg');
-                    }
-                    # default image thumbnail settings
-                    if (!empty($_POST['default_image_tb_url'])) {
-                        $images['default_image_tb_url'] = $_POST['default_image_tb_url'];
-                    } else {
-                        $images['default_image_tb_url'] = My::fileURL('.image-placeholder-1920x1080_s.jpg') . '/';
-                    }
-                    # default image media alt settings
-                    if (!empty($_POST['default_image_media_alt'])) {
-                        $images['default_image_media_alt'] = $_POST['default_image_media_alt'];
-                    } else {
-                        $images['default_image_media_alt'] = '';
-                    }
+                    if (App::plugins()->moduleExists('featuredMedia')) {
+                        //BIG IMAGE
+                        # default image setting
+                        if (!empty($_POST['default_image_url'])) {
+                            $images['default_image_url'] = $_POST['default_image_url'];
+                        } else {
+                            $images['default_image_url'] = My::fileURL('/images/image-placeholder-1920x1080.jpg');
+                        }
+                        # default image thumbnail settings
+                        if (!empty($_POST['default_image_tb_url'])) {
+                            $images['default_image_tb_url'] = $_POST['default_image_tb_url'];
+                        } else {
+                            $images['default_image_tb_url'] = My::fileURL('.image-placeholder-1920x1080_s.jpg') . '/';
+                        }
+                        # default image media alt settings
+                        if (!empty($_POST['default_image_media_alt'])) {
+                            $images['default_image_media_alt'] = $_POST['default_image_media_alt'];
+                        } else {
+                            $images['default_image_media_alt'] = '';
+                        }
 
-                    //SMALL IMAGE
-                    # default small image setting
-                    if (!empty($_POST['default_small_image_url'])) {
-                        $images['default_small_image_url'] = $_POST['default_small_image_url'];
-                    } else {
-                        $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
-                    }
-                    # default small image settings
-                    if (!empty($_POST['default_small_image_tb_url'])) {
-                        $images['default_small_image_tb_url'] = $_POST['default_small_image_tb_url'];
-                    } else {
-                        $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg') . '/';
-                    }
-                    # default small image media alt settings
-                    if (!empty($_POST['default_small_image_media_alt'])) {
-                        $images['default_small_image_media_alt'] = $_POST['default_small_image_media_alt'];
-                    } else {
-                        $images['default_small_image_media_alt'] = '';
-                    }
+                        //SMALL IMAGE
+                        # default small image setting
+                        if (!empty($_POST['default_small_image_url'])) {
+                            $images['default_small_image_url'] = $_POST['default_small_image_url'];
+                        } else {
+                            $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
+                        }
+                        # default small image settings
+                        if (!empty($_POST['default_small_image_tb_url'])) {
+                            $images['default_small_image_tb_url'] = $_POST['default_small_image_tb_url'];
+                        } else {
+                            $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg') . '/';
+                        }
+                        # default small image media alt settings
+                        if (!empty($_POST['default_small_image_media_alt'])) {
+                            $images['default_small_image_media_alt'] = $_POST['default_small_image_media_alt'];
+                        } else {
+                            $images['default_small_image_media_alt'] = '';
+                        }
 
-                    $images['images_disabled'] = !empty($_POST['images_disabled']);
+                        $images['images_disabled'] = !empty($_POST['images_disabled']);
+
+                        App::backend()->images = $images;
+                        App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
+                    }
 
                     App::backend()->featured = $featured;
                     App::backend()->style    = $style;
-                    App::backend()->images   = $images;
 
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
                     App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
-                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
@@ -448,8 +451,16 @@ class Config extends Process
                 ]),
             ];
         } else {
-            $fields = [];
+            $fields = [
+                (new Fieldset())->class('fieldset')->legend((new Legend(__('Featured images'))))->fields([
+                    (new Para())->items([
 
+                        (new Note())
+                            ->class(['form-note', 'info'])
+                            ->text(__('This theme needs the featuredMedia plugin to manage featured images.')),
+                    ]),
+                ]),
+            ];
         }
 
         return $fields;

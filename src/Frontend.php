@@ -105,6 +105,10 @@ class Frontend extends Process
             $s['images_disabled'] = false;
         }
 
+        if (!App::plugins()->moduleExists('featuredMedia')) {
+            $s['images_disabled'] = true;
+        }
+
         if ($s['images_disabled'] == false) {
             return $content;
         }
