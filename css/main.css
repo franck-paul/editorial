@@ -2160,9 +2160,8 @@ input[type=radio]+label:before {
 
 input[type=checkbox]:checked+label:before,
 input[type=radio]:checked+label:before {
-  background: #3d4449;
-  border-color: #3d4449;
-  color: #fff;
+  border-color: var(--main-color);
+  color: var(--main-color);
   content: '✔';
 }
 
