@@ -2163,7 +2163,7 @@ input[type=radio]:checked+label:before {
   background: #3d4449;
   border-color: #3d4449;
   color: #fff;
-  content: '\f00c'
+  content: '✔';
 }
 
 input[type=checkbox]:focus+label:before,
