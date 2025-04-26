@@ -52,3 +52,14 @@ msgstr "Menu principal"
 msgid "Custom menu"
 msgstr "Menu personnel"
 
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Entries"
+msgstr "Entrées"
+ 
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Welcome"
+msgstr "Bienvenue"
