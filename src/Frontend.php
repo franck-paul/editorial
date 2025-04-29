@@ -73,9 +73,7 @@ class Frontend extends Process
 
         $featuredPostURL = $s['featured_post_url'] ?? '';
 
-        if (empty($featuredPostURL)) {
-            return $content;
-        }
+        return empty($featuredPostURL);
     }
 
     public static function editorialFeaturedIf(ArrayObject $attr, string $content)
