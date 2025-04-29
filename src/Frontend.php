@@ -59,6 +59,11 @@ class Frontend extends Process
 
     public static function editorialDefaultIf(ArrayObject $attr, string $content)
     {
+        return '<?php if (' . self::class . '::defaultIf()) { ?>' . $content . '<?php } ?>';
+    }
+
+    public static function defaultIf()
+    {
         $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
@@ -75,6 +80,11 @@ class Frontend extends Process
 
     public static function editorialFeaturedIf(ArrayObject $attr, string $content)
     {
+        return '<?php if (' . self::class . '::featuredIf()) { ?>' . $content . '<?php } ?>';
+    }
+
+    public static function featuredIf()
+    {
         $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
         $s = $s ? (unserialize($s) ?: []) : [];
 
@@ -84,12 +94,15 @@ class Frontend extends Process
 
         $featuredPostURL = $s['featured_post_url'] ?? '';
 
-        if (!empty($featuredPostURL)) {
-            return $content;
-        }
+        return !empty($featuredPostURL);
     }
 
     public static function editorialImagesIf(ArrayObject $attr, string $content)
+    {
+        return '<?php if (' . self::class . '::imagesIf()) { ?>' . $content . '<?php } ?>';
+    }
+
+    public static function imagesIf()
     {
         $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
         $s = $s ? (unserialize($s) ?: []) : [];
@@ -104,9 +117,7 @@ class Frontend extends Process
             $s['images_disabled'] = true;
         }
 
-        if ($s['images_disabled'] === false) {
-            return $content;
-        }
+        return $s['images_disabled'] === false;
     }
 
     public static function editorialBigImage(ArrayObject $attr): string
