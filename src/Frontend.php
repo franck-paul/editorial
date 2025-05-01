@@ -35,9 +35,6 @@ class Frontend extends Process
 
         # Templates
 
-        // There is no publicHeadContent() method in this class
-        // App::behavior()->addBehavior('publicHeadContent', self::publicHeadContent(...));
-
         App::frontend()->template()->addBlock('editorialDefaultIf', self::editorialDefaultIf(...));
         App::frontend()->template()->addBlock('editorialFeaturedIf', self::editorialFeaturedIf(...));
 
