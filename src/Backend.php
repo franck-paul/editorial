@@ -30,7 +30,7 @@ class Backend extends Process
         }
 
         App::behavior()->addBehavior('adminPageHTMLHead', function () {
-            if (App::blog()->settings->system->theme !== My::id()) {
+            if (App::blog()->settings()->get('system')->get('theme') !== My::id()) {
                 return;
             }
 
@@ -41,8 +41,7 @@ class Backend extends Process
             My::jsLoad('fontawesome.js') . "\n" .
             My::cssLoad('admin.css') . "\n" ;
 
-            App::auth()->user_prefs->addWorkspace('accessibility');
-            if (!App::auth()->user_prefs->accessibility->nodragdrop) {
+            if (!App::auth()->prefs()->get('accessibility')->get('nodragdrop')) {
                 echo
                 Page::jsLoad('js/jquery/jquery-ui.custom.js') .
                 Page::jsLoad('js/jquery/jquery.ui.touch-punch.js');

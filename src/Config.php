@@ -43,6 +43,42 @@ use Exception;
 
 class Config extends Process
 {
+    /**
+     * @var     array<string, mixed>    $default_images
+     */
+    private static array $default_images = [];
+    /**
+     * @var     array<string, mixed>    $conf_images
+     */
+    private static array $conf_images = [];
+
+    /**
+     * @var     array<string, mixed>    $default_style
+     */
+    private static array $default_style = [];
+    /**
+     * @var     array<string, mixed>    $conf_style
+     */
+    private static array $conf_style = [];
+
+    /**
+     * @var     array<string, mixed>    $default_featured
+     */
+    private static array $default_featured = [];
+    /**
+     * @var     array<string, mixed>    $conf_featured
+     */
+    private static array $conf_featured = [];
+
+    /**
+     * @var     array<int, string>    $stickers_images
+     */
+    private static array $stickers_images = [];
+    /**
+     * @var     array<int, mixed>    $conf_stickers
+     */
+    private static array $conf_stickers = [];
+
     public static function init(): bool
     {
         // limit to backend permissions
@@ -50,101 +86,76 @@ class Config extends Process
             return false;
         }
 
+        $decode = function (string $setting): array {
+            $res = App::blog()->settings()->get('themes')->get(App::blog()->settings()->get('system')->get('theme') . '_' . $setting);
+            $res = unserialize($res) ?: [];
+            return is_array($res) ? $res : [];
+        };
+
+        // set default values
+        self::$default_images = [
+            'default_image_url'             => My::fileURL('/images/image-placeholder-1920x1080.jpg'),
+            'default_image_tb_url'          => My::fileURL('/images/.image-placeholder-1920x1080_s.jpg'),
+            'default_image_media_alt'       => '',
+            'default_small_image_url'       => My::fileURL('/images/image-placeholder-600x338.jpg'),
+            'default_small_image_tb_url'    => My::fileURL('/images/.image-placeholder-600x338_s.jpg'),
+            'default_small_image_media_alt' => '',
+            'images_disabled'               => false,
+        ];
+        self::$default_style = [
+            'main_color' => '#f56a6a',
+        ];
+        self::$default_featured = [
+            'featured_post_url' => '',
+        ];
+        self::$stickers_images = [
+            'fab fa-diaspora',
+            'fas fa-rss',
+            'fab fa-linkedin-in',
+            'fab fa-gitlab',
+            'fab fa-github',
+            'fab fa-twitter',
+            'fab fa-facebook-f',
+            'fab fa-instagram',
+            'fab fa-mastodon',
+            'fab fa-pinterest',
+            'fab fa-snapchat',
+            'fab fa-soundcloud',
+            'fab fa-youtube',
+        ];
+
         My::l10n('admin');
 
-        App::backend()->standalone_config = (bool) App::themes()->moduleInfo(App::blog()->settings->system->theme, 'standalone_config');
+        App::backend()->standalone_config = (bool) App::themes()->moduleInfo(App::blog()->settings()->system->theme, 'standalone_config');
 
         // Load contextual help
         App::themes()->loadModuleL10Nresources(My::id(), App::lang()->getLang());
 
         # default or user defined images settings
-        $images = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $images = $images ? (unserialize($images) ?: []) : [];
-
-        if (!is_array($images)) {
-            $images = [];
-        }
-        //Big image
-        if (!isset($images['default_image_url'])) {
-            $images['default_image_url'] = My::fileURL('/images/image-placeholder-1920x1080.jpg');
-        }
-        if (!isset($images['default_image_tb_url'])) {
-            $images['default_image_tb_url'] = My::fileURL('/images/.image-placeholder-1920x1080_s.jpg');
-        }
-
-        if (!isset($images['default_image_media_alt'])) {
-            $images['default_image_media_alt'] = '';
-        }
-
-        //Small image
-        if (!isset($images['default_small_image_url'])) {
-            $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
-        }
-        if (!isset($images['default_small_image_tb_url'])) {
-            $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg');
-        }
-
-        if (!isset($images['default_small_image_media_alt'])) {
-            $images['default_small_image_media_alt'] = '';
-        }
-
-        if (!isset($images['images_disabled'])) {
-            $images['images_disabled'] = false;
-        }
-
-        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
-        $style = $style ? (unserialize($style) ?: []) : [];
-
-        if (!is_array($style)) {
-            $style = [];
-        }
-
-        if (!isset($style['main_color'])) {
-            $style['main_color'] = '#f56a6a';
-        }
-
-        $featured = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
-        $featured = $featured ? (unserialize($featured) ?: []) : [];
-
-        if (!is_array($featured)) {
-            $featured = [];
-        }
-        if (!isset($featured['featured_post_url'])) {
-            $featured['featured_post_url'] = '';
-        }
-
-        $stickers = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
-        $stickers = $stickers ? (unserialize($stickers) ?: []) : [];
+        self::$conf_style    = array_merge(self::$default_style, $decode('style'));
+        self::$conf_images   = array_merge(self::$default_images, $decode('images'));
+        self::$conf_featured = array_merge(self::$default_featured, $decode('featured'));
+        $stickers = $decode('stickers');
 
         // Get all sticker images already used
         $stickers_full = [];
-        if (is_array($stickers)) {
-            foreach ($stickers as $v) {
-                $stickers_full[] = $v['image'];
-            }
+        foreach ($stickers as $v) {
+            $stickers_full[] = $v['image'];
         }
-        // Get social media images
-        // If you add stickers, remember to add them in myTable function into titles array
-        $stickers_images = ['fab fa-diaspora', 'fas fa-rss', 'fab fa-linkedin-in', 'fab fa-gitlab', 'fab fa-github', 'fab fa-twitter', 'fab fa-facebook-f',
-            'fab fa-instagram', 'fab fa-mastodon', 'fab fa-pinterest', 'fab fa-snapchat', 'fab fa-soundcloud', 'fab fa-youtube', ];
 
         // Add stickers images not already used
-        if (is_array($stickers_images)) {
-            foreach ($stickers_images as $v) {
-                if (!in_array($v, $stickers_full)) {
-                    // image not already used
-                    $stickers[] = [
-                        'label' => null,
-                        'url'   => null,
-                        'image' => $v, ];
-                }
+        // If you add stickers, remember to add them in myTable function into titles array
+        foreach (self::$stickers_images as $v) {
+            if (!in_array($v, $stickers_full)) {
+                // image not already used
+                $stickers[] = [
+                    'label' => null,
+                    'url'   => null,
+                    'image' => $v, ];
             }
         }
 
-        App::backend()->featured = $featured;
-        App::backend()->style    = $style;
-        App::backend()->images   = $images;
-        App::backend()->stickers = $stickers;
+        self::$conf_stickers = $stickers;
 
         App::backend()->conf_tab = $_POST['conf_tab'] ?? ($_GET['conf_tab'] ?? 'presentation');
 
@@ -160,67 +171,47 @@ class Config extends Process
             return false;
         }
 
+        $encode = function (string $setting): void {
+            App::blog()->settings()->get('themes')->put(
+                App::blog()->settings()->get('system')->get('theme') . '_' . $setting, serialize(self::${'conf_' . $setting})
+            );
+        };
+
         if (!empty($_POST)) {
             try {
                 // HTML
                 if (App::backend()->conf_tab === 'presentation') {
-                    $featured                      = [];
-                    $style                         = [];
-                    $featured['featured_post_url'] = $_POST['featured_post_url'] ?? '';
-                    $style['main_color']           = $_POST['main_color']        ?? ($style['main_color'] ?? '#f56a6a');
+                    if (isset($_POST['featured_post_url'])) {
+                        self::$conf_featured['featured_post_url'] = $_POST['featured_post_url'];
+                    }
+                    $encode('featured');
+
+                    if (isset($_POST['main_color'])) {
+                        self::$conf_style['main_color'] = $_POST['main_color'];
+                    }
+                    $encode('style');
 
                     if (App::plugins()->moduleExists('featuredMedia')) {
                         //BIG IMAGE
                         # default image setting
-                        if (!empty($_POST['default_image_url'])) {
-                            $images['default_image_url'] = $_POST['default_image_url'];
-                        } else {
-                            $images['default_image_url'] = My::fileURL('/images/image-placeholder-1920x1080.jpg');
-                        }
+                        self::$conf_images['default_image_url'] = $_POST['default_image_url'] ?: self::$default_images['default_image_url'];
                         # default image thumbnail settings
-                        if (!empty($_POST['default_image_tb_url'])) {
-                            $images['default_image_tb_url'] = $_POST['default_image_tb_url'];
-                        } else {
-                            $images['default_image_tb_url'] = My::fileURL('.image-placeholder-1920x1080_s.jpg') . '/';
-                        }
+                        self::$conf_images['default_image_tb_url'] = $_POST['default_image_tb_url'] ?: self::$default_images['default_image_tb_url'];
                         # default image media alt settings
-                        if (!empty($_POST['default_image_media_alt'])) {
-                            $images['default_image_media_alt'] = $_POST['default_image_media_alt'];
-                        } else {
-                            $images['default_image_media_alt'] = '';
-                        }
+                        self::$conf_images['default_image_media_alt'] = $_POST['default_image_media_alt'] ?: self::$default_images['default_image_media_alt'];
 
                         //SMALL IMAGE
                         # default small image setting
-                        if (!empty($_POST['default_small_image_url'])) {
-                            $images['default_small_image_url'] = $_POST['default_small_image_url'];
-                        } else {
-                            $images['default_small_image_url'] = My::fileURL('/images/image-placeholder-600x338.jpg');
-                        }
+                        self::$conf_images['default_small_image_url'] = $_POST['default_small_image_url'] ?: self::$default_images['default_small_image_url'];
                         # default small image settings
-                        if (!empty($_POST['default_small_image_tb_url'])) {
-                            $images['default_small_image_tb_url'] = $_POST['default_small_image_tb_url'];
-                        } else {
-                            $images['default_small_image_tb_url'] = My::fileURL('/images/.image-placeholder-600x338_s.jpg') . '/';
-                        }
+                        self::$conf_images['default_small_image_tb_url'] = $_POST['default_small_image_tb_url'] ?: self::$default_images['default_small_image_tb_url'];
                         # default small image media alt settings
-                        if (!empty($_POST['default_small_image_media_alt'])) {
-                            $images['default_small_image_media_alt'] = $_POST['default_small_image_media_alt'];
-                        } else {
-                            $images['default_small_image_media_alt'] = '';
-                        }
+                        self::$conf_images['default_small_image_media_alt'] = $_POST['default_small_image_media_alt'] ?: self::$default_images['default_small_image_media_alt'];
 
-                        $images['images_disabled'] = !empty($_POST['images_disabled']);
+                        self::$conf_images['images_disabled'] = !empty($_POST['images_disabled']);
 
-                        App::backend()->images = $images;
-                        App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_images', serialize(App::backend()->images));
+                        $encode('images');
                     }
-
-                    App::backend()->featured = $featured;
-                    App::backend()->style    = $style;
-
-                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_featured', serialize(App::backend()->featured));
-                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_style', serialize(App::backend()->style));
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
                     for ($i = 0; $i < count($_POST['sticker_image']); $i++) {
@@ -251,8 +242,8 @@ class Config extends Process
                         $stickers = $new_stickers;
                     }
 
-                    App::backend()->stickers = $stickers;
-                    App::blog()->settings->themes->put(App::blog()->settings->system->theme . '_stickers', serialize(App::backend()->stickers));
+                    self::$conf_stickers = $stickers;
+                    $encode('stickers');
                 }
 
                 // Blog refresh
@@ -296,7 +287,7 @@ class Config extends Process
                             (new Input('featured_post_url'))
                                 ->size(50)
                                 ->maxlength(255)
-                                ->value(App::backend()->featured['featured_post_url']),
+                                ->value(self::$conf_featured['featured_post_url']),
                             (new Button('featured_post_url_selector', __('Choose an entry')))
                                 ->class('button')
                                 ->type('button')
@@ -313,7 +304,7 @@ class Config extends Process
                             (new Color('main_color'))
                                 ->size(30)
                                 ->maxlength(255)
-                                ->value(App::backend()->style['main_color']),
+                                ->value(self::$conf_style['main_color']),
                         ]),
                     ]),
                     ... self::myFeatured(),
@@ -321,7 +312,7 @@ class Config extends Process
                     (new Para())->items([
                         (new Input('base_url'))
                             ->type('hidden')
-                            ->value(App::blog()->url),
+                            ->value(App::blog()->url()),
                         (new Input('theme-url'))
                             ->type('hidden')
                             ->value(My::fileURL('')),
@@ -371,6 +362,8 @@ class Config extends Process
 
     /**
      * @brief featuredMedia settings
+     *
+     * @return  array<int, Fieldset>
      */
     public static function myFeatured(): array
     {
@@ -384,7 +377,7 @@ class Config extends Process
                             ->class('classic'),
                         ]),
                         (new Para())->items([
-                            (new Image(App::backend()->images['default_image_tb_url'], 'default_image_tb_src'))
+                            (new Image(self::$conf_images['default_image_tb_url'], 'default_image_tb_src'))
                             ->alt(__('Thumbnail'))
                             ->width(240)
                             ->height(160)
@@ -401,11 +394,11 @@ class Config extends Process
                                 ->id('default_image_selector_reset'),
                         ]),
                         (new Hidden('default_image_url'))
-                            ->value(App::backend()->images['default_image_url']),
+                            ->value(self::$conf_images['default_image_url']),
                         (new Hidden('default_image_tb_url'))
-                            ->value(App::backend()->images['default_image_tb_url']),
+                            ->value(self::$conf_images['default_image_tb_url']),
                         (new Hidden('default_image_media_alt'))
-                            ->value(App::backend()->images['default_image_media_alt']),
+                            ->value(self::$conf_images['default_image_media_alt']),
                     ]),
                     (new Div())
                         ->class(['box', 'theme'])->items([
@@ -414,7 +407,7 @@ class Config extends Process
                                 ->class('classic'),
                             ]),
                             (new Para())->items([
-                                (new Image(App::backend()->images['default_small_image_tb_url'], 'default_small_image_tb_src'))
+                                (new Image(self::$conf_images['default_small_image_tb_url'], 'default_small_image_tb_src'))
                                 ->alt(__('Thumbnail'))
                                 ->width(240)
                                 ->height(160)
@@ -431,16 +424,16 @@ class Config extends Process
                                     ->id('default_small_image_selector_reset'),
                             ]),
                             (new Hidden('default_small_image_url'))
-                                ->value(App::backend()->images['default_small_image_url']),
+                                ->value(self::$conf_images['default_small_image_url']),
                             (new Hidden('default_small_image_tb_url'))
-                                ->value(App::backend()->images['default_small_image_tb_url']),
+                                ->value(self::$conf_images['default_small_image_tb_url']),
                             (new Hidden('default_small_image_media_alt'))
-                                ->value(App::backend()->images['default_small_image_media_alt']),
+                                ->value(self::$conf_images['default_small_image_media_alt']),
                         ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
                         (new Para())->items([
 
-                            (new Checkbox('images_disabled', App::backend()->images['images_disabled']))
+                            (new Checkbox('images_disabled', self::$conf_images['images_disabled']))
 
                                 ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
                             (new Note())
@@ -468,6 +461,8 @@ class Config extends Process
 
     /**
      * @brief Stickers settings
+     *
+     * @return  array<int, Table>
      */
     public static function myTable(): array
     {
@@ -479,7 +474,7 @@ class Config extends Process
                     (new Tr())->items([
                         (new Th())->text(''),
                         (new Th())->text(__('Image')),
-                        (new Th())->text(__('Label')),
+                        (new Th())->scope('row')->text(__('Label')),
                         (new Th())->text(__('URL')),
                     ]),
                 ]),
@@ -513,7 +508,7 @@ class Config extends Process
                                 (new Td())->class('handle')->items([
                                     (new Hidden('order[' . $i . ']'))
                                         ->min(0)
-                                        ->max(count(App::backend()->stickers))
+                                        ->max(count(self::$conf_stickers))
                                         ->value($count)
                                         ->class('position'),
                                     (new Hidden('dynorder[]'))->value($i),
@@ -524,7 +519,7 @@ class Config extends Process
                                     (new Hidden('sticker_image[]'))->value($v['image']),
                                     (new Text('i', ''))->class($v['image'])->title($v['label'] ?? $title),
                                 ]),
-                                (new Td())->scope('row')->items([
+                                (new Td())->items([
                                     (new Input('sticker_label[]'))
                                         ->size(20)
                                         ->maxlength(255)
@@ -539,7 +534,7 @@ class Config extends Process
                                         ->title(empty($v['url']) ? __('Your URL:') : $v['url']),
                                 ]),
                             ]);
-                    }, array_keys(App::backend()->stickers), App::backend()->stickers)
+                    }, array_keys(self::$conf_stickers), self::$conf_stickers)
                 ),
             ]),
         ];
