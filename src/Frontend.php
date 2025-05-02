@@ -54,193 +54,171 @@ class Frontend extends Process
         return true;
     }
 
-    public static function editorialDefaultIf(ArrayObject $attr, string $content)
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
+    public static function editorialDefaultIf(ArrayObject $attr, string $content): string
     {
         return '<?php if (' . self::class . '::defaultIf()) { ?>' . $content . '<?php } ?>';
     }
 
-    public static function defaultIf()
+    public static function defaultIf(): bool
     {
-        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
-        $s = $s ? (unserialize($s) ?: []) : [];
+        $featured = self::decode('featured');
 
-        if (!is_array($s)) {
-            $s = [];
-        }
-
-        $featuredPostURL = $s['featured_post_url'] ?? '';
-
-        return empty($featuredPostURL);
+        return empty($featured['featured_post_url'] ?? '');
     }
 
-    public static function editorialFeaturedIf(ArrayObject $attr, string $content)
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
+    public static function editorialFeaturedIf(ArrayObject $attr, string $content): string
     {
-        return '<?php if (' . self::class . '::featuredIf()) { ?>' . $content . '<?php } ?>';
+        return '<?php if (!' . self::class . '::defaultIf()) { ?>' . $content . '<?php } ?>';
     }
 
-    public static function featuredIf()
-    {
-        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
-        $s = $s ? (unserialize($s) ?: []) : [];
-
-        if (!is_array($s)) {
-            $s = [];
-        }
-
-        $featuredPostURL = $s['featured_post_url'] ?? '';
-
-        return !empty($featuredPostURL);
-    }
-
-    public static function editorialImagesIf(ArrayObject $attr, string $content)
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
+    public static function editorialImagesIf(ArrayObject $attr, string $content): string
     {
         return '<?php if (' . self::class . '::imagesIf()) { ?>' . $content . '<?php } ?>';
     }
 
-    public static function imagesIf()
+    public static function imagesIf(): bool
     {
-        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $s = $s ? (unserialize($s) ?: []) : [];
+        $images = self::decode('images');
 
-        if (!is_array($s)) {
-            $s = [];
-        }
-
-        $s['images_disabled'] ??= false;
+        $images['images_disabled'] ??= false;
 
         if (!App::plugins()->moduleExists('featuredMedia')) {
-            $s['images_disabled'] = true;
+            $images['images_disabled'] = true;
         }
 
-        return $s['images_disabled'] === false;
+        return $images['images_disabled'] === false;
     }
 
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
     public static function editorialBigImage(ArrayObject $attr): string
     {
         return '<?php echo ' . self::class . '::bigImageHelper(); ?>';
     }
 
-    public static function bigImageHelper()
+    public static function bigImageHelper(): string
     {
-        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $si = $si ? (unserialize($si) ?: []) : [];
+        $images = self::decode('images');
+        $source = $images['default_image_url'] ?? '';
 
-        $imgSrc = $si['default_image_url'] ?? '';
-
-        if (!empty($imgSrc)) {
-            $parsedUrl = parse_url($imgSrc);
-            $path      = $parsedUrl['path'] ?? '';
-
-            $pathInfo = pathinfo($path);
-            $imgSrc   = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.' . $pathInfo['extension'];
+        if (!empty($source)) {
+            $url    = parse_url($source);
+            $path   = $url['path'] ?? '';
+            $source = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME) . '.' . pathinfo($path, PATHINFO_EXTENSION);
         }
 
-        return $imgSrc;
+        return is_string($source) ? $source : '';
     }
 
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
     public static function editorialBigImageAlt(ArrayObject $attr): string
     {
         return '<?= ' . self::class . '::bigImageAltHelper() ?>';
     }
 
-    public static function bigImageAltHelper()
+    public static function bigImageAltHelper(): string
     {
-        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $si = $si ? (unserialize($si) ?: []) : [];
+        $images = self::decode('images');
 
-        return $si['default_image_media_alt'] ?? '';
+        return $images['default_image_media_alt'] ?? '';
     }
+
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
     public static function editorialSmallImage(ArrayObject $attr): string
     {
         return '<?= ' . self::class . '::smallImageHelper() ?>';
     }
 
-    public static function smallImageHelper()
+    public static function smallImageHelper(): string
     {
-        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $si = $si ? (unserialize($si) ?: []) : [];
+        $images = self::decode('images');
+        $source = $images['default_small_image_url'] ?? '';
 
-        $imgSrc = $si['default_small_image_url'] ?? '';
-
-        if (!empty($imgSrc)) {
-            $parsedUrl = parse_url($imgSrc);
-            $path      = $parsedUrl['path'] ?? '';
-
-            $pathInfo  = pathinfo($path);
-            $extension = strtolower($pathInfo['extension']) === 'jpeg' ? 'jpg' : $pathInfo['extension'];
-            $imgSrc    = $pathInfo['dirname'] . '/' . '.' . $pathInfo['filename'] . '_m.' . $extension;
+        if (!empty($source)) {
+            $url       = parse_url($source);
+            $path      = $url['path'] ?? '';
+            $extension = pathinfo($path, PATHINFO_EXTENSION);
+            $extension = strtolower($extension) === 'jpeg' ? 'jpg' : $extension;
+            $source    = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME) . '_m.' . $extension;
         }
 
-        return $imgSrc;
+        return is_string($source) ? $source : '';
     }
 
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
     public static function editorialSmallImageAlt(ArrayObject $attr): string
     {
         return '<?= ' . self::class . '::smallImageAltHelper() ?>';
     }
 
-    public static function smallImageAltHelper()
+    public static function smallImageAltHelper(): string
     {
-        $si = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_images');
-        $si = $si ? (unserialize($si) ?: []) : [];
+        $images = self::decode('images');
 
-        return $si['default_small_image_media_alt'] ?? '';
+        return $images['default_small_image_media_alt'] ?? '';
     }
 
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
     public static function editorialUserColors(ArrayObject $attr): string
     {
         return '<?= ' . self::class . '::editorialUserColorsHelper() ?>';
     }
 
-    public static function editorialUserColorsHelper()
+    public static function editorialUserColorsHelper(): string
     {
-        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_style');
-        $style = $style ? (unserialize($style) ?: []) : [];
-
-        if (!is_array($style)) {
-            $style = [];
-        }
-
+        $style = self::decode('style');
         $main_color = $style['main_color'] ?? '#f56a6a';
 
-        if ($main_color !== '#f56a6a') {
-            return
+        return $main_color !== '#f56a6a' ?
             '<style type="text/css">' . "\n" .
             ':root {--main-color: ' . $main_color . '}' . "\n" .
-            '</style>' . "\n";
-        }
+            '</style>' . "\n" : '';
     }
 
-    public static function editorialSocialLinks($attr)
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
+    public static function editorialSocialLinks(ArrayObject $attr): string
     {
         return '<?= ' . self::class . '::editorialSocialLinksHelper() ?>';
     }
-    public static function editorialSocialLinksHelper()
+
+    public static function editorialSocialLinksHelper(): string
     {
         # Social media links
         $res = '';
 
-        $style = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_stickers');
+        $stickers = self::decode('stickers');
+        $stickers = array_filter($stickers, self::cleanSocialLinks(...));
 
-        if ($style === null) {
-            $default = true;
-        } else {
-            $style = $style ? (unserialize($style) ?: []) : [];
-
-            $style = array_filter($style, self::cleanSocialLinks(...));
-
-            $count = 0;
-            foreach ($style as $sticker) {
-                $res .= self::setSocialLink($count, ($count == count($style)), $sticker['label'], $sticker['url'], $sticker['image']);
-                $count++;
-            }
+        $count = 0;
+        foreach ($stickers as $sticker) {
+            $res .= self::setSocialLink($count, ($count == count($stickers)), $sticker['label'], $sticker['url'], $sticker['image']);
+            $count++;
         }
 
-        if ($res !== '') {
-            return $res;
-        }
+        return $res;
     }
-    protected static function setSocialLink($position, $last, $label, $url, $image)
+
+    protected static function setSocialLink(int $position, bool $last, string $label, string $url, string $image): string
     {
         return
             '<li><a class="social-icon" title="' . $label . '" href="' . $url . '"><span class="sr-only">' . $label . '</span>' .
@@ -248,7 +226,7 @@ class Frontend extends Process
             '</a></li>' . "\n";
     }
 
-    protected static function cleanSocialLinks($style)
+    protected static function cleanSocialLinks(mixed $style): bool
     {
         if (is_array($style)) {
             if (isset($style['label']) && isset($style['url']) && isset($style['image'])) {
@@ -261,30 +239,43 @@ class Frontend extends Process
         return false;
     }
 
-    public static function templateBeforeBlock(string $block, ArrayObject $attr): string
+    /**
+     * @return  array<string, mixed>
+     */
+    protected static function decode(string $setting): array
     {
-        $s = App::blog()->settings->themes->get(App::blog()->settings->system->theme . '_featured');
-        $s = $s ? (unserialize($s) ?: []) : [];
+        $res = App::blog()->settings()->get('themes')->get(App::blog()->settings()->get('system')->get('theme') . '_' . $setting);
+        $res = $res ? (unserialize($res) ?: []) : [];
 
-        if (!is_array($s)) {
-            $s = [];
+        if (!is_array($res)) {
+            $res = [];
         }
 
-        $featuredPostURL = $s['featured_post_url'] ?? '';
+        return $res;
+    }
 
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
+    public static function templateBeforeBlock(string $block, ArrayObject $attr): string
+    {
         if ($block === 'Entries' && isset($attr['featured_url']) && (bool) $attr['featured_url']) {
+            $featured = self::decode('featured');
+
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params['post_type'] = ['post', 'page', 'related']; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
-            "\$params['sql'] .= \"AND P.post_url = '" . urldecode($featuredPostURL) . "' \";\n" .
+            "\$params['sql'] .= \"AND P.post_url = '" . urldecode($featured['featured_post_url'] ?? '') . "' \";\n" .
                 "?>\n";
         } elseif ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 0) {
+            $featured = self::decode('featured');
+
             return
             "<?php\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
-            "\$params['sql'] .= \"AND P.post_url != '" . urldecode($featuredPostURL) . "' \";\n" .
+            "\$params['sql'] .= \"AND P.post_url != '" . urldecode($featured['featured_post_url'] ?? '') . "' \";\n" .
                 "?>\n";
         }
 
