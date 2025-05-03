@@ -2,8 +2,7 @@
     font-size: 2em;
 }
 
-#default_image_tb_src, #default_small_image_tb_src {
-    object-fit: cover;
+.thumbnail {
     background: var(--theme-img-background);
     box-shadow:
         0.9px 0.9px 2.2px rgba(0, 0, 0, 0.07),

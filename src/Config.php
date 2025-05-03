@@ -24,7 +24,7 @@ use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Form;
 use Dotclear\Helper\Html\Form\Hidden;
-use Dotclear\Helper\Html\Form\Image;
+use Dotclear\Helper\Html\Form\Img;
 use Dotclear\Helper\Html\Form\Input;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
@@ -89,6 +89,7 @@ class Config extends Process
         $decode = function (string $setting): array {
             $res = App::blog()->settings()->get('themes')->get(App::blog()->settings()->get('system')->get('theme') . '_' . $setting);
             $res = unserialize($res) ?: [];
+
             return is_array($res) ? $res : [];
         };
 
@@ -135,7 +136,7 @@ class Config extends Process
         self::$conf_style    = array_merge(self::$default_style, $decode('style'));
         self::$conf_images   = array_merge(self::$default_images, $decode('images'));
         self::$conf_featured = array_merge(self::$default_featured, $decode('featured'));
-        $stickers = $decode('stickers');
+        $stickers            = $decode('stickers');
 
         // Get all sticker images already used
         $stickers_full = [];
@@ -173,7 +174,8 @@ class Config extends Process
 
         $encode = function (string $setting): void {
             App::blog()->settings()->get('themes')->put(
-                App::blog()->settings()->get('system')->get('theme') . '_' . $setting, serialize(self::${'conf_' . $setting})
+                App::blog()->settings()->get('system')->get('theme') . '_' . $setting,
+                serialize(self::${'conf_' . $setting})
             );
         };
 
@@ -377,11 +379,14 @@ class Config extends Process
                             ->class('classic'),
                         ]),
                         (new Para())->items([
-                            (new Image(self::$conf_images['default_image_tb_url'], 'default_image_tb_src'))
-                            ->alt(__('Thumbnail'))
-                            ->width(240)
-                            ->height(160)
-                            ->disabled(true),
+                            (new Img('default_image_tb_src'))
+                                ->id('default_image_tb_src')
+                                ->class('thumbnail')
+                                ->src(self::$conf_images['default_image_tb_url'])
+                                ->alt(self::$conf_images['default_image_media_alt'])
+                                ->title(self::$conf_images['default_image_media_alt'])
+                                ->width(240)
+                                ->height(160),
                         ]),
                         (new Para())->items([
                             (new Button('default_image_selector', __('Change')))
@@ -407,11 +412,14 @@ class Config extends Process
                                 ->class('classic'),
                             ]),
                             (new Para())->items([
-                                (new Image(self::$conf_images['default_small_image_tb_url'], 'default_small_image_tb_src'))
-                                ->alt(__('Thumbnail'))
-                                ->width(240)
-                                ->height(160)
-                                ->disabled(true),
+                                (new Img('default_small_image_tb_src'))
+                                    ->id('default_small_image_tb_src')
+                                    ->class('thumbnail')
+                                    ->src(self::$conf_images['default_small_image_tb_url'])
+                                    ->alt(self::$conf_images['default_small_image_media_alt'])
+                                    ->title(self::$conf_images['default_small_image_media_alt'])
+                                    ->width(240)
+                                    ->height(160),
                             ]),
                             (new Para())->items([
                                 (new Button('default_small_image_selector', __('Change')))
