@@ -124,6 +124,9 @@ class Config extends Process
             'fab fa-soundcloud',
             'fab fa-youtube',
         ];
+        
+        // If you add stickers above, remember to add them in myTable function into titles array
+
 
         My::l10n('admin');
 
@@ -145,7 +148,6 @@ class Config extends Process
         }
 
         // Add stickers images not already used
-        // If you add stickers, remember to add them in myTable function into titles array
         foreach (self::$stickers_images as $v) {
             if (!in_array($v, $stickers_full)) {
                 // image not already used
@@ -205,7 +207,7 @@ class Config extends Process
                         //SMALL IMAGE
                         # default small image setting
                         self::$conf_images['default_small_image_url'] = $_POST['default_small_image_url'] ?: self::$default_images['default_small_image_url'];
-                        # default small image settings
+                        # default small image thumbnail settings
                         self::$conf_images['default_small_image_tb_url'] = $_POST['default_small_image_tb_url'] ?: self::$default_images['default_small_image_tb_url'];
                         # default small image media alt settings
                         self::$conf_images['default_small_image_media_alt'] = $_POST['default_small_image_media_alt'] ?: self::$default_images['default_small_image_media_alt'];
