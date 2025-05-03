@@ -153,7 +153,7 @@ class Frontend extends Process
             $path      = $url['path'] ?? '';
             $extension = pathinfo($path, PATHINFO_EXTENSION);
             $extension = strtolower($extension) === 'jpeg' ? 'jpg' : $extension;
-            $source    = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME) . '_m.' . $extension;
+            $source    = pathinfo($path, PATHINFO_DIRNAME) . '/' . '.' . pathinfo($path, PATHINFO_FILENAME) . '_m.' . $extension;
         }
 
         return is_string($source) ? $source : '';
