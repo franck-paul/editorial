@@ -88,7 +88,7 @@ class Config extends Process
 
         $decode = function (string $setting): array {
             $res = App::blog()->settings()->get('themes')->get(App::blog()->settings()->get('system')->get('theme') . '_' . $setting);
-            $res = unserialize($res) ?: [];
+            $res = unserialize((string) $res) ?: [];
 
             return is_array($res) ? $res : [];
         };
