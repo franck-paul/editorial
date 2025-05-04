@@ -387,7 +387,7 @@ class Config extends Process
             $fields = [
                 (new Fieldset())->class('fieldset')->legend((new Legend(__('Placeholder images'))))->fields([
                     (new Div())
-                    ->class(['box', ''])->items([
+                    ->class('box')->items([
                         (new Para())->items([
                             (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
                             ->class('classic'),
@@ -420,7 +420,7 @@ class Config extends Process
                             ->value(self::$conf_images['default_image_media_alt']),
                     ]),
                     (new Div())
-                        ->class(['box', ''])->items([
+                        ->class('box')->items([
                             (new Para())->items([
                                 (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
                                 ->class('classic'),

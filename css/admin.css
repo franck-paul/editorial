@@ -21,3 +21,7 @@
 #theme_config .box.theme {
     border: 0;
 }
+
+.box {
+    margin-right: 1em;
+}
