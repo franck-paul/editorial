@@ -30,6 +30,7 @@ use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Radio;
 use Dotclear\Helper\Html\Form\Submit;
 use Dotclear\Helper\Html\Form\Table;
 use Dotclear\Helper\Html\Form\Tbody;
@@ -304,13 +305,23 @@ class Config extends Process
 
                     ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
-                        (new Para())->items([
+                        (new Para())->class('two-boxes')->items([
                             (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
                             (new Color('main_color'))
                                 ->size(30)
                                 ->maxlength(255)
                                 ->value(self::$conf_style['main_color']),
+                                
                         ]),
+                        (new Para())->class('two-boxes')->items([
+                            (new Label(__('Theme mode:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
+                            (new Radio(['friendship'], in_array('contact', [])))
+                                ->value('contact')
+                                ->label((new Label(__('_xfn_Contact'), Label::INSIDE_TEXT_AFTER))),
+                            (new Radio(['friendship'], in_array('acquaintance', [])))
+                                ->value('acquaintance')
+                                ->label((new Label(__('_xfn_Acquaintance'), Label::INSIDE_TEXT_AFTER))),
+                        ]),                        
                     ]),
                     ... self::myFeatured(),
 
@@ -376,7 +387,7 @@ class Config extends Process
             $fields = [
                 (new Fieldset())->class('fieldset')->legend((new Legend(__('Placeholder images'))))->fields([
                     (new Div())
-                    ->class(['box', 'theme'])->items([
+                    ->class(['box', ''])->items([
                         (new Para())->items([
                             (new Label(__('Big image'), Label::INSIDE_LABEL_BEFORE))->for('default_image_tb_url')
                             ->class('classic'),
@@ -409,7 +420,7 @@ class Config extends Process
                             ->value(self::$conf_images['default_image_media_alt']),
                     ]),
                     (new Div())
-                        ->class(['box', 'theme'])->items([
+                        ->class(['box', ''])->items([
                             (new Para())->items([
                                 (new Label(__('Small image'), Label::INSIDE_LABEL_BEFORE))->for('default_small_image_tb_url')
                                 ->class('classic'),
@@ -440,17 +451,16 @@ class Config extends Process
                                 ->value(self::$conf_images['default_small_image_tb_url']),
                             (new Hidden('default_small_image_media_alt'))
                                 ->value(self::$conf_images['default_small_image_media_alt']),
-                        ]),
-                    (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
-                        (new Para())->items([
+                        ]),        
+                ]),
+                (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
+                    (new Para())->items([
+                        (new Checkbox('images_disabled', self::$conf_images['images_disabled']))
 
-                            (new Checkbox('images_disabled', self::$conf_images['images_disabled']))
-
-                                ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
-                            (new Note())
-                                ->class(['form-note', 'info'])
-                                ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
-                        ]),
+                            ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
+                        (new Note())
+                            ->class(['form-note', 'info'])
+                            ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
                     ]),
                 ]),
             ];
