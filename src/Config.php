@@ -106,6 +106,7 @@ class Config extends Process
         ];
         self::$default_style = [
             'main_color' => '#f56a6a',
+            'mode'       => 'light',
         ];
         self::$default_featured = [
             'featured_post_url' => '',
@@ -193,6 +194,10 @@ class Config extends Process
                     if (isset($_POST['main_color'])) {
                         self::$conf_style['main_color'] = $_POST['main_color'];
                     }
+                    if (isset($_POST['mode'])) {
+                        self::$conf_style['mode'] = $_POST['mode'];
+                    }
+
                     $encode('style');
 
                     if (App::plugins()->moduleExists('featuredMedia')) {
@@ -311,17 +316,17 @@ class Config extends Process
                                 ->size(30)
                                 ->maxlength(255)
                                 ->value(self::$conf_style['main_color']),
-                                
+
                         ]),
                         (new Para())->class('two-boxes')->items([
-                            (new Label(__('Theme mode:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
-                            (new Radio(['friendship'], in_array('contact', [])))
-                                ->value('contact')
-                                ->label((new Label(__('_xfn_Contact'), Label::INSIDE_TEXT_AFTER))),
-                            (new Radio(['friendship'], in_array('acquaintance', [])))
-                                ->value('acquaintance')
-                                ->label((new Label(__('_xfn_Acquaintance'), Label::INSIDE_TEXT_AFTER))),
-                        ]),                        
+                            (new Label(__('Theme mode:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
+                            (new Radio(['mode'], (self::$conf_style['mode'] == 'light')))
+                                ->value('light')
+                                ->label((new Label(__('Light'), Label::INSIDE_TEXT_AFTER))),
+                            (new Radio(['mode'], (self::$conf_style['mode'] == 'dark')))
+                                ->value('dark')
+                                ->label((new Label(__('Dark'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
                     ]),
                     ... self::myFeatured(),
 
@@ -451,7 +456,7 @@ class Config extends Process
                                 ->value(self::$conf_images['default_small_image_tb_url']),
                             (new Hidden('default_small_image_media_alt'))
                                 ->value(self::$conf_images['default_small_image_media_alt']),
-                        ]),        
+                        ]),
                 ]),
                 (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
                     (new Para())->items([

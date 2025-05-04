@@ -47,11 +47,44 @@ class Frontend extends Process
         App::frontend()->template()->addValue('editorialSmallImageAlt', self::editorialSmallImageAlt(...));
 
         App::frontend()->template()->addValue('editorialUserColors', self::editorialUserColors(...));
+        App::behavior()->addBehavior('publicHeadContent', self::publicHeadContent(...));
+
         App::frontend()->template()->addValue('editorialSocialLinks', self::editorialSocialLinks(...));
 
         App::behavior()->addBehavior('templateBeforeBlockV2', self::templateBeforeBlock(...));
 
         return true;
+    }
+
+    /**
+     * Public head content behavior callback
+     */
+    public static function publicHeadContent(): void
+    {
+        $style = self::decode('style');
+        $mode  = $style['mode'] ?? 'light';
+        if ($mode === 'dark') {
+            echo My::cssLoad('main-dark.css');
+        }
+    }
+
+    /**
+     * @param   ArrayObject<string, mixed>  $attr   The attributes
+     */
+    public static function themeMode($attr): string
+    {
+        return '<?= ' . self::class . '::themeModeHelper() ?>';
+    }
+
+    public static function themeModeHelper(): string
+    {
+        $style      = self::decode('style');
+        $main_color = $style['main_color'] ?? '#f56a6a';
+
+        return $main_color !== '#f56a6a' ?
+            '<style type="text/css">' . "\n" .
+            ':root {--main-color: ' . $main_color . '}' . "\n" .
+            '</style>' . "\n" : '';
     }
 
     /**
@@ -184,7 +217,7 @@ class Frontend extends Process
 
     public static function editorialUserColorsHelper(): string
     {
-        $style = self::decode('style');
+        $style      = self::decode('style');
         $main_color = $style['main_color'] ?? '#f56a6a';
 
         return $main_color !== '#f56a6a' ?
