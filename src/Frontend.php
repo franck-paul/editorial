@@ -63,28 +63,10 @@ class Frontend extends Process
     {
         $style = self::decode('style');
         $mode  = $style['mode'] ?? 'light';
+
         if ($mode === 'dark') {
             echo My::cssLoad('main-dark.css');
         }
-    }
-
-    /**
-     * @param   ArrayObject<string, mixed>  $attr   The attributes
-     */
-    public static function themeMode($attr): string
-    {
-        return '<?= ' . self::class . '::themeModeHelper() ?>';
-    }
-
-    public static function themeModeHelper(): string
-    {
-        $style      = self::decode('style');
-        $main_color = $style['main_color'] ?? '#f56a6a';
-
-        return $main_color !== '#f56a6a' ?
-            '<style type="text/css">' . "\n" .
-            ':root {--main-color: ' . $main_color . '}' . "\n" .
-            '</style>' . "\n" : '';
     }
 
     /**
