@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: editorial 5.5\n"
+"Project-Id-Version: editorial 6.6\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-04T09:25:15+00:00\n"
+"PO-Revision-Date: 2025-05-04T18:41:03+00:00\n"
 "Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,9 @@ msgstr "La présentation du thème a été mise à jour"
 
 msgid "Theme stickers have been updated."
 msgstr "Les étiquettes du thème ont été mises à jour"
+
+msgid "Mode:"
+msgstr "Mode :"
 
 msgid "Links and buttons"
 msgstr "Liens et boutons"

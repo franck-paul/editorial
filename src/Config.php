@@ -310,22 +310,23 @@ class Config extends Process
 
                     ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
-                        (new Para())->class('two-boxes')->items([
-                            (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
-                            (new Color('main_color'))
-                                ->size(30)
-                                ->maxlength(255)
-                                ->value(self::$conf_style['main_color']),
-
-                        ]),
-                        (new Para())->class('two-boxes')->items([
-                            (new Label(__('Theme mode:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
+                        
+                        (new Para())->class('classic')->items([
+                            (new Label(__('Mode:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
                             (new Radio(['mode'], (self::$conf_style['mode'] == 'light')))
                                 ->value('light')
                                 ->label((new Label(__('Light'), Label::INSIDE_TEXT_AFTER))),
                             (new Radio(['mode'], (self::$conf_style['mode'] == 'dark')))
                                 ->value('dark')
                                 ->label((new Label(__('Dark'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
+                        (new Para())->class('classic')->items([
+                            (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
+                            (new Color('main_color'))
+                                ->size(30)
+                                ->maxlength(255)
+                                ->value(self::$conf_style['main_color']),
+
                         ]),
                     ]),
                     ... self::myFeatured(),

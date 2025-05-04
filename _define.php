@@ -12,7 +12,7 @@ $this->registerModule(
     'Éditorial',
     'A theme for Dotclear',
     'Philippe aka amalgame and contributors',
-    '6.6',
+    '6.7',
     [
         'requires'          => [['core', '2.33']],
         'standalone_config' => true,
