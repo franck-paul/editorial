@@ -16,10 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../git-themes/editorial/src/Config.php:149
-msgid "Theme configuration upgraded."
-msgstr ""
-
 #: ../git-themes/editorial/src/Config.php:170
 msgid "Presentation"
 msgstr ""

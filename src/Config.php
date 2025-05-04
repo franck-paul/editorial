@@ -124,9 +124,8 @@ class Config extends Process
             'fab fa-soundcloud',
             'fab fa-youtube',
         ];
-        
-        // If you add stickers above, remember to add them in myTable function into titles array
 
+        // If you add stickers above, remember to add them in myTable function into titles array
 
         My::l10n('admin');
 
@@ -215,6 +214,8 @@ class Config extends Process
                         self::$conf_images['images_disabled'] = !empty($_POST['images_disabled']);
 
                         $encode('images');
+
+                        Notices::addSuccessNotice(__('Theme presentation has been updated.'));
                     }
                 } elseif (App::backend()->conf_tab === 'stickers') {
                     $stickers = [];
@@ -248,6 +249,8 @@ class Config extends Process
 
                     self::$conf_stickers = $stickers;
                     $encode('stickers');
+
+                    Notices::addSuccessNotice(__('Theme stickers have been updated.'));
                 }
 
                 // Blog refresh
@@ -255,8 +258,6 @@ class Config extends Process
 
                 // Template cache reset
                 App::cache()->emptyTemplatesCache();
-
-                Notices::addSuccessNotice(__('Theme configuration upgraded.'));
             } catch (Exception $e) {
                 App::error()->add($e->getMessage());
             }
@@ -281,7 +282,7 @@ class Config extends Process
             ->title(__('Presentation'))
             ->items([
                 (new Form('theme_presentation'))
-                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'presentation']))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'presentation']) . '#presentation')
                 ->method('post')
                 ->fields([
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Blog\'s featured publication'))))->fields([
@@ -343,7 +344,7 @@ class Config extends Process
             ->title(__('Stickers'))
             ->items([
                 (new Form('theme_links'))
-                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers']))
+                ->action(App::backend()->url()->get('admin.blog.theme', ['conf' => '1', 'conf_tab' => 'stickers']) . '#stickers')
                 ->method('post')
                 ->fields([
                     ... self::myTable(),
