@@ -32,8 +32,8 @@ label,
 p,
 strong,
 textarea {
-  background: #333 !important;
-  color: #fff !important
+    background: #333 !important;
+    color: #fff !important
 }
 
 .button:hover,
@@ -47,5 +47,5 @@ input[type=checkbox]:hover,
 input[type=button]:hover,
 input[type=reset]:hover,
 input[type=submit]:hover {
-  color: var(--main-color) !important
+    color: var(--main-color) !important
 }

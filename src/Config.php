@@ -319,6 +319,9 @@ class Config extends Process
                             (new Radio(['mode'], (self::$conf_style['mode'] == 'dark')))
                                 ->value('dark')
                                 ->label((new Label(__('Dark'), Label::INSIDE_TEXT_AFTER))),
+                            (new Radio(['mode'], (self::$conf_style['mode'] == 'auto')))
+                                ->value('auto')
+                                ->label((new Label(__('Automatic'), Label::INSIDE_TEXT_AFTER))),
                         ]),
                         (new Para())->class('classic')->items([
                             (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),

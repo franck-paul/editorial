@@ -66,6 +66,8 @@ class Frontend extends Process
 
         if ($mode === 'dark') {
             echo My::cssLoad('main-dark.css');
+        } elseif ($mode === 'auto') {
+            echo My::cssLoad('main-auto.css');
         }
     }
 
