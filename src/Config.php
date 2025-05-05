@@ -465,23 +465,19 @@ class Config extends Process
                 (new Fieldset())->class('fieldset')->legend((new Legend(__('Option'))))->fields([
                     (new Para())->items([
                         (new Checkbox('images_disabled', self::$conf_images['images_disabled']))
-
                             ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
+                        ]),
                         (new Note())
                             ->class(['form-note', 'info'])
                             ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
-                    ]),
                 ]),
             ];
         } else {
             $fields = [
                 (new Fieldset())->class('fieldset')->legend((new Legend(__('Featured images'))))->fields([
-                    (new Para())->items([
-
                         (new Note())
                             ->class(['form-note', 'info'])
                             ->text(__('This theme needs the featuredMedia plugin to manage featured images.')),
-                    ]),
                 ]),
             ];
         }
