@@ -312,7 +312,7 @@ class Config extends Process
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
                         
                         (new Para())->class('classic')->items([
-                            (new Label(__('Mode:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
+                            (new Label(__('Theme:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
                             (new Radio(['mode'], (self::$conf_style['mode'] == 'light')))
                                 ->value('light')
                                 ->label((new Label(__('Light'), Label::INSIDE_TEXT_AFTER))),
