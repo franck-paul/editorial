@@ -106,7 +106,7 @@ class Config extends Process
         ];
         self::$default_style = [
             'main_color' => '#f56a6a',
-            'mode'       => 'light',
+            'mode'       => 'auto',
         ];
         self::$default_featured = [
             'featured_post_url' => '',
@@ -345,6 +345,7 @@ class Config extends Process
                             ->type('hidden')
                             ->value(''),
                         (new Input('conf_tab'))
+                            ->id('conf_tab_presentation')
                             ->type('hidden')
                             ->value('presentation'),
                     ]),
@@ -370,6 +371,7 @@ class Config extends Process
                     ... self::myTable(),
                     (new Para())->items([
                         (new Input('conf_tab'))
+                            ->id('conf_tab_stickers')
                             ->type('hidden')
                             ->value('stickers'),
                     ]),
@@ -537,16 +539,23 @@ class Config extends Process
                                         ->max(count(self::$conf_stickers))
                                         ->value($count)
                                         ->class('position'),
-                                    (new Hidden('dynorder[]'))->value($i),
+                                    (new Hidden('dynorder[]'))
+                                        ->id('dynorder[' . $i . ']')
+                                        ->value($i),
                                     (new Hidden('dynorder-' . $i))->value($i),
-                                    (new Hidden('ds_order'))->value(''),
+                                    (new Hidden('ds_order'))
+                                        ->id('ds_order[' . $i . ']')
+                                        ->value(''),
                                 ]),
                                 (new Td())->class('linkimg')->title($title)->items([
-                                    (new Hidden('sticker_image[]'))->value($v['image']),
+                                    (new Hidden('sticker_image[]'))
+                                        ->id('sticker_image[' . $i . ']')
+                                        ->value($v['image']),
                                     (new Text('i', ''))->class($v['image'])->title($v['label'] ?? $title),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_label[]'))
+                                        ->id('sticker_label[' . $i . ']')
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
@@ -554,6 +563,7 @@ class Config extends Process
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))
+                                        ->id('sticker_url[' . $i . ']')
                                         ->size(40)
                                         ->maxlength(255)
                                         ->value($v['url'] ?? '')
