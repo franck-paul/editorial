@@ -62,7 +62,7 @@ class Frontend extends Process
     public static function publicHeadContent(): void
     {
         $style = self::decode('style');
-        $mode  = $style['mode'] ?? 'light';
+        $mode  = $style['mode'] ?? 'auto';
 
         if ($mode === 'dark') {
             echo My::cssLoad('main-dark.css');
