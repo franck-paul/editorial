@@ -1,8 +1,5 @@
 /* Dark mode for Editorial theme */
 @media (prefers-color-scheme: dark) {
-
-    /* Dark mode for Editorial theme */
-
     #sidebar,
     #sidebar a,
     #sidebar a span,
@@ -11,7 +8,7 @@
     #sidebar li a,
     #sidebar span,
     .button,
-    .post-title,
+    .post-title a,
     a:hover,
     button.preview:hover,
     input.submit:hover,
@@ -49,6 +46,7 @@
     a.social-icon:hover,
     #sidebar li a:hover,
     #sidebar a:hover,
+    .post-title a:hover,
     input[type=checkbox]:checked+label:before,
     input[type=radio]:checked+label:before,
     #menu ul a:hover,
