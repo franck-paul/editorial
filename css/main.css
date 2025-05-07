@@ -3813,12 +3813,10 @@ pre {
 .navlinks {
   display: flex;
   justify-content: space-between;
-  text-transform: uppercase;
   font-family: "Roboto Slab", serif
 }
 
 .post-feedback {
-  text-transform: uppercase;
   font-family: "Roboto Slab", serif
 }
 
@@ -3850,7 +3848,6 @@ pre {
 
 .box {
   font-size: normal;
-  text-transform: uppercase;
   font-family: "Roboto Slab", serif
 }
 
