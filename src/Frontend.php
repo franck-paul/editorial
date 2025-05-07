@@ -202,9 +202,11 @@ class Frontend extends Process
     public static function editorialUserColorsHelper(): string
     {
         $style           = self::decode('style');
-        $main_color      = $style['main_color']           ?? '#f56a6a';
+        $main_color      = $style['main_color']      ?? '#f56a6a';
         $main_dark_color = $style['main_dark_color'] ?? '#f56a6a';
-        
+
+        $light = '';
+        $dark  = '';
 
         if ($main_color !== '#f56a6a') {
             $light = '<style type="text/css">' . "\n" .
@@ -218,7 +220,7 @@ class Frontend extends Process
             '</style>' . "\n" ;
         }
 
-        return $light ?? '' . $dark ?? '';
+        return $light . $dark;
     }
 
     /**

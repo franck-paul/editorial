@@ -22,6 +22,12 @@ msgstr "Laisser ce champ vide pour utiliser la présentation par défaut (billet
 msgid "Colors"
 msgstr "Couleurs"
 
+msgid "Light theme main color:"
+msgstr "Couleur principale du thème clair :"
+
+msgid "Dark theme main color:"
+msgstr "Couleur principale du thème sombre :"
+
 msgid "Stickers"
 msgstr "Étiquettes"
 
