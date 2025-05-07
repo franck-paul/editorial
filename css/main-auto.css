@@ -1,6 +1,8 @@
 /* Dark mode for Editorial theme */
 @media (prefers-color-scheme: dark) {
 
+    /* Dark mode for Editorial theme */
+
     #sidebar,
     #sidebar a,
     #sidebar a span,
@@ -10,8 +12,9 @@
     #sidebar span,
     .button,
     .post-title,
-    a:hover .button,
-    a:hover .submit,
+    a:hover,
+    button.preview:hover,
+    input.submit:hover,
     body,
     button,
     h1,
@@ -28,6 +31,10 @@
     input[type=submit],
     input[type="checkbox"]+label::before,
     input[type="radio"]+label::before,
+    input[type=checkbox]:hover,
+    input[type=button]:hover,
+    input[type=reset]:hover,
+    input[type=submit]:hover,
     a.social-icon,
     label,
     p,
@@ -37,17 +44,122 @@
         color: #fff !important
     }
 
-    .button:hover,
-    button:hover,
     a strong:hover,
-    a:hover,
+    a,
     a.social-icon:hover,
     #sidebar li a:hover,
     #sidebar a:hover,
-    input[type=checkbox]:hover,
-    input[type=button]:hover,
-    input[type=reset]:hover,
-    input[type=submit]:hover {
-        color: var(--main-color) !important
+    input[type=checkbox]:checked+label:before,
+    input[type=radio]:checked+label:before,
+    #menu ul a:hover,
+    #menu ul span:hover,
+    #menu ul a.opener:hover:before,
+    #menu ul span.opener:hover:before,
+    #accessconfig button:hover,
+    ul.contact li:before,
+    .button,
+    button,
+    input[type=button],
+    input[type=reset],
+    input[type=submit],
+    .features article .icon:before,
+    a.social-icon:hover,
+    #sidebar li a:hover,
+    #sidebar a:hover {
+        color: var(--main-dark-color) !important;
+    }
+
+    .error,
+    .button.primary,
+    button.primary,
+    input[type=button].primary,
+    input[type=reset].primary,
+    input[type=submit].primary,
+    ul.pagination li>.page.active,
+    ul.pagination li>.page.active .button.primary,
+    button.primary,
+    input[type=button].primary,
+    input[type=reset].primary,
+    input[type=submit].primary {
+        background-color: var(--main-dark-color) !important;
+    }
+
+    a:hover {
+        border-bottom-color: var(--main-dark-color) !important;
+    }
+
+    input[type=checkbox]:checked+label:before,
+    input[type=radio]:checked+label:before,
+    input[type=checkbox]:focus+label:before,
+    input[type=radio]:focus+label:before,
+    input[type=email]:focus,
+    input[type=password]:focus,
+    input[type=search]:focus,
+    input[type=tel]:focus,
+    input[type=text]:focus,
+    input[type=url]:focus,
+    select:focus,
+    textarea:focus,
+    input[type=checkbox]:focus+label:before,
+    input[type=radio]:focus+label:before {
+        border-color: var(--main-dark-color) !important;
+    }
+
+    header.major>:last-child {
+        border-bottom: solid 3px var(--main-dark-color) !important;
+    }
+
+    #header {
+        border-bottom: solid 5px var(--main-dark-color) !important;
+    }
+
+    .widget {
+        border-bottom: 1px solid var(--main-dark-color) !important;
+    }
+
+    .button,
+    button,
+    input[type=button],
+    input[type=reset],
+    input[type=submit],
+    input[type=email]:focus,
+    input[type=password]:focus,
+    input[type=search]:focus,
+    input[type=tel]:focus,
+    input[type=text]:focus,
+    input[type=url]:focus,
+    select:focus,
+    textarea:focus,
+    input[type=checkbox]:focus+label:before,
+    input[type=radio]:focus+label:before,
+    .button,
+    button,
+    input[type=button],
+    input[type=reset],
+    input[type=submit] {
+        box-shadow: 0 0 0 2px var(--main-dark-color) !important;
+    }
+
+    #sidebar .toggle:focus,
+    a:focus {
+        outline: var(--main-dark-color) dotted 1px !important;
+    }
+
+    input[type=email]:focus,
+    input[type=password]:focus,
+    input[type=search]:focus,
+    input[type=tel]:focus,
+    input[type=text]:focus,
+    input[type=url]:focus,
+    select:focus,
+    textarea:focus,
+    input[type=checkbox]:focus+label:before,
+    input[type=radio]:focus+label:before {
+        box-shadow: 0 0 0 1px var(--main-dark-color) !important;
+    }
+
+    #sidebar .toggle:focus,
+    a:focus {
+        outline: var(--main-dark-color) dotted 1px !important;
     }
 }

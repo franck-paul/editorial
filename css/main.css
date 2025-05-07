@@ -109,7 +109,8 @@
 }
 
 :root {
-  --main-color: #f56a6a
+  --main-color: #f56a6a;
+  --main-dark-color: #f56a6a;
 }
 
 a,
@@ -308,7 +309,7 @@ body,
 input,
 select,
 textarea {
-  color: #555657;
+  color: #737475;
   font-family: "Open Sans", sans-serif;
   font-size: 13pt;
   font-weight: 400;
@@ -346,18 +347,8 @@ textarea {
 }
 
 a {
-  -moz-transition: color .2s ease-in-out, border-bottom-color .2s ease-in-out;
-  -webkit-transition: color .2s ease-in-out, border-bottom-color .2s ease-in-out;
-  -ms-transition: color .2s ease-in-out, border-bottom-color .2s ease-in-out;
   transition: color .2s ease-in-out, border-bottom-color .2s ease-in-out;
   border-bottom: dotted 1px;
-  color: var(--main-color);
-  text-decoration: none
-}
-
-a:hover {
-  border-bottom-color: var(--main-color);
-  color: var(--main-color) !important
 }
 
 a:hover strong {
@@ -1988,7 +1979,6 @@ header p {
 }
 
 header.major>:last-child {
-  border-bottom: solid 3px var(--main-color);
   display: inline-block;
   margin: 0 0 2em 0;
   padding: 0 .75em .5em 0
@@ -2144,16 +2134,10 @@ input[type=radio]+label:before {
 
 input[type=checkbox]:checked+label:before,
 input[type=radio]:checked+label:before {
-  border-color: var(--main-color);
-  color: var(--main-color);
   content: '✔';
 }
 
-input[type=checkbox]:focus+label:before,
-input[type=radio]:focus+label:before {
-  border-color: var(--main-color);
-  box-shadow: 0 0 0 1px var(--main-color)
-}
+
 
 input[type=checkbox]+label:before {
   border-radius: .375em
@@ -2486,7 +2470,6 @@ ul.contact li:before {
 }
 
 ul.contact li:before {
-  color: var(--main-color);
   display: inline-block;
   font-size: 1.5em;
   height: 1.125em;
@@ -2543,7 +2526,6 @@ ul.pagination li>.page {
 }
 
 ul.pagination li>.page.active {
-  background-color: var(--main-color);
   color: #fff !important
 }
 
@@ -2655,8 +2637,6 @@ input[type=submit] {
   background-color: transparent;
   border-radius: .375em;
   border: 0;
-  box-shadow: inset 0 0 0 2px var(--main-color);
-  color: var(--main-color) !important;
   cursor: pointer;
   display: inline-block;
   font-family: "Roboto Slab", serif;
@@ -2727,7 +2707,6 @@ button.primary,
 input[type=button].primary,
 input[type=reset].primary,
 input[type=submit].primary {
-  background-color: var(--main-color);
   box-shadow: none;
   color: #fff !important
 }
@@ -2842,7 +2821,6 @@ input[type=submit]:disabled {
 }
 
 .features article .icon:before {
-  color: var(--main-color);
   font-size: 2.75rem;
   position: relative;
   top: .05em
@@ -3272,6 +3250,10 @@ input[type=submit]:disabled {
   width: 26em
 }
 
+#sidebar a {
+  text-decoration: none
+}
+
 #sidebar h2 {
   font-size: 1.38889em
 }
@@ -3462,7 +3444,6 @@ input[type=submit]:disabled {
 }
 
 #header {
-  border-bottom: solid 5px var(--main-color);
   padding: 6em 0 1em 0;
   position: relative
 }
@@ -3596,11 +3577,6 @@ input[type=submit]:disabled {
   padding: .625em 0
 }
 
-#menu ul a:hover,
-#menu ul span:hover {
-  color: var(--main-color)
-}
-
 #menu ul a.opener,
 #menu ul span.opener {
   -moz-transition: color .2s ease-in-out;
@@ -3636,11 +3612,6 @@ input[type=submit]:disabled {
   content: '\f078';
   position: absolute;
   right: 0
-}
-
-#menu ul a.opener:hover:before,
-#menu ul span.opener:hover:before {
-  color: var(--main-color)
 }
 
 #menu ul a.opener.active+ul,
@@ -3890,7 +3861,6 @@ ul.post-attachments-list {
 
 .widget {
   margin-bottom: 3em;
-  border-bottom: 1px solid var(--main-color);
   padding-bottom: 1em
 }
 
@@ -3919,11 +3889,6 @@ ul.post-attachments-list {
   box-shadow: none
 }
 
-#sidebar .toggle:focus,
-a:focus {
-  outline: var(--main-color) dotted 1px
-}
-
 @media screen and (min-width:1281px) {
   button.toggle {
     display: none !important
@@ -3950,7 +3915,6 @@ a:focus {
 
 #accessconfig button:hover {
   background: 0 0;
-  color: var(--main-color) !important
 }
 
 #footer {
@@ -3980,95 +3944,12 @@ a:focus {
   background: 0 0;
   border: none;
   font-weight: 700;
-  color: #636363
-}
-
-a {
-  color: var(--main-color)
-}
-
-a:hover {
-  border-bottom-color: var(--main-color);
-  color: var(--main-color) !important
-}
-
-header.major>:last-child {
-  border-bottom: solid 3px var(--main-color)
-}
-
-input[type=email]:focus,
-input[type=password]:focus,
-input[type=search]:focus,
-input[type=tel]:focus,
-input[type=text]:focus,
-input[type=url]:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--main-color);
-  box-shadow: 0 0 0 1px var(--main-color)
-}
-
-input[type=checkbox]:focus+label:before,
-input[type=radio]:focus+label:before {
-  border-color: var(--main-color);
-  box-shadow: 0 0 0 1px var(--main-color)
-}
-
-ul.contact li:before {
-  color: var(--main-color)
-}
-
-ul.pagination li>.page.active {
-  background-color: var(--main-color)
-}
-
-.button,
-button,
-input[type=button],
-input[type=reset],
-input[type=submit] {
-  box-shadow: inset 0 0 0 2px var(--main-color);
-  color: var(--main-color) !important
-}
-
-.button.primary,
-button.primary,
-input[type=button].primary,
-input[type=reset].primary,
-input[type=submit].primary {
-  background-color: var(--main-color)
-}
-
-.features article .icon:before {
-  color: var(--main-color)
-}
-
-#header {
-  border-bottom: solid 5px var(--main-color)
-}
-
-#menu ul a:hover,
-#menu ul span:hover {
-  color: var(--main-color)
-}
-
-#menu ul a.opener:hover:before,
-#menu ul span.opener:hover:before {
-  color: var(--main-color)
-}
-
-.widget {
-  border-bottom: 1px solid var(--main-color)
-}
-
-#sidebar .toggle:focus,
-a:focus {
-  outline: var(--main-color) dotted 1px
+  color: #636363;
+  text-decoration: none;
 }
 
 #accessconfig button:hover {
   background: 0 0;
-  color: var(--main-color) !important
 }
 
 .svg-inline--fa {
@@ -4082,9 +3963,133 @@ a.social-icon:hover {
 
 .error {
   border-radius: .375em;
-  background-color: var(--main-color);
   color: #fff;
   font-size: 1.2em;
   font-weight: bold;
   padding: 1em;
+}
+
+/*Colors*/
+a,
+a:hover,
+input[type=checkbox]:checked+label:before,
+input[type=radio]:checked+label:before,
+ul.contact li:before,
+.button,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+.features article .icon:before,
+#menu ul a:hover,
+#menu ul span:hover,
+#menu ul a.opener:hover:before,
+#menu ul span.opener:hover:before,
+#accessconfig button:hover,
+ul.contact li:before,
+.button,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+.features article .icon:before,
+#accessconfig button:hover {
+  color: var(--main-color);
+}
+
+.error,
+.button.primary,
+button.primary,
+input[type=button].primary,
+input[type=reset].primary,
+input[type=submit].primary,
+ul.pagination li>.page.active,
+ul.pagination li>.page.active .button.primary,
+button.primary,
+input[type=button].primary,
+input[type=reset].primary,
+input[type=submit].primary {
+  background-color: var(--main-color);
+}
+
+a:hover {
+  border-bottom-color: var(--main-color);
+}
+
+input[type=checkbox]:checked+label:before,
+input[type=radio]:checked+label:before,
+input[type=checkbox]:focus+label:before,
+input[type=radio]:focus+label:before,
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input[type=url]:focus,
+select:focus,
+textarea:focus,
+input[type=checkbox]:focus+label:before,
+input[type=radio]:focus+label:before {
+  border-color: var(--main-color);
+}
+
+header.major>:last-child {
+  border-bottom: solid 3px var(--main-color);
+}
+
+#header {
+  border-bottom: solid 5px var(--main-color)
+}
+
+.widget {
+  border-bottom: 1px solid var(--main-color)
+}
+
+.button,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input[type=url]:focus,
+select:focus,
+textarea:focus {
+  box-shadow: inset 0 0 0 2px var(--main-color);
+}
+
+input[type=checkbox]:focus+label:before,
+input[type=radio]:focus+label:before,
+.button,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit] {
+  box-shadow: 0 0 0 2px var(--main-color)
+}
+
+#sidebar .toggle:focus,
+a:focus {
+  outline: var(--main-color) dotted 1px
+}
+
+input[type=email]:focus,
+input[type=password]:focus,
+input[type=search]:focus,
+input[type=tel]:focus,
+input[type=text]:focus,
+input[type=url]:focus,
+select:focus,
+textarea:focus,
+input[type=checkbox]:focus+label:before,
+input[type=radio]:focus+label:before {
+  box-shadow: 0 0 0 1px var(--main-color)
+}
+
+#sidebar .toggle:focus,
+a:focus {
+  outline: var(--main-color) dotted 1px
 }

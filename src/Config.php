@@ -105,8 +105,9 @@ class Config extends Process
             'images_disabled'               => false,
         ];
         self::$default_style = [
-            'main_color' => '#f56a6a',
-            'mode'       => 'auto',
+            'main_color'      => '#f56a6a',
+            'main_dark_color' => '#f56a6a',
+            'mode'            => 'auto',
         ];
         self::$default_featured = [
             'featured_post_url' => '',
@@ -194,6 +195,11 @@ class Config extends Process
                     if (isset($_POST['main_color'])) {
                         self::$conf_style['main_color'] = $_POST['main_color'];
                     }
+
+                    if (isset($_POST['main_dark_color'])) {
+                        self::$conf_style['main_dark_color'] = $_POST['main_dark_color'];
+                    }
+
                     if (isset($_POST['mode'])) {
                         self::$conf_style['mode'] = $_POST['mode'];
                     }
@@ -310,27 +316,46 @@ class Config extends Process
 
                     ]),
                     (new Fieldset())->class('fieldset')->legend((new Legend(__('Colors'))))->fields([
-                        
-                        (new Para())->class('classic')->items([
-                            (new Label(__('Theme:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
-                            (new Radio(['mode'], (self::$conf_style['mode'] == 'light')))
-                                ->value('light')
-                                ->label((new Label(__('Light'), Label::INSIDE_TEXT_AFTER))),
-                            (new Radio(['mode'], (self::$conf_style['mode'] == 'dark')))
-                                ->value('dark')
-                                ->label((new Label(__('Dark'), Label::INSIDE_TEXT_AFTER))),
-                            (new Radio(['mode'], (self::$conf_style['mode'] == 'auto')))
-                                ->value('auto')
-                                ->label((new Label(__('Automatic'), Label::INSIDE_TEXT_AFTER))),
+                        (new Div())
+                        ->class('three-boxes')
+                        ->items([
+                            (new Para())->class('classic')->items([
+                                (new Label(__('Theme:'), Label::INSIDE_LABEL_BEFORE))->for('mode'),
+                                (new Radio(['mode'], (self::$conf_style['mode'] == 'light')))
+                                    ->value('light')
+                                    ->label((new Label(__('Light'), Label::INSIDE_TEXT_AFTER))),
+                                (new Radio(['mode'], (self::$conf_style['mode'] == 'dark')))
+                                    ->value('dark')
+                                    ->label((new Label(__('Dark'), Label::INSIDE_TEXT_AFTER))),
+                                (new Radio(['mode'], (self::$conf_style['mode'] == 'auto')))
+                                    ->value('auto')
+                                    ->label((new Label(__('Automatic'), Label::INSIDE_TEXT_AFTER))),
+                            ]),
                         ]),
-                        (new Para())->class('classic')->items([
-                            (new Label(__('Links and buttons\' color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
-                            (new Color('main_color'))
-                                ->size(30)
-                                ->maxlength(255)
-                                ->value(self::$conf_style['main_color']),
+                        (new Div())
+                            ->class('three-boxes')
+                            ->items([
+                                (new Para())->class('classic')->items([
+                                    (new Label(__('Light theme main color:'), Label::INSIDE_LABEL_BEFORE))->for('main_color'),
+                                    (new Color('main_color'))
+                                        ->size(30)
+                                        ->maxlength(255)
+                                        ->value(self::$conf_style['main_color']),
 
-                        ]),
+                                ]),
+                            ]),
+                        (new Div())
+                            ->class('three-boxes')
+                            ->items([
+                                (new Para())->class('classic')->items([
+                                    (new Label(__('Dark theme main color:'), Label::INSIDE_LABEL_BEFORE))->for('main_dark_color'),
+                                    (new Color('main_dark_color'))
+                                        ->size(30)
+                                        ->maxlength(255)
+                                        ->value(self::$conf_style['main_dark_color']),
+
+                                ]),
+                            ]),
                     ]),
                     ... self::myFeatured(),
 
@@ -468,18 +493,18 @@ class Config extends Process
                     (new Para())->items([
                         (new Checkbox('images_disabled', self::$conf_images['images_disabled']))
                             ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
-                        ]),
-                        (new Note())
-                            ->class(['form-note', 'info'])
-                            ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
+                    ]),
+                    (new Note())
+                        ->class(['form-note', 'info'])
+                        ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
                 ]),
             ];
         } else {
             $fields = [
                 (new Fieldset())->class('fieldset')->legend((new Legend(__('Featured images'))))->fields([
-                        (new Note())
-                            ->class(['form-note', 'info'])
-                            ->text(__('This theme needs the featuredMedia plugin to manage featured images.')),
+                    (new Note())
+                        ->class(['form-note', 'info'])
+                        ->text(__('This theme needs the featuredMedia plugin to manage featured images.')),
                 ]),
             ];
         }
