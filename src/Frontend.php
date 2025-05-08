@@ -205,22 +205,12 @@ class Frontend extends Process
         $main_color      = $style['main_color']      ?? '#f56a6a';
         $main_dark_color = $style['main_dark_color'] ?? '#f56a6a';
 
-        $light = '';
-        $dark  = '';
+        $colors = '<style type="text/css">' . "\n" .
+        ':root {--main-color: ' . $main_color . '}' . "\n" .
+        ':root {--main-dark-color: ' . $main_dark_color . '}' . "\n" .
+        '</style>' . "\n" ;
 
-        if ($main_color !== '#f56a6a') {
-            $light = '<style type="text/css">' . "\n" .
-            ':root {--main-color: ' . $main_color . '}' . "\n" .
-            '</style>' . "\n" ;
-        }
-
-        if ($main_dark_color !== '#f56a6a') {
-            $dark = '<style type="text/css">' . "\n" .
-            ':root {--main-dark-color: ' . $main_dark_color . '}' . "\n" .
-            '</style>' . "\n" ;
-        }
-
-        return $light . $dark;
+        return $colors;
     }
 
     /**
