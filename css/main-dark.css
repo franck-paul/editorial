@@ -40,7 +40,7 @@ textarea {
     color: #fff
 }
 
-input:hover, input[type=submit]:hover, button.preview:hover, a.button:hover, .post-title a:hover, a.social-icon:hover {
+input:hover, input[type=submit]:hover, button.preview:hover, a.button:hover, .post-title a:hover, a.social-icon:hover, #sidebar li a:hover {
     background: #333 !important;
     color: var(--main-dark-color) !important
 }
@@ -52,7 +52,6 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 a strong:hover,
 a,
-#sidebar li a:hover,
 #sidebar a:hover,
 input[type=checkbox]:checked+label:before,
 input[type=radio]:checked+label:before,
@@ -137,33 +136,8 @@ select:focus,
 textarea:focus,
 input[type=checkbox]:focus+label:before,
 input[type=radio]:focus+label:before,
-.button,
-button,
 input[type=button],
 input[type=reset],
 input[type=submit] {
     box-shadow: 0 0 0 2px var(--main-dark-color);
-}
-
-#sidebar .toggle:focus,
-a:focus {
-    outline: var(--main-dark-color) dotted 1px;
-}
-
-input[type=email]:focus,
-input[type=password]:focus,
-input[type=search]:focus,
-input[type=tel]:focus,
-input[type=text]:focus,
-input[type=url]:focus,
-select:focus,
-textarea:focus,
-input[type=checkbox]:focus+label:before,
-input[type=radio]:focus+label:before {
-    box-shadow: 0 0 0 1px var(--main-dark-color);
-}
-
-#sidebar .toggle:focus,
-a:focus {
-    outline: var(--main-dark-color) dotted 1px;
 }
