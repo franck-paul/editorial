@@ -4121,6 +4121,11 @@ input[type=submit] {
 }
 
 .jstElements button {
-  border: none;
+  border: none !important;
   box-shadow: none;
+  color: #333 !important
+}
+
+.jstElements button:hover {
+  color: #333 !important
 }
