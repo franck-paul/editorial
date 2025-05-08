@@ -13,7 +13,6 @@ a:hover,
 button.preview:hover,
 input.submit:hover,
 body,
-button,
 h1,
 h2,
 h3,
@@ -38,6 +37,16 @@ select,
 p,
 strong,
 textarea {
+    background: #333;
+    color: #fff
+}
+
+input, input[type=submit], button.preview {
+    background: #333 !important;
+    color: var(--main-dark-color) !important
+}
+
+input, input[type=submit]:hover, button.preview:hover {
     background: #333 !important;
     color: #fff !important
 }
@@ -65,7 +74,7 @@ input[type=submit],
 a.social-icon:hover,
 #sidebar li a:hover,
 #sidebar a:hover {
-    color: var(--main-dark-color) !important;
+    color: var(--main-dark-color);
 }
 
 .error,
@@ -80,11 +89,11 @@ button.primary,
 input[type=button].primary,
 input[type=reset].primary,
 input[type=submit].primary {
-    background-color: var(--main-dark-color) !important;
+    background-color: var(--main-dark-color);
 }
 
 a:hover {
-    border-bottom-color: var(--main-dark-color) !important;
+    border-bottom-color: var(--main-dark-color);
 }
 
 input[type=checkbox]:checked+label:before,
@@ -101,19 +110,19 @@ select:focus,
 textarea:focus,
 input[type=checkbox]:focus+label:before,
 input[type=radio]:focus+label:before {
-    border-color: var(--main-dark-color) !important;
+    border-color: var(--main-dark-color);
 }
 
 header.major>:last-child {
-    border-bottom: solid 3px var(--main-dark-color) !important;
+    border-bottom: solid 3px var(--main-dark-color);
 }
 
 #header {
-    border-bottom: solid 5px var(--main-dark-color) !important;
+    border-bottom: solid 5px var(--main-dark-color);
 }
 
 .widget {
-    border-bottom: 1px solid var(--main-dark-color) !important;
+    border-bottom: 1px solid var(--main-dark-color);
 }
 
 .button,
@@ -136,12 +145,12 @@ button,
 input[type=button],
 input[type=reset],
 input[type=submit] {
-    box-shadow: 0 0 0 2px var(--main-dark-color) !important;
+    box-shadow: 0 0 0 2px var(--main-dark-color);
 }
 
 #sidebar .toggle:focus,
 a:focus {
-    outline: var(--main-dark-color) dotted 1px !important;
+    outline: var(--main-dark-color) dotted 1px;
 }
 
 input[type=email]:focus,
@@ -154,10 +163,10 @@ select:focus,
 textarea:focus,
 input[type=checkbox]:focus+label:before,
 input[type=radio]:focus+label:before {
-    box-shadow: 0 0 0 1px var(--main-dark-color) !important;
+    box-shadow: 0 0 0 1px var(--main-dark-color);
 }
 
 #sidebar .toggle:focus,
 a:focus {
-    outline: var(--main-dark-color) dotted 1px !important;
+    outline: var(--main-dark-color) dotted 1px;
 }
