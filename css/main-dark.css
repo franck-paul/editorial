@@ -31,7 +31,6 @@ input[type=checkbox]:hover,
 input[type=button]:hover,
 input[type=reset]:hover,
 input[type=submit]:hover,
-a.social-icon,
 label,
 select,
 p,
@@ -41,22 +40,20 @@ textarea {
     color: #fff
 }
 
-input, input[type=submit], button.preview {
+input:hover, input[type=submit]:hover, button.preview:hover, a.button:hover, .post-title a:hover, a.social-icon:hover {
     background: #333 !important;
     color: var(--main-dark-color) !important
 }
 
-input, input[type=submit]:hover, button.preview:hover {
+input, input[type=submit], button.preview, a.social-icon, a.button {
     background: #333 !important;
     color: #fff !important
 }
 
 a strong:hover,
 a,
-a.social-icon:hover,
 #sidebar li a:hover,
 #sidebar a:hover,
-.post-title a:hover,
 input[type=checkbox]:checked+label:before,
 input[type=radio]:checked+label:before,
 #menu ul a:hover,
