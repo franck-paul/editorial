@@ -262,7 +262,7 @@ class Frontend extends Process
     /**
      * @return  array<string, mixed>
      */
-    protected static function decode(string $setting): array
+    public static function decode(string $setting): array
     {
         $res = App::blog()->settings()->get('themes')->get(App::blog()->settings()->get('system')->get('theme') . '_' . $setting);
         $res = $res ? (unserialize($res) ?: []) : [];
@@ -280,22 +280,22 @@ class Frontend extends Process
     public static function templateBeforeBlock(string $block, ArrayObject $attr): string
     {
         if ($block === 'Entries' && isset($attr['featured_url']) && (bool) $attr['featured_url']) {
-            $featured = self::decode('featured');
-
             return
             "<?php\n" .
+            "\$featured = " . self::class . "::decode('featured') ?? ''" . ";\n" .
+            "\$url = urldecode(\$featured['featured_post_url'] ?? '');\n" .
             "if (!isset(\$params)) { \$params['post_type'] = ['post', 'page', 'related']; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
-            "\$params['sql'] .= \"AND P.post_url = '" . urldecode($featured['featured_post_url'] ?? '') . "' \";\n" .
+            "\$params['sql'] .= \"AND P.post_url = '\$url' \";\n" .
                 "?>\n";
         } elseif ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 0) {
-            $featured = self::decode('featured');
-
             return
             "<?php\n" .
+            "\$featured = " . self::class . "::decode('featured') ?? ''" . ";\n" .
+            "\$url = urldecode(\$featured['featured_post_url'] ?? '');\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
-            "\$params['sql'] .= \"AND P.post_url != '" . urldecode($featured['featured_post_url'] ?? '') . "' \";\n" .
+            "\$params['sql'] .= \"AND P.post_url != '\$url' \";\n" .
                 "?>\n";
         }
 
