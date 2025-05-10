@@ -4082,13 +4082,13 @@ a:focus {
   color: var(--main-color) !important
 }
 
-.svg-inline--fa {
-  font-size: 1.25em;
-  margin: .2em 0 0 .2em
+.social-icon img[src$=".svg"] {
+  width: 1.5em;
+  height: 1.5em;
 }
 
-a.social-icon:hover {
-  color: #3d4449 !important;
+.social-icon img[src$=".svg"]:hover {
+  color: var(--main-color) !important
 }
 
 .error {
