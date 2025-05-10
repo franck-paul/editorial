@@ -205,7 +205,7 @@ class Frontend extends Process
         $main_color      = $style['main_color']      ?? '#f56a6a';
         $main_dark_color = $style['main_dark_color'] ?? '#f56a6a';
 
-        $colors = '<style type="text/css">' . "\n" .
+        $colors = '<style>' . "\n" .
         ':root {--main-color: ' . $main_color . '}' . "\n" .
         ':root {--main-dark-color: ' . $main_dark_color . '}' . "\n" .
         '</style>' . "\n" ;
