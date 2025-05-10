@@ -17,6 +17,7 @@ use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
+use Dotclear\Helper\File\Files;
 use Dotclear\Helper\Html\Form\Button;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Color;
@@ -112,21 +113,7 @@ class Config extends Process
         self::$default_featured = [
             'featured_post_url' => '',
         ];
-        self::$stickers_images = [
-            'fab fa-diaspora',
-            'fas fa-rss',
-            'fab fa-linkedin-in',
-            'fab fa-gitlab',
-            'fab fa-github',
-            'fab fa-twitter',
-            'fab fa-facebook-f',
-            'fab fa-instagram',
-            'fab fa-mastodon',
-            'fab fa-pinterest',
-            'fab fa-snapchat',
-            'fab fa-soundcloud',
-            'fab fa-youtube',
-        ];
+        self::$stickers_images = [];
 
         // If you add stickers above, remember to add them in myTable function into titles array
 
@@ -149,14 +136,20 @@ class Config extends Process
             $stickers_full[] = $v['image'];
         }
 
-        // Add stickers images not already used
-        foreach (self::$stickers_images as $v) {
-            if (!in_array($v, $stickers_full)) {
-                // image not already used
-                $stickers[] = [
-                    'label' => null,
-                    'url'   => null,
-                    'image' => $v, ];
+        $svg_path = My::path() . '/svg/';
+
+        $stickers_images = Files::scandir($svg_path);
+        if (is_array($stickers_images)) {
+            foreach ($stickers_images as $v) {
+                if (preg_match('/^(.*)\.svg$/', $v)) {
+                    if (!in_array($v, $stickers_full)) {
+                        // image not already used
+                        $stickers[] = [
+                            'label' => preg_replace('/\.svg$/', '', $v),
+                            'url'   => null,
+                            'image' => $v];
+                    }
+                }
             }
         }
 
@@ -535,25 +528,6 @@ class Config extends Process
                     array_map(function ($i, $v) use (&$count) {
                         $count++;
 
-                        // Define title based on the sticker image. Add more icons as needed.
-                        // Don't forget to add them into stickers_images array in init() function !
-                        $titles = [
-                            'fab fa-github'      => 'GitHub',
-                            'fab fa-twitter'     => 'Twitter',
-                            'fab fa-facebook-f'  => 'Facebook',
-                            'fab fa-instagram'   => 'Instagram',
-                            'fab fa-gitlab'      => 'GitLab',
-                            'fas fa-rss'         => 'RSS',
-                            'fab fa-linkedin-in' => 'LinkedIn',
-                            'fab fa-youtube'     => 'YouTube',
-                            'fab fa-pinterest'   => 'Pinterest',
-                            'fab fa-snapchat'    => 'Snapchat',
-                            'fab fa-soundcloud'  => 'SoundCloud',
-                            'fab fa-mastodon'    => 'Mastodon',
-                            'fab fa-diaspora'    => 'Diaspora',
-                        ];
-                        $title = $titles[$v['image']] ?? '';
-
                         return (new Tr())
                             ->class('line')
                             ->id('l_' . $i)
@@ -572,11 +546,15 @@ class Config extends Process
                                         ->id('ds_order[' . $i . ']')
                                         ->value(''),
                                 ]),
-                                (new Td())->class('linkimg')->title($title)->items([
+                                (new Td())->class('linkimg')->title($v['label'])->items([
                                     (new Hidden('sticker_image[]'))
                                         ->id('sticker_image[' . $i . ']')
                                         ->value($v['image']),
-                                    (new Text('i', ''))->class($v['image'])->title($v['label'] ?? $title),
+                                    (new Img('image[' . $i . ']'))
+                                        ->class('svg')
+                                        ->src(My::fileURL('/svg/' . $v['image']))
+                                        ->alt($v['label'])
+                                        ->title($v['label'])                              
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_label[]'))
@@ -584,7 +562,7 @@ class Config extends Process
                                         ->size(20)
                                         ->maxlength(255)
                                         ->value($v['label'] ?? '')
-                                        ->title(empty($v['label']) ? $title : $v['label']),
+                                        ->title(empty($v['label']) ? $v['label'] : $v['label']),
                                 ]),
                                 (new Td())->items([
                                     (new Input('sticker_url[]'))

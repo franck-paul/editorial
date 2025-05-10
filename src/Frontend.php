@@ -242,7 +242,7 @@ class Frontend extends Process
     {
         return
             '<li><a class="social-icon" title="' . $label . '" href="' . $url . '"><span class="sr-only">' . $label . '</span>' .
-            '<i class="' . $image . '"></i>' .
+            '<img class="svg" src="' . My::fileURL('/svg/' . $image) . '" alt="' . $label . '" >' .
             '</a></li>' . "\n";
     }
 
@@ -282,7 +282,7 @@ class Frontend extends Process
         if ($block === 'Entries' && isset($attr['featured_url']) && (bool) $attr['featured_url']) {
             return
             "<?php\n" .
-            "\$featured = " . self::class . "::decode('featured') ?? ''" . ";\n" .
+            '$featured = ' . self::class . "::decode('featured') ?? ''" . ";\n" .
             "\$url = urldecode(\$featured['featured_post_url'] ?? '');\n" .
             "if (!isset(\$params)) { \$params['post_type'] = ['post', 'page', 'related']; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .
@@ -291,7 +291,7 @@ class Frontend extends Process
         } elseif ($block == 'Entries' && isset($attr['featured_url']) && $attr['featured_url'] == 0) {
             return
             "<?php\n" .
-            "\$featured = " . self::class . "::decode('featured') ?? ''" . ";\n" .
+            '$featured = ' . self::class . "::decode('featured') ?? ''" . ";\n" .
             "\$url = urldecode(\$featured['featured_post_url'] ?? '');\n" .
             "if (!isset(\$params)) { \$params = []; }\n" .
             "if (!isset(\$params['sql'])) { \$params['sql'] = ''; }\n" .

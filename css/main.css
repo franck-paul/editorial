@@ -4120,6 +4120,11 @@ input[type=submit] {
   color: #999 !important
 }
 
+.social-icon img {
+  width: 1.5em;
+  height: 1.5em
+}
+
 .jstElements button {
   border: none !important;
   box-shadow: none;

@@ -38,7 +38,6 @@ class Backend extends Process
             My::jsLoad('admin.js') . "\n" .
             My::jsLoad('popup_posts.js') . "\n" .
             My::jsLoad('popup_media.js') . "\n" .
-            My::jsLoad('fontawesome.js') . "\n" .
             My::cssLoad('admin.css') . "\n" ;
 
             if (!App::auth()->prefs()->get('accessibility')->get('nodragdrop')) {
