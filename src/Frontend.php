@@ -240,10 +240,24 @@ class Frontend extends Process
 
     protected static function setSocialLink(int $position, bool $last, string $label, string $url, string $image): string
     {
+        $url = My::path() .'/svg/' . $image;
+
+        $svgData = @file_get_contents($url);
+        if ($svgData === false) {
+            die("Failed to fetch SVG from: $url");
+        }
+
+        $svg = simplexml_load_string($svgData);
+        $svg->registerXPathNamespace('svg', 'http://www.w3.org/2000/svg');
+        $paths = $svg->xpath('//svg:path');
+        $d     = count($paths) ? $paths[0]['d'] : '';
+
         return
-            '<li><a class="social-icon" title="' . $label . '" href="' . $url . '"><span class="sr-only">' . $label . '</span>' .
-            '<img class="svg" src="' . My::fileURL('/svg/' . $image) . '" alt="' . $label . '" >' .
-            '</a></li>' . "\n";
+            '<li><a class="social-icon" title="' . $label . '" href="' . $url . '">' .
+            '<span class="sr-only">' . $label . '</span>' .
+            '<svg class="svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">' .
+            '<path fill="currentColor" d="' . $d . '" />' .
+            '</svg></a></li>' . "\n";
     }
 
     protected static function cleanSocialLinks(mixed $style): bool
