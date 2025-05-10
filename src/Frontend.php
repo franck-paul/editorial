@@ -240,7 +240,7 @@ class Frontend extends Process
 
     protected static function setSocialLink(int $position, bool $last, string $label, string $url, string $image): string
     {
-        $url = My::path() .'/svg/' . $image;
+        $url = My::path() . '/svg/' . $image;
 
         $svgData = @file_get_contents($url);
         if ($svgData === false) {
