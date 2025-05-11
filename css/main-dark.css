@@ -36,18 +36,18 @@ select,
 p,
 strong,
 textarea {
-    background: #333;
-    color: #fff
+    background: var(--dark-bg);
+    color: var(--dark-fg)
 }
 
 input:hover, input[type=submit]:hover, button.preview:hover, a.button:hover, .post-title a:hover, a.social-icon:hover, #sidebar li a:hover {
-    background: #333 !important;
+    background: var(--dark-bg) !important;
     color: var(--main-dark-color) !important
 }
 
 input, input[type=submit], button.preview, a.social-icon, a.button {
-    background: #333 !important;
-    color: #fff !important
+    background: var(--dark-bg) !important;
+    color: var(--dark-fg) !important
 }
 
 a strong:hover,
@@ -145,9 +145,9 @@ input[type=submit] {
 .jstElements button {
     border: none !important;
     box-shadow: none;
-    color: #fff !important
+    color: var(--dark-fg) !important
 }
 
 .jstElements button:hover {
-    color: #ccc !important
+    color: var(--dark-fg-muted) !important
 }
