@@ -395,10 +395,10 @@ class Config extends Process
                             ->value('stickers'),
                     ]),
                     (new Note())
-                            ->class(['form-note', 'hidden-if-js', 'clear'])
+                            ->class(['form-note', 'hidden-if-js', 'clear', 'table-note'])
                             ->text(__('To rearrange stickers order, change number at the begining of the line, then click on “Save stickers” button.')),
                         (new Note())
-                            ->class(['form-note', 'hidden-if-no-js', 'clear'])
+                            ->class(['form-note', 'hidden-if-no-js', 'clear', 'table-note'])
                             ->text(__('To rearrange stickers order, move items by drag and drop, then click on “Save stickers” button.')),
                         
                     (new Para())->items([
@@ -524,6 +524,7 @@ class Config extends Process
         $fields = [
             (new Table())
                 ->class('dragable')
+                ->extra('aria-describedby="table-note"')
                 ->caption(new Caption(__('Social links (header)'))->class('pretty-title'))
                 ->items([
                 (new Thead())->items([
