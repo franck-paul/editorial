@@ -114,11 +114,8 @@
   --light-gray: #9fa3a6;
   --dark-gray: #3d4449;
   --mid-gray: #555657;
-  --input-label-color: #7f888f;
   --light-border: rgba(210, 215, 217, 0.75);
   --light-bg: rgba(230, 235, 237, 0.25);
-  --main-hover: #f67878;
-  --main-active: #f45c5c;
   --button-hover: rgba(245, 106, 106, 0.05);
   --button-active: rgba(245, 106, 106, 0.15);
   --select-arrow: rgba(210, 215, 217, 0.75);
@@ -649,7 +646,7 @@ input[type=radio] {
 input[type=checkbox]+label,
 input[type=radio]+label {
   text-decoration: none;
-  color: var(--input-label-color);
+  color: var(--light-gray);
   cursor: pointer;
   display: inline-block;
   font-size: 1em;
@@ -1073,11 +1070,11 @@ ul.pagination li>.page.active {
 }
 
 ul.pagination li>.page.active:hover {
-  background-color: var(--main-hover)
+  background-color: var(--main-color)
 }
 
 ul.pagination li>.page.active:active {
-  background-color: var(--main-active)
+  background-color: var(--main-color)
 }
 
 ul.pagination li:first-child {
@@ -1256,7 +1253,7 @@ button.primary:hover,
 input[type=button].primary:hover,
 input[type=reset].primary:hover,
 input[type=submit].primary:hover {
-  background-color: var(--main-hover)
+  background-color: var(--main-color)
 }
 
 .button.primary:active,
@@ -1264,7 +1261,7 @@ button.primary:active,
 input[type=button].primary:active,
 input[type=reset].primary:active,
 input[type=submit].primary:active {
-  background-color: var(--main-active)
+  background-color: var(--main-color)
 }
 
 .button.disabled,
@@ -1699,7 +1696,7 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 #search form:before {
   transform: scaleX(-1);
-  color: var(--input-label-color);
+  color: var(--light-gray);
   content: '\f002';
   cursor: default;
   display: block;
@@ -1897,7 +1894,7 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
   }
 
   #sidebar .toggle:before {
-    color: var(--input-label-color);
+    color: var(--light-gray);
     margin-left: -.0625em;
     margin-top: -.25em;
     font-size: 1.1rem;
