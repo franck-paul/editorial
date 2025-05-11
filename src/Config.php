@@ -19,6 +19,7 @@ use Dotclear\Core\Backend\Page;
 use Dotclear\Core\Process;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\Html\Form\Button;
+use Dotclear\Helper\Html\Form\Caption;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Color;
 use Dotclear\Helper\Html\Form\Div;
@@ -368,7 +369,7 @@ class Config extends Process
                             ->value('presentation'),
                     ]),
                     (new Para())->items([
-                        (new Submit(['presentation'], __('Save'))),
+                        (new Submit(['presentation'], __('Save presentation'))),
                         App::nonce()->formNonce(),
 
                     ]),
@@ -393,9 +394,15 @@ class Config extends Process
                             ->type('hidden')
                             ->value('stickers'),
                     ]),
-
+                    (new Note())
+                            ->class(['form-note', 'hidden-if-js', 'clear'])
+                            ->text(__('To rearrange stickers order, change number at the begining of the line, then click on “Save stickers” button.')),
+                        (new Note())
+                            ->class(['form-note', 'hidden-if-no-js', 'clear'])
+                            ->text(__('To rearrange stickers order, move items by drag and drop, then click on “Save stickers” button.')),
+                        
                     (new Para())->items([
-                        (new Submit(['stickers'], __('Save'))),
+                        (new Submit(['stickers'], __('Save stickers'))),
                         App::nonce()->formNonce(),
                     ]),
                 ]),
@@ -515,7 +522,10 @@ class Config extends Process
         $count = 0;
 
         $fields = [
-            (new Table())->class('dragable')->items([
+            (new Table())
+                ->class('dragable')
+                ->caption(new Caption(__('Social links (header)'))->class('pretty-title'))
+                ->items([
                 (new Thead())->items([
                     (new Tr())->items([
                         (new Th())->text(''),
