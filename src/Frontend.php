@@ -240,11 +240,11 @@ class Frontend extends Process
 
     protected static function setSocialLink(int $position, bool $last, string $label, string $url, string $image): string
     {
-        $url = My::path() . '/svg/' . $image;
+        $svgurl = My::path() . '/svg/' . $image;
 
-        $svgData = @file_get_contents($url);
+        $svgData = @file_get_contents($svgurl);
         if ($svgData === false) {
-            die("Failed to fetch SVG from: $url");
+            die("Failed to fetch SVG from: $svgurl");
         }
 
         $svg = simplexml_load_string($svgData);

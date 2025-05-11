@@ -1,7 +1,10 @@
 /* Dark mode for Editorial theme */
 @media (prefers-color-scheme: dark) {
 
-    /* Dark mode for Editorial theme */
+    :root {
+        --dark-bg: #333;
+        --dark-fg: #fff;
+    }
 
     #sidebar,
     #sidebar a,
