@@ -3,7 +3,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: editorial 6.6\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-05-04T18:41:03+00:00\n"
+"PO-Revision-Date: 2025-05-11T18:41:03+00:00\n"
 "Last-Translator: Philippe\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,6 +15,9 @@ msgstr "Présentation"
 
 msgid "Entry URL:"
 msgstr "URL de l'entrée :"
+
+msgid "Your URL:"
+msgstr "Votre URL :"
 
 msgid "Leave this field empty to use the default presentation (latest post)"
 msgstr "Laisser ce champ vide pour utiliser la présentation par défaut (billet le plus récent)"
@@ -55,3 +58,38 @@ msgstr "Pour réorganiser l'ordre des étiquettes, changez le numéro au début 
 msgid "To rearrange stickers order, move items by drag and drop, then click on “Save stickers” button."
 msgstr "Pour réorganiser l'ordre des étiquettes, déplacez les éléments par glisser-déposer, puis cliquez sur le bouton « Enregistrer les étiquettes »."
 
+msgid "Theme presentation has been updated."
+msgstr "La présentation du thème a été mise à jour"
+
+msgid "Theme stickers have been updated."
+msgstr "Les étiquettes du thème ont été mises à jour"
+
+msgid "Mode:"
+msgstr "Mode :"
+
+msgid "Links and buttons"
+msgstr "Liens et boutons"
+
+msgid "Placeholder images"
+msgstr "Images de substitution"
+
+msgid "Big image"
+msgstr "Grande image"
+
+msgid "Small image"
+msgstr "Petite image"
+
+msgid "Option"
+msgstr "Option"
+
+msgid "Disable featured images"
+msgstr "Désactiver les images à la une"
+
+msgid "This will disable all featured images, including the substitute ones. Images in your entries content will not be affected"
+msgstr "Ceci désactivera les images à la une, y compris celles de substitution. Les images contenues dans vos entrées ne seront pas affectées."
+
+msgid "Featured images"
+msgstr "Images à la une"
+
+msgid "This theme needs the featuredMedia plugin to manage featured images."
+msgstr "Ce thème nécessite le plugin featuredMedia pour utiliser les images à la une de vos entrées."
