@@ -304,7 +304,7 @@ class Config extends Process
                                 ->id('featured_post_url_selector'),
                         ]),
                         (new Note())
-                            ->class(['form-note', 'info'])
+                            ->class(['form-note'])
                             ->text(__('Leave this field empty to use the default presentation (latest post)')),
 
                     ]),
@@ -488,7 +488,7 @@ class Config extends Process
                             ->label((new Label(__('Disable featured images'), Label::INSIDE_TEXT_AFTER))),
                     ]),
                     (new Note())
-                        ->class(['form-note', 'info'])
+                        ->class(['form-note'])
                         ->text(__('This will disable all featured images, including the substitute ones. Images in your entries content will not be affected')),
                 ]),
             ];
