@@ -1,125 +1,88 @@
-/* open-sans-regular - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/open-sans-v40-latin-regular.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-regular.woff2) format('woff2')
 }
 
-/* open-sans-italic - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  src: url('../fonts/open-sans-v40-latin-italic.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-italic.woff2) format('woff2')
 }
 
-/* open-sans-600 - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: url('../fonts/open-sans-v40-latin-600.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-600.woff2) format('woff2')
 }
 
-/* open-sans-600italic - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  src: url('../fonts/open-sans-v40-latin-600italic.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-600italic.woff2) format('woff2')
 }
 
-/* open-sans-regular - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/open-sans-v40-latin-regular.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-regular.woff2) format('woff2')
 }
 
-/* open-sans-italic - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  src: url('../fonts/open-sans-v40-latin-italic.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-italic.woff2) format('woff2')
 }
 
-/* open-sans-600 - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: url('../fonts/open-sans-v40-latin-600.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-600.woff2) format('woff2')
 }
 
-/* open-sans-600italic - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  src: url('../fonts/open-sans-v40-latin-600italic.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/open-sans-v40-latin-600italic.woff2) format('woff2')
 }
 
-/* roboto-slab-regular - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/roboto-slab-v34-latin-regular.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/roboto-slab-v34-latin-regular.woff2) format('woff2')
 }
 
-/* roboto-slab-700 - latin */
 @font-face {
   font-display: swap;
-  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/roboto-slab-v34-latin-700.woff2') format('woff2');
-  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url(../fonts/roboto-slab-v34-latin-700.woff2) format('woff2')
 }
 
 :root {
-  --main-color: #f56a6a;
-  --white: #fff;
-  --light-gray: #9fa3a6;
+  --bg-color: #fff;
+  --fg-color: #555;
+  --sidebar-bg: #f5f6f7;
   --dark-gray: #3d4449;
-  --mid-gray: #555657;
-  --light-border: rgba(210, 215, 217, 0.75);
-  --light-bg: rgba(230, 235, 237, 0.25);
-  --button-hover: rgba(245, 106, 106, 0.05);
-  --button-active: rgba(245, 106, 106, 0.15);
-  --select-arrow: rgba(210, 215, 217, 0.75);
-  --link-hover: #333;
 }
 
 a,
@@ -208,7 +171,8 @@ video {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline
+  vertical-align: baseline;
+  color: var(--fg-color);
 }
 
 article,
@@ -261,8 +225,6 @@ mark {
   color: inherit
 }
 
-
-
 input,
 select,
 textarea {
@@ -295,7 +257,7 @@ html {
 }
 
 body {
-  background: var(--white)
+  background: var(--bg-color)
 }
 
 body.is-preload *,
@@ -312,11 +274,12 @@ body,
 input,
 select,
 textarea {
-  color: var(--mid-gray);
   font-family: "Open Sans", sans-serif;
   font-size: 13pt;
   font-weight: 400;
-  line-height: 1.65
+  line-height: 1.65;
+  color: var(--fg-color);
+  background-color: var(--bg-color);
 }
 
 @media screen and (max-width:1680px) {
@@ -352,13 +315,12 @@ textarea {
 a {
   transition: color .2s ease-in-out, border-bottom-color .2s ease-in-out;
   border-bottom: dotted 1px;
-  color: var(--main-color);
   text-decoration: none
 }
 
 a:hover {
   border-bottom-color: var(--main-color);
-  color: var(--main-color) !important
+  color: var(--main-color)
 }
 
 a:hover strong {
@@ -386,11 +348,11 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--dark-gray);
   font-family: "Roboto Slab", serif;
   font-weight: 700;
   line-height: 1.5;
-  margin: 0 0 1em 0
+  margin: 0 0 1em 0;
+  color: var(--fg-color);
 }
 
 h1 a,
@@ -399,9 +361,9 @@ h3 a,
 h4 a,
 h5 a,
 h6 a {
-  color: inherit;
   text-decoration: none;
-  border-bottom: 0
+  border-bottom: 0;
+  color: var(--fg-color);
 }
 
 h1 {
@@ -466,16 +428,17 @@ sup {
 }
 
 blockquote {
-  border-left: solid 3px var(--light-border);
+  border-left: solid 3px var(--light-gray);
   font-style: italic;
   margin: 0 0 2em 0;
   padding: .5em 0 .5em 2em
 }
 
 code {
-  background: var(--light-bg);
+  background: var(--fg-color);
+  color: var(--bg-color);
   border-radius: .375em;
-  border: solid 1px var(--light-border);
+  border: solid 1px var(--light-gray);
   font-family: "Courier New", monospace;
   font-size: .9em;
   margin: 0 .25em;
@@ -498,7 +461,7 @@ pre code {
 
 hr {
   border: 0;
-  border-bottom: solid 1px var(--light-border);
+  border-bottom: solid 1px var(--light-gray);
   margin: 2em 0
 }
 
@@ -563,15 +526,11 @@ input[type=text],
 input[type=url],
 select,
 textarea {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  background: var(--white);
+  background: var(--bg-color);
   border-radius: .375em;
   border: none;
-  border: solid 1px var(--light-border);
-  color: inherit;
+  border: solid 1px var(--dark-gray);
+  color: var(--fg-color);
   display: block;
   padding: 0 1em;
   text-decoration: none;
@@ -597,11 +556,11 @@ input[type=text]:focus,
 input[type=url]:focus,
 select:focus,
 textarea:focus {
-  border: none;
+  border: none
 }
 
 select {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='var(--light-border)' /%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='var(--light-gray)' /%3E%3C/svg%3E");
   background-size: 1.25em;
   background-repeat: no-repeat;
   background-position: calc(100% - 1em) center;
@@ -612,7 +571,7 @@ select {
 
 select option {
   color: var(--dark-gray);
-  background: var(--white)
+  background: var(--bg-color)
 }
 
 input[type=email],
@@ -646,7 +605,7 @@ input[type=radio] {
 input[type=checkbox]+label,
 input[type=radio]+label {
   text-decoration: none;
-  color: var(--light-gray);
+  color: var(--dark-gray);
   cursor: pointer;
   display: inline-block;
   font-size: 1em;
@@ -672,9 +631,9 @@ input[type=radio]+label:before {
 
 input[type=checkbox]+label:before,
 input[type=radio]+label:before {
-  background: var(--white);
+  background: var(--bg-color);
   border-radius: .375em;
-  border: solid 1px var(--light-border);
+  border: solid 1px var(--dark-gray);
   content: '';
   display: inline-block;
   font-size: .8em;
@@ -691,7 +650,7 @@ input[type=checkbox]:checked+label:before,
 input[type=radio]:checked+label:before {
   border-color: var(--main-color);
   color: var(--main-color);
-  content: '✔';
+  content: '✔'
 }
 
 input[type=checkbox]:focus+label:before,
@@ -730,7 +689,7 @@ input[type=radio]+label:before {
 
 .box {
   border-radius: .375em;
-  border: solid 1px var(--light-border);
+  border: solid 1px var(--light-gray);
   margin-bottom: 2em;
   padding: 1.5em
 }
@@ -874,7 +833,7 @@ ul.alt {
 }
 
 ul.alt li {
-  border-top: solid 1px var(--light-border);
+  border-top: solid 1px var(--light-gray);
   padding: .5em 0
 }
 
@@ -993,7 +952,7 @@ ul.contact {
 
 ul.contact li {
   text-decoration: none;
-  border-top: solid 1px var(--light-border);
+  border-top: solid 1px var(--light-gray);
   margin: 1.5em 0 0 0;
   padding: 1.5em 0 0 3em;
   position: relative
@@ -1066,7 +1025,7 @@ ul.pagination li>.page {
 
 ul.pagination li>.page.active {
   background-color: var(--main-color);
-  color: var(--white) !important
+  color: var(--bg-color) !important
 }
 
 ul.pagination li>.page.active:hover {
@@ -1106,13 +1065,13 @@ table {
 }
 
 table tbody tr {
-  border: solid 1px var(--light-border);
+  border: solid 1px var(--light-gray);
   border-left: 0;
   border-right: 0
 }
 
 table tbody tr:nth-child(2n+1) {
-  background-color: var(--light-bg)
+  background-color: var(--fg-color)
 }
 
 table td {
@@ -1128,11 +1087,11 @@ table th {
 }
 
 table thead {
-  border-bottom: solid 2px var(--light-border)
+  border-bottom: solid 2px var(--light-gray)
 }
 
 table tfoot {
-  border-top: solid 2px var(--light-border)
+  border-top: solid 2px var(--light-gray)
 }
 
 table.alt {
@@ -1140,7 +1099,7 @@ table.alt {
 }
 
 table.alt tbody tr td {
-  border: solid 1px var(--light-border);
+  border: solid 1px var(--light-gray);
   border-left-width: 0;
   border-top-width: 0
 }
@@ -1172,7 +1131,7 @@ input[type=submit] {
   border-radius: .375em;
   border: 0;
   box-shadow: inset 0 0 0 2px var(--main-color);
-  color: var(--main-color) !important;
+  color: var(--fg-color);
   cursor: pointer;
   display: inline-block;
   font-family: "Roboto Slab", serif;
@@ -1193,7 +1152,7 @@ button:hover,
 input[type=button]:hover,
 input[type=reset]:hover,
 input[type=submit]:hover {
-  background-color: rgba(245, 106, 106, .05)
+  background-color: var(--bg-color);
 }
 
 .button:active,
@@ -1201,7 +1160,7 @@ button:active,
 input[type=button]:active,
 input[type=reset]:active,
 input[type=submit]:active {
-  background-color: rgba(245, 106, 106, .15)
+  background-color: var(--bg-color);
 }
 
 .button.icon:before,
@@ -1243,9 +1202,9 @@ button.primary,
 input[type=button].primary,
 input[type=reset].primary,
 input[type=submit].primary {
-  background-color: var(--main-color);
+  background-color: var(--bg-color);
   box-shadow: none;
-  color: var(--white) !important
+  color: var(--fg-color) !important;
 }
 
 .button.primary:hover,
@@ -1253,7 +1212,8 @@ button.primary:hover,
 input[type=button].primary:hover,
 input[type=reset].primary:hover,
 input[type=submit].primary:hover {
-  background-color: var(--main-color)
+  background-color: var(--bg-color);
+  color: var(--main-color);
 }
 
 .button.primary:active,
@@ -1261,7 +1221,8 @@ button.primary:active,
 input[type=button].primary:active,
 input[type=reset].primary:active,
 input[type=submit].primary:active {
-  background-color: var(--main-color)
+  background-color: var(--bg-color);
+  color: var(--main-color);
 }
 
 .button.disabled,
@@ -1278,18 +1239,28 @@ input[type=submit]:disabled {
   opacity: .25
 }
 
-input:hover, input[type=submit]:hover, button.preview:hover, a.button:hover, .post-title a:hover, a.social-icon:hover, #sidebar li a:hover {
-  background: var(--white);
-  color: var(--link-hover);
+#sidebar li a:hover,
+.post-title a:hover,
+a.button:hover,
+a.social-icon:hover,
+button.preview:hover,
+input:hover,
+input[type=submit]:hover {
+  background: var(--sidebar-bg);
+  color: var(--fg-color);
 }
 
-input, input[type=submit], button.preview, a.social-icon, a.button {
-  background: var(--white) !important;
-  color: var(--main-color);
+a.button,
+a.social-icon,
+button.preview,
+input,
+input[type=submit] {
+  background: var(--bg-color);
+  color: var(--fg-color);
 }
 
 .mini-posts article {
-  border-top: solid 1px var(--light-border);
+  border-top: solid 1px var(--light-gray);
   margin-top: 2em;
   padding-top: 2em
 }
@@ -1359,7 +1330,7 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 .features article .icon:after {
   transform: rotate(45deg);
   border-radius: .25rem;
-  border: solid 2px var(--light-border);
+  border: solid 2px var(--light-gray);
   content: '';
   display: block;
   height: 7em;
@@ -1641,7 +1612,7 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 #main>.inner>section {
   padding: 6em 0 4em 0;
-  border-top: solid 2px var(--light-border)
+  border-top: solid 2px var(--light-gray)
 }
 
 #main>.inner>section:first-of-type {
@@ -1716,19 +1687,21 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 }
 
 #sidebar {
-  color: var(--mid-gray);
+  color: var(--fg-color);
   text-transform: uppercase;
   flex-grow: 0;
   flex-shrink: 0;
   transition: margin-left .5s ease, box-shadow .5s ease;
-  background-color: #f5f6f7;
+  background-color: var(--sidebar-bg);
   font-size: .9em;
   position: relative;
   width: 26em
 }
 
-#sidebar a {
-  color: var(--link-hover)
+#sidebar a,
+#sidebar li a {
+  color: var(--fg-color);
+  background: var(--sidebar-bg)
 }
 
 #sidebar h2 {
@@ -1925,10 +1898,14 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 #header .logo {
   border-bottom: 0;
-  color: inherit;
+  color: var(--fg-color);
   font-family: "Roboto Slab", serif;
   font-size: 2.5em;
   padding-bottom: .5em
+}
+
+#header .logo a {
+  color: var(--fg-color)
 }
 
 #header .icons {
@@ -1965,9 +1942,6 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 #banner {
   padding: 6em 0 4em 0;
-  display: -moz-flex;
-  display: -webkit-flex;
-  display: -ms-flex;
   display: flex
 }
 
@@ -2072,12 +2046,11 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 #menu ul a.opener.active:before,
 #menu ul span.opener.active:before {
-
   transform: rotate(-180deg)
 }
 
 #menu ul>li {
-  border-top: solid 1px var(--light-border);
+  border-top: solid 1px var(--light-gray);
   margin: .5em 0 0 0;
   padding: .5em 0 0 0
 }
@@ -2191,7 +2164,13 @@ input, input[type=submit], button.preview, a.social-icon, a.button {
 
 h2.post-title {
   font-size: 2rem;
-  margin-bottom: 0
+  margin-bottom: 0;
+  color: var(--fg-color)
+}
+
+h2.post-title a {
+
+  color: var(--fg-color)
 }
 
 .posts h2.post-title {
@@ -2384,8 +2363,8 @@ a:focus {
   padding: .25em;
   border: 1px solid #636363;
   border-radius: .25em;
-  background-color: var(--white);
-  color: var(--link-hover);
+  background-color: var(--bg-color);
+  color: var(--fg-color);
   font-size: .875em;
   text-align: center
 }
@@ -2491,30 +2470,20 @@ a:focus {
 .social-icon img[src$=".svg"] {
   width: 1.5em;
   height: 1.5em;
+  color: var(--fg-color) !important;
 }
 
 .social-icon img[src$=".svg"]:hover {
-  color: var(--main-color) !important
+  color: var(--main-color)
 }
 
 .error {
   border-radius: .375em;
   background-color: var(--main-color);
-  color: var(--white);
+  color: var(--bg-color);
   font-size: 1.2em;
-  font-weight: bold;
-  padding: 1em;
-}
-
-#sidebar li a:hover,
-.post-title a:hover,
-a.button:hover,
-a.social-icon:hover,
-button.preview:hover,
-input:hover,
-input[type=submit]:hover {
-  background: var(--white) !important;
-  color: var(--main-color) !important;
+  font-weight: 700;
+  padding: 1em
 }
 
 a.button,
@@ -2522,8 +2491,8 @@ a.social-icon,
 button.preview,
 input,
 input[type=submit] {
-  background: var(--white);
-  color: #999 !important
+  background: var(--bg-color);
+  color: var(--fg-color)
 }
 
 .social-icon svg {
@@ -2534,9 +2503,5 @@ input[type=submit] {
 .jstElements button {
   border: none !important;
   box-shadow: none;
-  color: var(--link-hover) !important
-}
-
-.jstElements button:hover {
-  color: var(--link-hover) !important
+  color: var(--light-fg) !important
 }

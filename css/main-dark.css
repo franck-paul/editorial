@@ -1,57 +1,12 @@
 /* Dark mode for Editorial theme */
 :root {
-    --dark-bg: #333;
-    --dark-fg: #fff;
-}
-
-#sidebar,
-#sidebar a,
-#sidebar a span,
-#sidebar label,
-#sidebar li,
-#sidebar li a,
-#sidebar span,
-.button,
-.post-title a,
-a:hover,
-button.preview:hover,
-input.submit:hover,
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-input,
-input[type=checkbox],
-input[type=submit],
-input[type=button],
-input[type=reset],
-input[type=submit],
-input[type="checkbox"]+label::before,
-input[type="radio"]+label::before,
-input[type=checkbox]:hover,
-input[type=button]:hover,
-input[type=reset]:hover,
-input[type=submit]:hover,
-label,
-select,
-p,
-strong,
-textarea {
-    background: var(--dark-bg);
-    color: var(--dark-fg)
+    --bg-color: #333;
+    --fg-color: #fff;
+    --sidebar-bg: #333;
 }
 
 input:hover, input[type=submit]:hover, button.preview:hover, a.button:hover, .post-title a:hover, a.social-icon:hover, #sidebar li a:hover {
-    background: var(--dark-bg) !important;
     color: var(--main-dark-color) !important
-}
-
-input, input[type=submit], button.preview, a.social-icon, a.button {
-    background: var(--dark-bg) !important;
-    color: var(--dark-fg) !important
 }
 
 a strong:hover,
@@ -150,8 +105,4 @@ input[type=submit] {
     border: none !important;
     box-shadow: none;
     color: var(--dark-fg) !important
-}
-
-.jstElements button:hover {
-    color: var(--dark-fg-muted) !important
 }
