@@ -47,28 +47,12 @@ class Frontend extends Process
         App::frontend()->template()->addValue('editorialSmallImageAlt', self::editorialSmallImageAlt(...));
 
         App::frontend()->template()->addValue('editorialUserColors', self::editorialUserColors(...));
-        App::behavior()->addBehavior('publicHeadContent', self::publicHeadContent(...));
 
         App::frontend()->template()->addValue('editorialSocialLinks', self::editorialSocialLinks(...));
 
         App::behavior()->addBehavior('templateBeforeBlockV2', self::templateBeforeBlock(...));
 
         return true;
-    }
-
-    /**
-     * Public head content behavior callback
-     */
-    public static function publicHeadContent(): void
-    {
-        $style = self::decode('style');
-        $mode  = $style['mode'] ?? 'auto';
-
-        if ($mode === 'dark') {
-            echo My::cssLoad('main-dark.css');
-        } elseif ($mode === 'auto') {
-            echo My::cssLoad('main-auto.css');
-        }
     }
 
     /**
@@ -204,11 +188,37 @@ class Frontend extends Process
         $style           = self::decode('style');
         $main_color      = $style['main_color']      ?? '#f56a6a';
         $main_dark_color = $style['main_dark_color'] ?? '#f56a6a';
+        $mode            = $style['mode']            ?? 'auto';
+        $colors          = '';
 
-        $colors = '<style>' . "\n" .
-        ':root {--main-color: ' . $main_color . '}' . "\n" .
-        ':root {--main-dark-color: ' . $main_dark_color . '}' . "\n" .
-        '</style>' . "\n" ;
+        if ($mode === 'light') {
+            $colors = '<style>' . "\n" .
+                    ':root {--main-color: ' . $main_color . '}' . "\n" .
+                    '</style>' . "\n" ;
+        } elseif ($mode === 'dark') {
+            $colors = '<style>' . "\n" .
+                    ':root {' . "\n" .
+                        '--bg-color: #333;' . "\n" .
+                        '--fg-color: #fff;' . "\n" .
+                        '--sidebar-bg: #333;' . "\n" .
+                        '--main-color: ' . $main_dark_color . ';' . "\n" .
+                    '}' . "\n" .
+                    '</style>' . "\n" ;
+        } elseif ($mode === 'auto') {
+            $colors = '<style>' . "\n" .
+                    ':root {' . "\n" .
+                        '@media (prefers-color-scheme: dark) {' . "\n" .
+                            '--bg-color: #333;' . "\n" .
+                            '--fg-color: #fff;' . "\n" .
+                            '--sidebar-bg: #333;' . "\n" .
+                            '--main-color: ' . $main_dark_color . ';' . "\n" .
+                        '}' . "\n" .
+                        '@media (prefers-color-scheme: light) {' . "\n" .
+                            '--main-color: ' . $main_color . ';' . "\n" .
+                        '}' . "\n" .
+                    '}' . "\n" .
+                    '</style>' . "\n" ;
+        }
 
         return $colors;
     }

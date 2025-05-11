@@ -329,7 +329,7 @@ a:hover strong {
 
 b,
 strong {
-  color: var(--dark-gray);
+  color: var(--fg-dark);
   font-weight: 600
 }
 
@@ -511,7 +511,7 @@ form {
 }
 
 label {
-  color: var(--dark-gray);
+  color: var(--fg-color);
   display: block;
   font-size: 1em;
   font-weight: 600;
@@ -1256,7 +1256,7 @@ button.preview,
 input,
 input[type=submit] {
   background: var(--bg-color);
-  color: var(--fg-color);
+  color: var(--fg-color) !important;
 }
 
 .mini-posts article {
@@ -1696,6 +1696,10 @@ input[type=submit] {
   font-size: .9em;
   position: relative;
   width: 26em
+}
+
+#sidebar label {
+  color: var(--fg-color);
 }
 
 #sidebar a,
@@ -2297,7 +2301,14 @@ ul.post-attachments-list {
 
 #search.widget input.submit {
   height: inherit;
-  margin-left: .2rem
+  margin-left: .2rem;
+  color: var(--fg-color) !important;
+}
+
+#search.widget input.submit:hover {
+  height: inherit;
+  margin-left: .2rem;
+  color: var(--main-color) !important;
 }
 
 #search form:before {
@@ -2392,6 +2403,17 @@ header.major>:last-child {
   border-bottom: solid 3px var(--main-color)
 }
 
+input[type=email],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=url],
+select,
+textarea {
+  border-color: var(--fg-color);
+}
+
 input[type=email]:focus,
 input[type=password]:focus,
 input[type=search]:focus,
@@ -2423,6 +2445,15 @@ button,
 input[type=button],
 input[type=reset],
 input[type=submit] {
+  box-shadow: inset 0 0 0 2px var(--main-color);
+  color: var(--fg-color) !important
+}
+
+.button:hover,
+button:hover,
+input[type=button]:hover,
+input[type=reset]:hover,
+input[type=submit]:hover {
   box-shadow: inset 0 0 0 2px var(--main-color);
   color: var(--main-color) !important
 }
