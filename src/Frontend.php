@@ -189,36 +189,19 @@ class Frontend extends Process
         $main_color      = $style['main_color']      ?? '#f56a6a';
         $main_dark_color = $style['main_dark_color'] ?? '#f56a6a';
         $mode            = $style['mode']            ?? 'auto';
-        $colors          = '';
 
-        if ($mode === 'light') {
-            $colors = '<style>' . "\n" .
-                    ':root {--main-color: ' . $main_color . '}' . "\n" .
-                    '</style>' . "\n" ;
-        } elseif ($mode === 'dark') {
-            $colors = '<style>' . "\n" .
-                    ':root {' . "\n" .
-                        '--bg-color: #333;' . "\n" .
-                        '--fg-color: #fff;' . "\n" .
-                        '--sidebar-bg: #333;' . "\n" .
-                        '--main-color: ' . $main_dark_color . ';' . "\n" .
-                    '}' . "\n" .
-                    '</style>' . "\n" ;
-        } elseif ($mode === 'auto') {
-            $colors = '<style>' . "\n" .
-                    ':root {' . "\n" .
-                        '@media (prefers-color-scheme: dark) {' . "\n" .
-                            '--bg-color: #333;' . "\n" .
-                            '--fg-color: #fff;' . "\n" .
-                            '--sidebar-bg: #333;' . "\n" .
-                            '--main-color: ' . $main_dark_color . ';' . "\n" .
-                        '}' . "\n" .
-                        '@media (prefers-color-scheme: light) {' . "\n" .
-                            '--main-color: ' . $main_color . ';' . "\n" .
-                        '}' . "\n" .
-                    '}' . "\n" .
-                    '</style>' . "\n" ;
-        }
+        $schemes = [
+            'auto'  => 'light dark',
+            'light' => 'light',
+            'dark'  => 'dark',
+        ];
+
+        $colors = '<style>' . "\n" .
+        'html {' . "\n" .
+        ' color-scheme: ' . $schemes[$mode] . ';' . "\n" .
+        ' --main-color: light-dark(' . $main_color . ',' . $main_dark_color . ');' . "\n" .
+        '}' . "\n" .
+        '</style>' . "\n";
 
         return $colors;
     }
