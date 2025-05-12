@@ -525,7 +525,7 @@ class Config extends Process
             (new Table())
                 ->class('dragable')
                 ->extra('aria-describedby="table-note"')
-                ->caption(new Caption(__('Social links (header)'))->class('pretty-title'))
+                ->caption((new Caption(__('Social links (header)')))->class('pretty-title'))
                 ->items([
                 (new Thead())->items([
                     (new Tr())->items([
