@@ -230,10 +230,6 @@ table {
   border-spacing: 0;
 }
 
-body {
-  -webkit-text-size-adjust: none;
-}
-
 mark {
   background-color: transparent;
   color: inherit;
@@ -243,10 +239,6 @@ input,
 select,
 textarea {
   appearance: none;
-}
-
-@-ms-viewport {
-  width: device-width;
 }
 
 @media screen and (max-width: 480px) {
@@ -455,7 +447,6 @@ code {
 }
 
 pre {
-  -webkit-overflow-scrolling: touch;
   font-family: 'Courier New', monospace;
   font-size: 0.9em;
   margin: 0 0 2em 0;
@@ -669,26 +660,6 @@ input[type='checkbox'] + label:before {
 
 input[type='radio'] + label:before {
   border-radius: 100%;
-}
-
-::-webkit-input-placeholder {
-  color: var(--light-gray) !important;
-  opacity: 1;
-}
-
-:-moz-placeholder {
-  color: var(--light-gray) !important;
-  opacity: 1;
-}
-
-::-moz-placeholder {
-  color: var(--light-gray) !important;
-  opacity: 1;
-}
-
-:-ms-input-placeholder {
-  color: var(--light-gray) !important;
-  opacity: 1;
 }
 
 .box {
@@ -2099,7 +2070,6 @@ input[type='submit'] {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
@@ -2245,7 +2215,6 @@ pre {
 }
 
 .box {
-  font-size: normal;
   font-family: 'Roboto Slab', serif;
 }
 
