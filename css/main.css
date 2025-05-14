@@ -1006,7 +1006,7 @@ table {
 }
 
 table tbody tr:nth-child(2n + 1) {
-  background-color: var(--table-bg);
+  background-color: var(--table-bg-odd);
 }
 
 table tbody tr {
