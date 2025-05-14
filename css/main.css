@@ -580,7 +580,7 @@ input[type='radio'] {
 input[type='checkbox']+label,
 input[type='radio']+label {
   text-decoration: none;
-  color: var(--dark-gray);
+  color: var(--fg-color);
   cursor: pointer;
   display: inline-block;
   font-size: 1em;
@@ -606,7 +606,7 @@ input[type='checkbox']+label:before,
 input[type='radio']+label:before {
   background: var(--bg-color);
   border-radius: 0.375em;
-  border: solid 1px var(--dark-gray);
+  border: solid 1px var(--fg-color);
   content: '';
   display: inline-block;
   font-size: 0.8em;
