@@ -12,7 +12,7 @@ $this->registerModule(
     'Éditorial',
     'A theme for Dotclear',
     'Philippe aka amalgame and contributors',
-    '8.4',
+    '8.5',
     [
         'date'              => '2025-05-14T00:00:13+0100',
         'requires'          => [['core', '2.33']],
