@@ -64,7 +64,7 @@ html {
   --bg-color: light-dark(#fff, #333);
   --fg-color: light-dark(#555, #fff);
   --sidebar-bg: light-dark(#f5f6f7, #222);
-  --table-bg: light-dark(#f5f6f7, #000);
+  --table-bg-odd: light-dark(#f5f6f7, #3b3b3b);
   --dark-gray: #4e555b;
   --light-gray: #ccc;
 }
