@@ -292,10 +292,6 @@ a {
   text-decoration: none;
 }
 
-.post-title a {
-  color: var(--main-color);
-}
-
 .post-title a:hover, .logo a:hover {
   border-bottom-color: var(--main-color);
   color: var(--main-color) !important;
@@ -2435,16 +2431,6 @@ a:focus {
   color: var(--main-color) !important;
 }
 
-.social-icon img[src$='.svg'] {
-  width: 1.5em;
-  height: 1.5em;
-  color: var(--fg-color) !important;
-}
-
-.social-icon img[src$='.svg']:hover {
-  color: var(--main-color);
-}
-
 .error {
   border-radius: 0.375em;
   background-color: var(--main-color);
@@ -2466,6 +2452,15 @@ input[type='submit'] {
 .social-icon svg {
   width: 1.5em;
   height: 1.5em;
+}
+
+.social-icon img[src$='.svg'] {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+a.social-icon .svg:hover {
+  color: var(--main-color);
 }
 
 .jstElements button {
