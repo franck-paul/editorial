@@ -292,14 +292,15 @@ a {
   text-decoration: none;
 }
 
-a {
+.post-title a {
   color: var(--main-color);
 }
 
-a:hover {
+.post-title a:hover, .logo a:hover {
   border-bottom-color: var(--main-color);
-  color: var(--main-color);
+  color: var(--main-color) !important;
 }
+
 
 a:hover strong {
   color: inherit;
@@ -1037,6 +1038,8 @@ table tbody tr:hover td a {
 table tbody td a:hover {
   color: var(--bg-color)
 }
+
+
 
 table td {
   padding: 0.75em 0.75em;
