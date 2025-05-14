@@ -65,6 +65,7 @@ html {
   --fg-color: light-dark(#555, #fff);
   --sidebar-bg: light-dark(#f5f6f7, #222);
   --table-bg-odd: light-dark(#f5f6f7, #3b3b3b);
+  --table-bg-hover-text: light-dark(#fff, #fff);
   --dark-gray: #4e555b;
   --light-gray: #ccc;
 }
@@ -1021,23 +1022,23 @@ table tbody tr:hover {
 }
 
 table tbody tr:nth-child(2n + 1):hover td {
-  color: var(--bg-color)
+  color: var(--table-bg-hover-text);
 }
 
 table tbody tr:hover td {
-  color: var(--bg-color)
+  color: var(--table-bg-hover-text);
 }
 
 table tbody tr:nth-child(2n + 1):hover td a {
-  color: var(--bg-color)
+  color: var(--table-bg-hover-text);
 }
 
 table tbody tr:hover td a {
-  color: var(--bg-color)
+  color: var(--table-bg-hover-text);
 }
 
 table tbody td a:hover {
-  color: var(--bg-color)
+  color: var(--bg-color);
 }
 
 
