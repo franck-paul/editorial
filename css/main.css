@@ -63,7 +63,8 @@ html {
 :root {
   --bg-color: light-dark(#fff, #333);
   --fg-color: light-dark(#555, #fff);
-  --sidebar-bg: light-dark(#f5f6f7, #333);
+  --sidebar-bg: light-dark(#f5f6f7, #222);
+  --table-bg: light-dark(#f5f6f7, #000);
   --dark-gray: #4e555b;
   --light-gray: #ccc;
 }
@@ -1005,7 +1006,7 @@ table {
 }
 
 table tbody tr:nth-child(2n + 1) {
-  background-color: var(--sidebar-bg);
+  background-color: var(--table-bg);
 }
 
 table tbody tr {
