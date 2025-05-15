@@ -2305,17 +2305,6 @@ a:focus {
   height: 20rem;
 }
 
-#accessconfig button {
-  box-shadow: none;
-  color: inherit !important;
-  padding: 0;
-}
-
-#accessconfig button:hover {
-  background: 0 0;
-  color: var(--main-color) !important;
-}
-
 #footer {
   text-align: center;
 }
