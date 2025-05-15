@@ -2331,19 +2331,16 @@ a:focus {
   border: 1px solid var(--dark-gray);
   border-radius: 0.25em;
   background-color: var(--bg-color);
-  color: var(--fg-color);
   font-size: 0.875em;
   text-align: center;
 }
 
-#gotop a,
-#gotop a:active,
-#gotop a:hover,
-#gotop a:link {
-  background: 0 0;
-  border: none;
-  font-weight: 700;
-  color: var(--dark-gray);
+#gotop a {
+  color: var(--fg-color);
+}
+
+#gotop a:hover {
+  color: var(--main-color);
 }
 
 header.major> :last-child {
