@@ -1545,7 +1545,6 @@ input[type='submit'] {
   }
 
   #sidebar .toggle:before {
-    color: var(--light-gray);
     margin-left: -0.0625em;
     margin-top: -0.25em;
     font-size: 1.1rem;
