@@ -1653,7 +1653,7 @@ input[type='submit'] {
 }
 
 #footer .copyright {
-  color: var(--light-gray);
+  color: var(--fg-color);
   font-size: 0.9em;
 }
 
@@ -1818,7 +1818,7 @@ input[type='submit'] {
 
 .skip-links li a:link,
 .skip-links li a:visited {
-  color: var(--light-gray);
+  color: var(--fg-color);
 }
 
 .blogdesc {
