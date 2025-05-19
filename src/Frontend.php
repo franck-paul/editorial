@@ -186,8 +186,8 @@ class Frontend extends Process
     public static function editorialUserColorsHelper(): string
     {
         $style           = self::decode('style');
-        $main_color      = $style['main_color']      ?? '#f56a6a';
-        $main_dark_color = $style['main_dark_color'] ?? '#f56a6a';
+        $main_color      = $style['main_color']      ?? '#EA1010';
+        $main_dark_color = $style['main_dark_color'] ?? '#F37C7C';
         $mode            = $style['mode']            ?? 'auto';
 
         $schemes = [

@@ -107,8 +107,8 @@ class Config extends Process
             'images_disabled'               => false,
         ];
         self::$default_style = [
-            'main_color'      => '#f56a6a',
-            'main_dark_color' => '#f56a6a',
+            'main_color'      => '#EA1010',
+            'main_dark_color' => '#F37C7C',
             'mode'            => 'auto',
         ];
         self::$default_featured = [
