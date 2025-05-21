@@ -2011,11 +2011,7 @@ a:focus {
   outline: var(--main-color) dotted 1px;
 }
 
-@media screen and (min-width: 1281px) {
-  button.toggle {
-    display: none !important;
-  }
-}
+
 
 .posts .post-featured-media img {
   object-fit: cover;
