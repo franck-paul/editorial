@@ -1358,6 +1358,14 @@ input[type='submit'] {
   padding-right: 2.75em;
 }
 
+#sidebar.open {
+  display: block;
+}
+
+#sidebar.close {
+  display: none;
+}
+
 #sidebar {
   color: var(--fg-color);
   text-transform: uppercase;
