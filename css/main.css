@@ -1423,7 +1423,7 @@ input[type='submit'] {
   width: calc(100% + 4.44444em);
 }
 
-.toggle {
+#toggle {
   text-decoration: none;
   transition: left 0.5s ease;
   border: 0;
@@ -1444,7 +1444,7 @@ input[type='submit'] {
 
 }
 
-.toggle:before {
+#toggle:before {
   display: inline-block;
   font-style: normal;
   font-variant: normal;
@@ -1455,7 +1455,7 @@ input[type='submit'] {
   font-weight: 900;
 }
 
-.toggle:before {
+#toggle:before {
   content: '☰';
   font-size: 2rem;
   height: inherit;
@@ -1467,7 +1467,7 @@ input[type='submit'] {
   width: inherit;
 }
 
-.toggle.open {
+#toggle.open {
   left: 30em
 }
 
