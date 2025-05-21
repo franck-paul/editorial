@@ -1423,7 +1423,7 @@ input[type='submit'] {
   width: calc(100% + 4.44444em);
 }
 
-#sidebar .toggle {
+.toggle {
   text-decoration: none;
   transition: left 0.5s ease;
   border: 0;
@@ -1441,7 +1441,7 @@ input[type='submit'] {
   z-index: 10000;
 }
 
-#sidebar .toggle:before {
+.toggle:before {
   display: inline-block;
   font-style: normal;
   font-variant: normal;
@@ -1452,7 +1452,7 @@ input[type='submit'] {
   font-weight: 900;
 }
 
-#sidebar .toggle:before {
+.toggle:before {
   content: '☰';
   font-size: 2rem;
   height: inherit;
@@ -1484,7 +1484,7 @@ input[type='submit'] {
     width: calc(100% + 3.33333em);
   }
 
-  #sidebar .toggle {
+  .toggle {
     height: 6.25em;
     left: 24em;
     line-height: 6.25em;
@@ -1492,7 +1492,7 @@ input[type='submit'] {
     width: 5em;
   }
 
-  #sidebar .toggle:before {
+  .toggle:before {
     font-size: 1.5rem;
   }
 
@@ -1531,12 +1531,12 @@ input[type='submit'] {
     width: 100%;
   }
 
-  #sidebar .toggle {
+  .toggle {
     text-indent: 6em;
     width: 6em;
   }
 
-  #sidebar .toggle:before {
+  .toggle:before {
     font-size: 1.5rem;
     margin-left: -0.4375em;
   }
@@ -1547,19 +1547,19 @@ input[type='submit'] {
 }
 
 @media screen and (max-width: 736px) {
-  #sidebar .toggle {
+  .toggle {
     text-indent: 7.25em;
     width: 7.25em;
   }
 
-  #sidebar .toggle:before {
+  .toggle:before {
     margin-left: -0.0625em;
     margin-top: -0.25em;
     font-size: 1.1rem;
     z-index: 1;
   }
 
-  #sidebar .toggle:after {
+  .toggle:after {
     background: var(--light-gray);
     border-radius: 0.375em;
     content: '';
@@ -2007,14 +2007,14 @@ ul.post-attachments-list {
   display: none;
 }
 
-#sidebar .toggle {
+.toggle {
   cursor: pointer;
   left: 31em;
   border: none;
   box-shadow: none;
 }
 
-#sidebar .toggle:focus,
+.toggle:focus,
 a:focus {
   outline: var(--main-color) dotted 1px;
 }
@@ -2145,7 +2145,7 @@ input[type='submit'].primary {
   border-bottom: 1px solid var(--main-color);
 }
 
-#sidebar .toggle:focus,
+.toggle:focus,
 a:focus {
   outline: var(--main-color) dotted 1px;
 }

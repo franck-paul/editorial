@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById("toggle");
-    const menu = document.getElementById("menu");
     const sidebar = document.getElementById("sidebar");
 
     sidebar.classList.add("open");
