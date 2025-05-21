@@ -1471,6 +1471,12 @@ input[type='submit'] {
   left: 30em
 }
 
+@media screen and (min-width: 1281px) {
+  #toggle {
+    display: none;
+  }
+}
+
 #sidebar.inactive {
   margin-left: -26em;
 }
