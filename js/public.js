@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.classList.add(addClass);
     }
 
-    setSidebarState(window.innerWidth > 900);
+    setSidebarState(window.innerWidth > 1280);
 
     window.addEventListener("resize", () => {
-        setSidebarState(window.innerWidth > 900);
+        setSidebarState(window.innerWidth > 1280);
     });
 
     document.addEventListener("keydown", (e) => {
