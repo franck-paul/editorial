@@ -55,6 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
             gotopButton.style.display = document.querySelector('html').scrollTop === 0 ? 'none' : 'block';
         }
     });
+
+    // Accessibility flags
+    dotclear.animationisReduced =
+        window.matchMedia('(prefers-reduced-motion: reduce)') === true ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches === true;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    mediaQuery.onchange = (event) => {
+        dotclear.animationisReduced = event.matches;
+    };
+
     const gotopButton = document.getElementById('gotop');
     if (gotopButton) {
         gotopButton.addEventListener('click', (event) => {
