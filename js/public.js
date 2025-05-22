@@ -48,19 +48,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() != 0) {
-            $('#gotop').fadeIn();
-        } else {
-            $('#gotop').fadeOut();
+    // Scroll to top management
+    document.addEventListener('scroll', () => {
+        const gotopButton = document.getElementById('gotop');
+        if (gotopButton) {
+            gotopButton.style.display = document.querySelector('html').scrollTop === 0 ? 'none' : 'block';
         }
     });
-    $('#gotop').on('click', function (e) {
-        $('body,html').animate({
-            scrollTop: 0,
-        },
-            800
-        );
-        e.preventDefault();
-    });
+    const gotopButton = document.getElementById('gotop');
+    if (gotopButton) {
+        gotopButton.addEventListener('click', (event) => {
+            if (dotclear.animationisReduced) {
+                // Scroll to top instantly
+                document.querySelector('html').scrollTop = 0;
+            } else {
+                // Scroll to top smoothly
+                const scrollToTop = (duration) => {
+                    // cancel if already on top
+                    if (document.scrollingElement.scrollTop === 0) return;
+
+                    // if duration is zero, no animation
+                    if (duration === 0) {
+                        document.scrollingElement.scrollTop = 0;
+                        return;
+                    }
+
+                    const cosParameter = document.scrollingElement.scrollTop / 2;
+                    let scrollCount = 0;
+                    let oldTimestamp = null;
+
+                    const step = (newTimestamp) => {
+                        if (oldTimestamp !== null) {
+                            scrollCount += (Math.PI * (newTimestamp - oldTimestamp)) / duration;
+                            if (scrollCount >= Math.PI) {
+                                document.scrollingElement.scrollTop = 0;
+                                return;
+                            }
+                            document.scrollingElement.scrollTop = cosParameter + cosParameter * Math.cos(scrollCount);
+                        }
+                        oldTimestamp = newTimestamp;
+                        window.requestAnimationFrame(step);
+                    };
+                    window.requestAnimationFrame(step);
+                };
+                scrollToTop(800);
+            }
+            event.preventDefault();
+        });
+    }
 })
