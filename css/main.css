@@ -941,6 +941,14 @@ table tbody tr:hover td a {
   color: var(--table-bg-hover-text);
 }
 
+table tbody tr:hover td img {
+  color: var(--table-bg-hover-text);
+}
+
+table tbody tr:hover td time {
+  color: var(--table-bg-hover-text);
+}
+
 table tbody td a:hover {
   color: var(--bg-color);
 }
