@@ -950,11 +950,13 @@ table td {
 }
 
 table th {
-  color: var(--dark-gray);
+  color: var(--fg-color);
   font-size: 0.9em;
   font-weight: 600;
   padding: 0 0.75em 0.75em 0.75em;
   text-align: left;
+  padding: 1.5em;
+  ;
 }
 
 table thead {
