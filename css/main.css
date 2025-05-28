@@ -196,11 +196,6 @@ q:before {
   content: none;
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
 mark {
   background-color: transparent;
   color: inherit;
@@ -821,57 +816,6 @@ ul.icons li .icon:before {
   font-size: 1.25em;
 }
 
-ul.contact {
-  list-style: none;
-  padding: 0;
-}
-
-ul.contact li {
-  text-decoration: none;
-  border-top: solid 1px var(--light-gray);
-  margin: 1.5em 0 0 0;
-  padding: 1.5em 0 0 3em;
-  position: relative;
-}
-
-ul.contact li:before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-  text-transform: none !important;
-  font-family: 'Roboto Slab', serif;
-  font-weight: 400;
-}
-
-ul.contact li:before {
-  color: var(--main-color);
-  display: inline-block;
-  font-size: 1.5em;
-  height: 1.125em;
-  left: 0;
-  line-height: 1.125em;
-  position: absolute;
-  text-align: center;
-  top: 1em;
-  width: 1.5em;
-}
-
-ul.contact li:first-child {
-  border-top: 0;
-  margin-top: 0;
-  padding-top: 0;
-}
-
-ul.contact li:first-child:before {
-  top: 0;
-}
-
-ul.contact li a {
-  color: inherit;
-}
-
 ul.pagination {
   cursor: default;
   list-style: none;
@@ -908,6 +852,8 @@ ul.pagination li>.page {
 table {
   margin: 0 0 2em 0;
   width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 table tbody tr:nth-child(2n + 1) {
@@ -925,32 +871,17 @@ table tbody tr:hover {
   color: var(--bg-color);
 }
 
-table tbody tr:nth-child(2n + 1):hover td {
-  color: var(--table-bg-hover-text);
-}
-
-table tbody tr:hover td {
-  color: var(--table-bg-hover-text);
-}
-
-table tbody tr:nth-child(2n + 1):hover td a {
-  color: var(--table-bg-hover-text);
-}
-
-table tbody tr:hover td a {
-  color: var(--table-bg-hover-text);
-}
-
-table tbody tr:hover td img {
-  color: var(--table-bg-hover-text);
-}
-
-table tbody tr:hover td time {
-  color: var(--table-bg-hover-text);
-}
-
 table tbody td a:hover {
   color: var(--bg-color);
+}
+
+table tbody tr:hover td,
+table tbody tr:hover td a,
+table tbody tr:nth-child(2n + 1):hover td,
+table tbody tr:nth-child(2n + 1):hover td a,
+table tbody tr:hover td img,
+table tbody tr:hover td time {
+  color: var(--table-bg-hover-text);
 }
 
 table td {
@@ -1018,60 +949,6 @@ input[type='button']:active,
 input[type='reset']:active,
 input[type='submit']:active {
   background-color: var(--bg-color);
-}
-
-.button.icon:before,
-button.icon:before,
-input[type='button'].icon:before,
-input[type='reset'].icon:before,
-input[type='submit'].icon:before {
-  margin-right: 0.5em;
-}
-
-.button.small,
-button.small,
-input[type='button'].small,
-input[type='reset'].small,
-input[type='submit'].small {
-  font-size: 0.6em;
-}
-
-.button.large,
-button.large,
-input[type='button'].large,
-input[type='reset'].large,
-input[type='submit'].large {
-  font-size: 1em;
-  height: 3.65em;
-  line-height: 3.65em;
-}
-
-.button.primary,
-button.primary,
-input[type='button'].primary,
-input[type='reset'].primary,
-input[type='submit'].primary {
-  background-color: var(--bg-color);
-  box-shadow: none;
-  color: var(--fg-color) !important;
-}
-
-.button.primary:hover,
-button.primary:hover,
-input[type='button'].primary:hover,
-input[type='reset'].primary:hover,
-input[type='submit'].primary:hover {
-  background-color: var(--bg-color);
-  color: var(--main-color);
-}
-
-.button.primary:active,
-button.primary:active,
-input[type='button'].primary:active,
-input[type='reset'].primary:active,
-input[type='submit'].primary:active {
-  background-color: var(--bg-color);
-  color: var(--main-color);
 }
 
 .button.disabled,
@@ -1341,16 +1218,12 @@ input[type='submit'] {
   font-style: normal;
   font-variant: normal;
   text-rendering: auto;
-  line-height: 1;
   text-transform: none !important;
   font-family: 'Roboto Slab', serif;
   font-weight: 900;
-}
-
-#search form:before {
   transform: scaleX(-1);
   color: var(--light-gray);
-  content: '\f002';
+  content: '🔎';
   cursor: default;
   display: block;
   font-size: 1.5em;
@@ -1665,51 +1538,6 @@ input[type='submit'] {
 #menu ul a:hover,
 #menu ul span:hover {
   color: var(--main-color);
-}
-
-#menu ul a.opener,
-#menu ul span.opener {
-  transition: color 0.2s ease-in-out;
-  text-decoration: none;
-  position: relative;
-}
-
-#menu ul a.opener:before,
-#menu ul span.opener:before {
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-  text-transform: none !important;
-  font-family: 'Roboto Slab', serif;
-  font-weight: 900;
-}
-
-#menu ul a.opener:before,
-#menu ul span.opener:before {
-  transition:
-    color 0.2s ease-in-out,
-    transform 0.2s ease-in-out;
-  color: var(--light-gray);
-  content: '\f078';
-  position: absolute;
-  right: 0;
-}
-
-#menu ul a.opener:hover:before,
-#menu ul span.opener:hover:before {
-  color: var(--main-color);
-}
-
-#menu ul a.opener.active+ul,
-#menu ul span.opener.active+ul {
-  display: block;
-}
-
-#menu ul a.opener.active:before,
-#menu ul span.opener.active:before {
-  transform: rotate(-180deg);
 }
 
 #menu ul>li {
@@ -2095,11 +1923,6 @@ input[type='submit'].primary {
 
 #menu ul a:hover,
 #menu ul span:hover {
-  color: var(--main-color);
-}
-
-#menu ul a.opener:hover:before,
-#menu ul span.opener:hover:before {
   color: var(--main-color);
 }
 
