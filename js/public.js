@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('toggle');
+
     function setSidebarState(isOpen) {
         const addClass = isOpen ? "open" : "close";
         const removeClass = isOpen ? "close" : "open";
@@ -18,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && sidebar.classList.contains("open")) {
-            setSidebarState(false);
+            setSidebarState(window.innerWidth > 1280);
         }
     });
 
