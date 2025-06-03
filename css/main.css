@@ -1221,7 +1221,7 @@ input[type='submit'] {
   display: block;
 }
 
-#sidebar.close {
+#sidebar.closed {
   display: none;
 }
 

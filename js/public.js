@@ -4,13 +4,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggle = document.getElementById('toggle');
 
     function setSidebarState(isOpen) {
-        const addClass = isOpen ? "open" : "close";
-        const removeClass = isOpen ? "close" : "open";
+        const addClass = isOpen ? "open" : "closed";
+        const removeClass = isOpen ? "closed" : "open";
 
         sidebar.classList.remove(removeClass);
         sidebar.classList.add(addClass);
         toggle.classList.remove(removeClass);
         toggle.classList.add(addClass);
+
+        toggle.ariaExpanded = isOpen;
     }
 
     setSidebarState(window.innerWidth > 1280);
