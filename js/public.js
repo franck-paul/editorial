@@ -1,5 +1,7 @@
+'use strict';
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Sidebar management
     const sidebar = document.getElementById('sidebar');
     const toggle = document.getElementById('toggle');
 
