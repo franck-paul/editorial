@@ -52,7 +52,46 @@ class Frontend extends Process
 
         App::behavior()->addBehavior('templateBeforeBlockV2', self::templateBeforeBlock(...));
 
+        App::frontend()->template()->addBlock('TagsIfFirstLetter', self::TagsIfFirstLetter(...));
+        App::frontend()->template()->addValue('TagsFirstLetter', self::TagsFirstLetter(...));
+
         return true;
+    }
+
+    /**
+     * Get all first letters of tags and sort tags by first letter
+     *
+     * @param ArrayObject $attr
+     * @param string $content
+     * @return string
+     */
+    public static function TagsIfFirstLetter(ArrayObject $attr, string $content): string
+    {
+        return
+        '<?php ' .
+        'if (!empty(App::frontend()->context()->TagsFirstLetter)) {' .
+        'if (mb_strlen(App::frontend()->context()->TagsFirstLetter) == 0) {App::frontend()->context()->TagsFirstLetter = null;}' .
+        '}' .
+        'App::frontend()->context()->TagsFirstLetter = mb_strtoupper(Dotclear\Helper\Text::cutString(App::frontend()->context()->meta->meta_id_lower,1));' .
+        'if (App::frontend()->context()->TagsFirstLetter != App::frontend()->context()->TagsFirstLetter_next) : ' .
+        '?>' .
+        $content .
+        '<?php endif;' .
+        'App::frontend()->context()->TagsFirstLetter_next = App::frontend()->context()->TagsFirstLetter;' .
+        ' ?>';
+    }
+
+    /**
+     * Get first letter of a tag
+     *
+     * @param ArrayObject $attr
+     * @return string
+     */
+    public static function TagsFirstLetter(ArrayObject $attr): string
+    {
+        $f = App::frontend()->template()->getFilters($attr);
+
+        return '<?php echo ' . sprintf($f, 'App::frontend()->context()->TagsFirstLetter') . '; ?>';
     }
 
     /**

@@ -3,25 +3,36 @@
   <title>{{tpl:lang Tags}} - {{tpl:BlogName encode_html="1"}}</title>
 </tpl:Block>
 <tpl:Block name="meta-robots">
-  <meta name="ROBOTS" content="{{tpl:BlogMetaRobots robots="NOINDEX"}}">
+  <meta name="ROBOTS" content="{{tpl:BlogMetaRobots robots=" NOINDEX"}}" />
 </tpl:Block>
 <tpl:Block name="head-linkrel">
-  <link rel="contents" href="{{tpl:BlogArchiveURL}}" title="{{tpl:lang Archives}}">
-  <link rel="meta" type="application/xbel+xml" title="Blogroll" href="{{tpl:BlogrollXbelLink}}">
+  <link rel="contents" href="{{tpl:BlogArchiveURL}}" title="{{tpl:lang Archives}}" />
+  <link rel="meta" type="application/xbel+xml" title="Blogroll" href="{{tpl:BlogrollXbelLink}}" />
 </tpl:Block>
 <tpl:Block name="body-tag">
 
-  <body class="dc-tags">
+  <body id="page-top" class="dc-tags">
 </tpl:Block>
+
 <tpl:Block name="main-content">
   <header id="content-info">
     <h2>{{tpl:lang Tags}}</h2>
   </header>
-  <article class="content-inner">
-    <ul class="tags">
-      <tpl:Tags>
-        <li><a href="{{tpl:TagURL}}" class="tag{{tpl:TagRoundPercent}}">{{tpl:TagID}}</a></li>
-      </tpl:Tags>
-    </ul>
-  </article>
+  <div class="content-inner">
+    <tpl:Tags>
+      <tpl:TagsIfFirstLetter>
+        <!-- # ne pas afficher de balise fermante au premier tag -->
+        <tpl:LoopPosition start="2">
+          </ul>
+        </tpl:LoopPosition>
+        <h3>{{tpl:TagsFirstLetter upper_case="1"}}</h3>
+        <ul class="tags">
+      </tpl:TagsIfFirstLetter>
+      <li><a href="{{tpl:TagURL}}" class="tag{{tpl:TagRoundPercent}}">{{tpl:TagID}}</a></li>
+      <!-- # ajouter une balise fermante après le dernier tag -->
+      <tpl:LoopPosition start="-1">
+        </ul>
+      </tpl:LoopPosition>
+    </tpl:Tags>
+  </div>
 </tpl:Block>
