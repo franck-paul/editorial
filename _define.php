@@ -12,12 +12,13 @@ $this->registerModule(
     'Éditorial',
     'A theme for Dotclear',
     'Philippe aka amalgame and contributors',
-    '9.5',
+    '9.6',
     [
-        'date'              => '2025-06-27T00:00:13+0100',
-        'requires'          => [['core', '2.33']],
+        'date'              => '2025-07-04T00:00:13+0100',
+        'requires'          => [['core', '2.35']],
         'standalone_config' => true,
         'type'              => 'theme',
         'tplset'            => 'dotty',
+        'overload'          => true,
     ]
 );

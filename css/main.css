@@ -3,7 +3,7 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/open-sans-v40-latin-regular.woff2) format('woff2');
+  src: url(index.php?tf=../fonts/open-sans-v40-latin-regular.woff2) format('woff2');
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 400;
-  src: url(../fonts/open-sans-v40-latin-italic.woff2) format('woff2');
+  src: url(index.php?tf=../fonts/open-sans-v40-latin-italic.woff2) format('woff2');
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 600;
-  src: url(../fonts/open-sans-v40-latin-600.woff2) format('woff2');
+  src: url(index.php?tf=../fonts/open-sans-v40-latin-600.woff2) format('woff2');
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   font-family: 'Open Sans';
   font-style: italic;
   font-weight: 600;
-  src: url(../fonts/open-sans-v40-latin-600italic.woff2) format('woff2');
+  src: url(index.php?tf=../fonts/open-sans-v40-latin-600italic.woff2) format('woff2');
 }
 
 @font-face {
@@ -35,7 +35,7 @@
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/roboto-slab-v34-latin-regular.woff2) format('woff2');
+  src: url(index.php?tf=../fonts/roboto-slab-v34-latin-regular.woff2) format('woff2');
 }
 
 @font-face {
@@ -43,7 +43,7 @@
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 700;
-  src: url(../fonts/roboto-slab-v34-latin-700.woff2) format('woff2');
+  src: url(index.php?tf=../fonts/roboto-slab-v34-latin-700.woff2) format('woff2');
 }
 
 html {
