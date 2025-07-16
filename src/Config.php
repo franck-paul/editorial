@@ -335,7 +335,6 @@ class Config extends Process
                                         ->size(30)
                                         ->maxlength(255)
                                         ->value(self::$conf_style['main_color']),
-
                                 ]),
                             ]),
                         (new Div())
@@ -347,7 +346,6 @@ class Config extends Process
                                         ->size(30)
                                         ->maxlength(255)
                                         ->value(self::$conf_style['main_dark_color']),
-
                                 ]),
                             ]),
                     ]),
@@ -397,10 +395,10 @@ class Config extends Process
                     (new Note())
                             ->class(['form-note', 'hidden-if-js', 'clear', 'table-note'])
                             ->text(__('To rearrange stickers order, change number at the begining of the line, then click on “Save stickers” button.')),
-                        (new Note())
-                            ->class(['form-note', 'hidden-if-no-js', 'clear', 'table-note'])
-                            ->text(__('To rearrange stickers order, move items by drag and drop, then click on “Save stickers” button.')),
-                        
+                    (new Note())
+                        ->class(['form-note', 'hidden-if-no-js', 'clear', 'table-note'])
+                        ->text(__('To rearrange stickers order, move items by drag and drop, then click on “Save stickers” button.')),
+
                     (new Para())->items([
                         (new Submit(['stickers'], __('Save stickers'))),
                         App::nonce()->formNonce(),
@@ -527,66 +525,66 @@ class Config extends Process
                 ->extra('aria-describedby="table-note"')
                 ->caption((new Caption(__('Social links (header)')))->class('pretty-title'))
                 ->items([
-                (new Thead())->items([
-                    (new Tr())->items([
-                        (new Th())->text(''),
-                        (new Th())->text(__('Image')),
-                        (new Th())->scope('row')->text(__('Label')),
-                        (new Th())->text(__('URL')),
+                    (new Thead())->items([
+                        (new Tr())->items([
+                            (new Th())->text(''),
+                            (new Th())->text(__('Image')),
+                            (new Th())->scope('row')->text(__('Label')),
+                            (new Th())->text(__('URL')),
+                        ]),
                     ]),
-                ]),
-                (new Tbody())->id('stickerslist')->items(
-                    array_map(function ($i, $v) use (&$count) {
-                        $count++;
+                    (new Tbody())->id('stickerslist')->items(
+                        array_map(function ($i, $v) use (&$count) {
+                            $count++;
 
-                        return (new Tr())
-                            ->class('line')
-                            ->id('l_' . $i)
-                            ->items([
-                                (new Td())->class('handle')->items([
-                                    (new Hidden('order[' . $i . ']'))
-                                        ->min(0)
-                                        ->max(count(self::$conf_stickers))
-                                        ->value($count)
-                                        ->class('position'),
-                                    (new Hidden('dynorder[]'))
-                                        ->id('dynorder[' . $i . ']')
-                                        ->value($i),
-                                    (new Hidden('dynorder-' . $i))->value($i),
-                                    (new Hidden('ds_order'))
-                                        ->id('ds_order[' . $i . ']')
-                                        ->value(''),
-                                ]),
-                                (new Td())->class('linkimg')->title($v['label'])->items([
-                                    (new Hidden('sticker_image[]'))
-                                        ->id('sticker_image[' . $i . ']')
-                                        ->value($v['image']),
-                                    (new Img('image[' . $i . ']'))
-                                        ->class('svg')
-                                        ->src(My::fileURL('/svg/' . $v['image']))
-                                        ->alt($v['label'])
-                                        ->title($v['label'])                              
-                                ]),
-                                (new Td())->items([
-                                    (new Input('sticker_label[]'))
-                                        ->id('sticker_label[' . $i . ']')
-                                        ->size(20)
-                                        ->maxlength(255)
-                                        ->value($v['label'] ?? '')
-                                        ->title(empty($v['label']) ? $v['label'] : $v['label']),
-                                ]),
-                                (new Td())->items([
-                                    (new Input('sticker_url[]'))
-                                        ->id('sticker_url[' . $i . ']')
-                                        ->size(40)
-                                        ->maxlength(255)
-                                        ->value($v['url'] ?? '')
-                                        ->title(empty($v['url']) ? __('Your URL:') : $v['url']),
-                                ]),
-                            ]);
-                    }, array_keys(self::$conf_stickers), self::$conf_stickers)
-                ),
-            ]),
+                            return (new Tr())
+                                ->class('line')
+                                ->id('l_' . $i)
+                                ->items([
+                                    (new Td())->class('handle')->items([
+                                        (new Hidden('order[' . $i . ']'))
+                                            ->min(0)
+                                            ->max(count(self::$conf_stickers))
+                                            ->value($count)
+                                            ->class('position'),
+                                        (new Hidden('dynorder[]'))
+                                            ->id('dynorder[' . $i . ']')
+                                            ->value($i),
+                                        (new Hidden('dynorder-' . $i))->value($i),
+                                        (new Hidden('ds_order'))
+                                            ->id('ds_order[' . $i . ']')
+                                            ->value(''),
+                                    ]),
+                                    (new Td())->class('linkimg')->title($v['label'])->items([
+                                        (new Hidden('sticker_image[]'))
+                                            ->id('sticker_image[' . $i . ']')
+                                            ->value($v['image']),
+                                        (new Img('image[' . $i . ']'))
+                                            ->class('svg')
+                                            ->src(My::fileURL('/svg/' . $v['image']))
+                                            ->alt($v['label'])
+                                            ->title($v['label']),
+                                    ]),
+                                    (new Td())->items([
+                                        (new Input('sticker_label[]'))
+                                            ->id('sticker_label[' . $i . ']')
+                                            ->size(20)
+                                            ->maxlength(255)
+                                            ->value($v['label'] ?? '')
+                                            ->title(empty($v['label']) ? $v['label'] : $v['label']),
+                                    ]),
+                                    (new Td())->items([
+                                        (new Input('sticker_url[]'))
+                                            ->id('sticker_url[' . $i . ']')
+                                            ->size(40)
+                                            ->maxlength(255)
+                                            ->value($v['url'] ?? '')
+                                            ->title(empty($v['url']) ? __('Your URL:') : $v['url']),
+                                    ]),
+                                ]);
+                        }, array_keys(self::$conf_stickers), self::$conf_stickers)
+                    ),
+                ]),
         ];
 
         return $fields;
