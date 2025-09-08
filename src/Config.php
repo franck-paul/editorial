@@ -16,7 +16,7 @@ namespace Dotclear\Theme\editorial;
 use Dotclear\App;
 use Dotclear\Core\Backend\Notices;
 use Dotclear\Core\Backend\Page;
-use Dotclear\Core\Process;
+use Dotclear\Helper\Process\TraitProcess;
 use Dotclear\Helper\File\Files;
 use Dotclear\Helper\Html\Form\Button;
 use Dotclear\Helper\Html\Form\Caption;
@@ -44,8 +44,10 @@ use Dotclear\Helper\Html\Form\Tr;
 use Dotclear\Helper\Html\Html;
 use Exception;
 
-class Config extends Process
+class Config
 {
+    use TraitProcess;
+    
     /**
      * @var     array<string, mixed>    $default_images
      */
